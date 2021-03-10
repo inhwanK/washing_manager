@@ -1,17 +1,17 @@
 select user(),database();
 use washing_manager;
 
+-- 주문목록
+DROP TABLE IF EXISTS washing_manager.orderlist RESTRICT;
+
 -- 세탁물
 DROP TABLE IF EXISTS washing_manager.laundry RESTRICT;
-
--- 등급별 할인율
-DROP TABLE IF EXISTS washing_manager.gradedc RESTRICT;
 
 -- 고객
 DROP TABLE IF EXISTS washing_manager.consumer RESTRICT;
 
--- 주문목록
-DROP TABLE IF EXISTS washing_manager.orderlist RESTRICT;
+-- 등급별 할인율
+DROP TABLE IF EXISTS washing_manager.gradedc RESTRICT;
 
 -- 세탁물 관리
 DROP SCHEMA IF EXISTS washing_manager;
@@ -50,9 +50,8 @@ ALTER TABLE washing_manager.gradedc
 
 -- 고객
 CREATE TABLE washing_manager.consumer (
-	conno    INT         NOT NULL COMMENT '고객코드', -- 고객코드
-	conname  VARCHAR(20) NOT NULL COMMENT '고객명', -- 고객명
 	conphone VARCHAR(20) NOT NULL COMMENT '고객번호', -- 고객번호
+	conname  VARCHAR(20) NOT NULL COMMENT '고객명', -- 고객명
 	congrade CHAR        NULL     COMMENT '등급' -- 등급
 )
 COMMENT '고객';
@@ -61,15 +60,15 @@ COMMENT '고객';
 ALTER TABLE washing_manager.consumer
 	ADD CONSTRAINT PK_consumer -- 고객 기본키
 		PRIMARY KEY (
-			conno -- 고객코드
+			conphone -- 고객번호
 		);
 
 -- 주문목록
 CREATE TABLE washing_manager.orderlist (
-	ordno INT         NOT NULL COMMENT '주문번호', -- 주문번호
-	conno INT         NULL     COMMENT '고객코드', -- 고객코드
-	lndea INT         NULL     COMMENT '세탁수량', -- 세탁수량
-	lndno VARCHAR(20) NULL     COMMENT '세탁코드' -- 세탁코드
+	ordno    INT         NOT NULL COMMENT '주문번호', -- 주문번호
+	lndno    VARCHAR(20) NULL     COMMENT '세탁코드', -- 세탁코드
+	lndea    INT         NULL     COMMENT '세탁수량', -- 세탁수량
+	conphone VARCHAR(20) NULL     COMMENT '고객번호' -- 고객번호
 )
 COMMENT '주문목록';
 
@@ -79,6 +78,12 @@ ALTER TABLE washing_manager.orderlist
 		PRIMARY KEY (
 			ordno -- 주문번호
 		);
+
+ALTER TABLE washing_manager.orderlist
+	MODIFY COLUMN ordno INT NOT NULL AUTO_INCREMENT COMMENT '주문번호';
+
+ALTER TABLE washing_manager.orderlist
+	AUTO_INCREMENT = 1;
 
 -- 고객
 ALTER TABLE washing_manager.consumer
@@ -104,8 +109,8 @@ ALTER TABLE washing_manager.orderlist
 ALTER TABLE washing_manager.orderlist
 	ADD CONSTRAINT FK_consumer_TO_orderlist -- 고객 -> 주문목록
 		FOREIGN KEY (
-			conno -- 고객코드
+			conphone -- 고객번호
 		)
 		REFERENCES washing_manager.consumer ( -- 고객
-			conno -- 고객코드
+			conphone -- 고객번호
 		);

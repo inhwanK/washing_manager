@@ -11,7 +11,7 @@ use washing_manager;
 
 show databases;
 show tables;
-
+-- 등급 데이터 입력
 select *
   from gradedc;
 insert into gradedc values('S', 0.3)
@@ -22,16 +22,33 @@ insert into gradedc values('S', 0.3)
 delete
   from gradedc 
  where grade ='S';
-
+-- laundry 데이터 입력
 select *
   from laundry;
 insert into laundry values('AAA','양복상의', 8000)
 						 ,('BBB','양복하의', 5000)
-						 ,('CCC','점퍼', 5000)
-						 ,('DDD','바지', 5000)
-						 ,('EEE','코트', 5000)
-						 ,('FFF','치마', 5000)
-						 ,('GGG','가디건', 5000)
-						 ,('HHH','신발', 5000);
+						 ,('CCC','점퍼', 10000)
+						 ,('DDD','바지', 6000)
+						 ,('EEE','코트', 15000)
+						 ,('FFF','치마', 7000)
+						 ,('GGG','가디건', 9000)
+						 ,('HHH','신발', 3000);
 						 
-						
+delete
+  from laundry
+ where lndprice = 8000;
+-- 고객 데이터 입력.
+select *
+  from consumer;
+insert into consumer values
+					('010-9198-6529','김인환',null),
+					('010-9898-6529','김재환',null),
+					('010-7396-6529','강진선',null),
+					('010-3512-7001','김상화',null);
+delete
+  from consumer 
+ where conname = '강진선';
+
+-- 주문목록
+insert into orderlist(lndea, lndno, conphone) values
+					(2,'AAA','010-9198-6529');
