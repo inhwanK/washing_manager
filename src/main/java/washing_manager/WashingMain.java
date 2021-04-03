@@ -1,7 +1,6 @@
 package washing_manager;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -12,20 +11,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 
-import washing_manager.content.ConsumerPanel;
-import washing_manager.content.GradePanel;
-import washing_manager.content.LaundryPanel;
+import washing_manager.content.ConsumerGradePanel;
 import washing_manager.content.ConsumerListPanel;
+import washing_manager.content.LaundryPanel;
+import javax.swing.JSeparator;
+import javax.swing.border.TitledBorder;
+import java.awt.Rectangle;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class WashingMain extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField tfEach;
 	private JTextField tfOrderPrice;
+	private Color defColor = new Color(240,240,240);
 
 	/**
 	 * Launch the application.
@@ -58,7 +60,6 @@ public class WashingMain extends JFrame {
 		setContentPane(contentPane);
 		
 		JPanel pOrder = new JPanel();
-		pOrder.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.add(pOrder, BorderLayout.CENTER);
 		pOrder.setLayout(new BorderLayout(0, 0));
 		
@@ -84,17 +85,19 @@ public class WashingMain extends JFrame {
 		pEach.add(lblOrderPrice);
 		
 		tfOrderPrice = new JTextField();
+		tfOrderPrice.setHorizontalAlignment(SwingConstants.RIGHT);
+		tfOrderPrice.setText("123124");
 		tfOrderPrice.setFont(new Font("굴림", Font.BOLD, 18));
 		tfOrderPrice.setEditable(false);
 		pOrderPrice.add(tfOrderPrice);
 		tfOrderPrice.setColumns(10);
 		
-		LaundryPanel pLninfo = new LaundryPanel();
-		pOrder.add(pLninfo, BorderLayout.CENTER);
+		JPanel pInfo = new JPanel();
+		pOrder.add(pInfo, BorderLayout.CENTER);
+		pInfo.setLayout(new BorderLayout(0, 0));
 		
-		ConsumerListPanel pList = new ConsumerListPanel();
-		pOrder.add(pList, BorderLayout.NORTH);
-		pList.setLayout(new GridLayout(1, 0, 0, 0));
+		ConsumerListPanel pConList = new ConsumerListPanel();
+		pInfo.add(pConList, BorderLayout.CENTER);
 		
 		JLabel label = new JLabel("");
 		
@@ -113,20 +116,18 @@ public class WashingMain extends JFrame {
 		JButton btnOutput2 = new JButton("[출력2]");
 		pBtn.add(btnOutput2);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uACE0\uAC1D\uC815\uBCF4", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLUE));
-		contentPane.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		JPanel pCon = new JPanel();
+		pCon.setBackground(UIManager.getColor("defColor"));
+		pCon.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uC815\uBCF4 \uC785\uB825", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		contentPane.add(pCon, BorderLayout.NORTH);
+		pCon.setLayout(new GridLayout(2, 1, 0, 2));
 		
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 2, 10, 0));
+		ConsumerGradePanel pGrade = new ConsumerGradePanel();
+		pGrade.setBackground(UIManager.getColor("defColor"));
+		pCon.add(pGrade);
 		
-		ConsumerPanel panel_3 = new ConsumerPanel();
-		panel_1.add(panel_3);
-		
-		GradePanel panel_2 = new GradePanel();
-		panel.add(panel_2);
+		LaundryPanel panel = new LaundryPanel();
+		pCon.add(panel);
 	}
 
 }

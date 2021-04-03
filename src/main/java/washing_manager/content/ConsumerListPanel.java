@@ -17,7 +17,7 @@ public class ConsumerListPanel extends JPanel {
 	private JTable table;
 	private String[] columnNames;
 	private String[][] data;
-	private List<Consumer> list;// dto만들어야함.
+	private List<Consumer> list;// dao만들어야함. 만들고 service 구현 후 initlist 구현해야함.
 //	private w
 
 //	public void initList() {

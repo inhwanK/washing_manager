@@ -18,11 +18,11 @@ public class LaundryPanel extends JPanel {
 		initialize();
 	}
 	private void initialize() {
-		setLayout(new GridLayout(0, 2, 10, 10));
+		setLayout(new GridLayout(0, 2, 10, 0));
 		
 		JPanel pLncode = new JPanel();
 		add(pLncode);
-		pLncode.setLayout(new GridLayout(2, 1, 10, 10));
+		pLncode.setLayout(new GridLayout(2, 1, 10, 2));
 		
 		JPanel panel = new JPanel();
 		pLncode.add(panel);
@@ -41,7 +41,7 @@ public class LaundryPanel extends JPanel {
 		
 		JPanel pRight = new JPanel();
 		add(pRight);
-		pRight.setLayout(new GridLayout(2, 0, 0, 10));
+		pRight.setLayout(new GridLayout(2, 0, 0, 2));
 		
 		JPanel pLnName = new JPanel();
 		pRight.add(pLnName);
