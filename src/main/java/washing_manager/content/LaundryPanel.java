@@ -28,8 +28,8 @@ public class LaundryPanel extends JPanel {
 		pLncode.add(panel);
 		panel.setLayout(new GridLayout(0, 2, 10, 10));
 		
-		JLabel lblLncode = new JLabel("세탁물코드 :");
-		lblLncode.setHorizontalAlignment(SwingConstants.RIGHT);
+		JLabel lblLncode = new JLabel("세탁물코드");
+		lblLncode.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblLncode);
 		
 		tfLncode = new JTextField();
@@ -47,8 +47,8 @@ public class LaundryPanel extends JPanel {
 		pRight.add(pLnName);
 		pLnName.setLayout(new GridLayout(0, 2, 10, 0));
 		
-		JLabel lblLnName = new JLabel("제품명 :");
-		lblLnName.setHorizontalAlignment(SwingConstants.RIGHT);
+		JLabel lblLnName = new JLabel("제품명");
+		lblLnName.setHorizontalAlignment(SwingConstants.CENTER);
 		pLnName.add(lblLnName);
 		
 		tfLnName = new JTextField();
@@ -60,8 +60,8 @@ public class LaundryPanel extends JPanel {
 		pRight.add(pLnprice);
 		pLnprice.setLayout(new GridLayout(0, 2, 10, 0));
 		
-		JLabel lblLnprice = new JLabel("세탁단가 :");
-		lblLnprice.setHorizontalAlignment(SwingConstants.RIGHT);
+		JLabel lblLnprice = new JLabel("세탁단가");
+		lblLnprice.setHorizontalAlignment(SwingConstants.CENTER);
 		pLnprice.add(lblLnprice);
 		
 		tfLnprice = new JTextField();

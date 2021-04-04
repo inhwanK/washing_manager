@@ -50,9 +50,9 @@ ALTER TABLE washing_manager.gradedc
 
 -- 고객
 CREATE TABLE washing_manager.consumer (
-	conphone VARCHAR(20) NOT NULL COMMENT '고객번호', -- 고객번호
-	conname  VARCHAR(20) NOT NULL COMMENT '고객명', -- 고객명
-	congrade CHAR        NULL     COMMENT '등급' -- 등급
+	conphone VARCHAR(100)	NOT NULL COMMENT '고객번호', -- 고객번호
+	conname  VARCHAR(20) 	NOT NULL COMMENT '고객명', -- 고객명
+	congrade CHAR        	NULL     COMMENT '등급' -- 등급
 )
 COMMENT '고객';
 

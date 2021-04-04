@@ -1,6 +1,7 @@
 package washing_manager;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -11,23 +12,25 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 import washing_manager.content.ConsumerGradePanel;
 import washing_manager.content.ConsumerListPanel;
 import washing_manager.content.LaundryPanel;
-import javax.swing.JSeparator;
-import javax.swing.border.TitledBorder;
-import java.awt.Rectangle;
-import javax.swing.UIManager;
-import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class WashingMain extends JFrame {
+@SuppressWarnings("serial")
+public class WashingMain extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tfEach;
 	private JTextField tfOrderPrice;
 	private Color defColor = new Color(240,240,240);
+	private JButton btnOuput1;
+
 
 	/**
 	 * Launch the application.
@@ -99,10 +102,6 @@ public class WashingMain extends JFrame {
 		ConsumerListPanel pConList = new ConsumerListPanel();
 		pInfo.add(pConList, BorderLayout.CENTER);
 		
-		JLabel label = new JLabel("");
-		
-		JLabel label_1 = new JLabel("");
-		
 		JPanel pBtn = new JPanel();
 		contentPane.add(pBtn, BorderLayout.SOUTH);
 		pBtn.setLayout(new GridLayout(0, 3, 0, 0));
@@ -110,7 +109,8 @@ public class WashingMain extends JFrame {
 		JButton btnInput = new JButton("[입력]");
 		pBtn.add(btnInput);
 		
-		JButton btnOuput1 = new JButton("[출력1]");
+		btnOuput1 = new JButton("[출력1]");
+		btnOuput1.addActionListener(this);
 		pBtn.add(btnOuput1);
 		
 		JButton btnOutput2 = new JButton("[출력2]");
@@ -130,4 +130,11 @@ public class WashingMain extends JFrame {
 		pCon.add(panel);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnOuput1) {
+			actionPerformedBtnOuput1(e);
+		}
+	}
+	protected void actionPerformedBtnOuput1(ActionEvent e) {
+	}
 }

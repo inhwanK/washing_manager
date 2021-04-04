@@ -45,6 +45,8 @@ insert into consumer values
 					('010-9898-6529','김재환',null),
 					('010-7396-6529','강진선',null),
 					('010-3512-7001','김상화',null);
+				
+insert into consumer values('010-7396-6529','강진선',null);
 delete
   from consumer 
  where conname = '강진선';
@@ -52,4 +54,5 @@ delete
 -- 주문목록
 insert into orderlist(lndea, lndno, conphone) values
 					(2,'AAA','010-9198-6529');
--- 주문번호를 기본키 해체 한뒤. select 할 때  주문번호 빼고 where절에 주문번호로 조건걸면 됨. 
+-- 주문번호를 기본키 해체 한뒤. select 할 때  주문번호 빼고 where절에 주문번호로 조건걸면 됨.
+select  

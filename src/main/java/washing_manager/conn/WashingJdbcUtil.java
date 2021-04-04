@@ -9,8 +9,8 @@ import java.util.Properties;
 
 public class WashingJdbcUtil {
 	
-	public Connection getConnection() {
-		String propsPath = "db.properties";
+	public static Connection getConnection() {
+		String propsPath = "washing_db.properties";
 		Connection conn = null;
 		
 		try(InputStream is = ClassLoader.getSystemResourceAsStream(propsPath)){
