@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class LaundryPanel extends JPanel {
 	private JTextField tfLnName;
@@ -29,10 +31,12 @@ public class LaundryPanel extends JPanel {
 		panel.setLayout(new GridLayout(0, 2, 10, 10));
 		
 		JLabel lblLncode = new JLabel("세탁물코드");
+		lblLncode.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		lblLncode.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblLncode);
 		
 		tfLncode = new JTextField();
+		tfLncode.setBorder(new LineBorder(Color.BLACK));
 		panel.add(tfLncode);
 		tfLncode.setColumns(10);
 		
@@ -48,10 +52,12 @@ public class LaundryPanel extends JPanel {
 		pLnName.setLayout(new GridLayout(0, 2, 10, 0));
 		
 		JLabel lblLnName = new JLabel("제품명");
+		lblLnName.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		lblLnName.setHorizontalAlignment(SwingConstants.CENTER);
 		pLnName.add(lblLnName);
 		
 		tfLnName = new JTextField();
+		tfLnName.setBorder(new LineBorder(Color.BLACK));
 		tfLnName.setEditable(false);
 		pLnName.add(tfLnName);
 		tfLnName.setColumns(10);
@@ -61,10 +67,12 @@ public class LaundryPanel extends JPanel {
 		pLnprice.setLayout(new GridLayout(0, 2, 10, 0));
 		
 		JLabel lblLnprice = new JLabel("세탁단가");
+		lblLnprice.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		lblLnprice.setHorizontalAlignment(SwingConstants.CENTER);
 		pLnprice.add(lblLnprice);
 		
 		tfLnprice = new JTextField();
+		tfLnprice.setBorder(new LineBorder(Color.BLACK));
 		tfLnprice.setEditable(false);
 		pLnprice.add(tfLnprice);
 		tfLnprice.setColumns(10);

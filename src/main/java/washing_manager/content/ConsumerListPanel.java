@@ -21,8 +21,6 @@ import washing_manager.service.ConsumerService;
 @SuppressWarnings("serial")
 public class ConsumerListPanel<T> extends JPanel {
 	private JTable table;
-	private String[] columnNames;
-	private String[][] data;
 	private List<Consumer> list;// dao만들어야함. 만들고 service 구현 후 initlist 구현해야함.
 	private ConsumerService service = new ConsumerService();
 	
@@ -42,6 +40,7 @@ public class ConsumerListPanel<T> extends JPanel {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 	}
+	
 	public void loadData() {
 		initList();
 		setList();
@@ -79,8 +78,6 @@ public class ConsumerListPanel<T> extends JPanel {
 	}
 	
 	private class CustomTableModel extends DefaultTableModel {
-
-		
 
 		public CustomTableModel() {
 		}

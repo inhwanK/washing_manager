@@ -56,6 +56,7 @@ public class WashingMain extends JFrame implements ActionListener {
 		initialize();
 	}
 	private void initialize() {
+		setBackground(Color.BLACK);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 400);
 		contentPane = new JPanel();
@@ -124,20 +125,20 @@ public class WashingMain extends JFrame implements ActionListener {
 		JPanel pCon = new JPanel();
 		pCon.setBackground(UIManager.getColor("defColor"));
 		contentPane.add(pCon, BorderLayout.NORTH);
-		pCon.setLayout(new GridLayout(2, 1, 0, 2));
+		pCon.setLayout(new GridLayout(2, 1, 0, 5));
 		
 		JPanel pConLine = new JPanel();
-		pConLine.setBorder(new LineBorder(Color.BLACK, 2, true));
+		pConLine.setBackground(Color.BLACK);
+		pConLine.setBorder(new LineBorder(new Color(0, 0, 0), 0, true));
 		pCon.add(pConLine);
 		pConLine.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		ConsumerGradePanel pConGrade = new ConsumerGradePanel();
 		pConGrade.setBorder(new EmptyBorder(2, 2, 2, 2));
-		pConGrade.setBackground((Color) null);
 		pConLine.add(pConGrade);
 		
 		JPanel pCodeLine = new JPanel();
-		pCodeLine.setBorder(new LineBorder(Color.BLACK, 2));
+		pCodeLine.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 		pCon.add(pCodeLine);
 		pCodeLine.setLayout(new GridLayout(0, 1, 0, 0));
 		

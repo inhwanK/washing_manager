@@ -11,11 +11,12 @@ import washing_manager.conn.WashingJdbcUtil;
 import washing_manager.dao.ConsumerDao;
 import washing_manager.dto.Consumer;
 
-public class ConsumerDaoImpl implements ConsumerDao{
+public class ConsumerDaoImpl implements ConsumerDao {
 	private static final ConsumerDaoImpl instance = new ConsumerDaoImpl();
-	
-	private ConsumerDaoImpl() {}
-	
+
+	private ConsumerDaoImpl() {
+	}
+
 	public static ConsumerDaoImpl getInstance() {
 		return instance;
 	}
@@ -26,18 +27,19 @@ public class ConsumerDaoImpl implements ConsumerDao{
 		String conGrade = rs.getString("congrade");
 		return new Consumer(conPhone, conName, conGrade);
 	}
-	
+
+	// 전체 검색. 초기에 떠있는 거임.
 	@Override
 	public List<Consumer> selectConsumerByAll() {
-		String sql ="select * from consumer;";
-		try(Connection con = WashingJdbcUtil.getConnection();
+		String sql = "select * from consumer;";
+		try (Connection con = WashingJdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()){
-			if(rs.next()) {
+				ResultSet rs = pstmt.executeQuery()) {
+			if (rs.next()) {
 				List<Consumer> listCon = new ArrayList<>();
 				do {
 					listCon.add(getConsumer(rs));
-				}while(rs.next());
+				} while (rs.next());
 				return listCon;
 			}
 		} catch (SQLException e) {
@@ -46,11 +48,26 @@ public class ConsumerDaoImpl implements ConsumerDao{
 		return null;
 	}
 
+	// 이름으로 검색
 	@Override
-	public List<Consumer> selectConsumerByName() {
-		// TODO Auto-generated method stub
+	public List<Consumer> selectConsumerByName(String conName) {
+		String sql = "select * from consumer where conname=?;";
+		try (Connection con = WashingJdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, conName);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				List<Consumer> listEqualName = new ArrayList<>();
+				do {
+					listEqualName.add(getConsumer(rs));
+				} while (rs.next());
+				return listEqualName;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
-	
 
 }
