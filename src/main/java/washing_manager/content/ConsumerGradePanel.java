@@ -12,19 +12,26 @@ import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
+
+import washing_manager.dto.Consumer;
+import washing_manager.service.ConsumerService;
+
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class ConsumerGradePanel extends JPanel implements ActionListener {
 	private JTextField tfGrade;
 	private JTextField tfDiscount;
-	private JTextField textField;
+	private JTextField tfConsumer;
 	private JButton btnSelect;
-
+	private ConsumerService service;
+	private List<Consumer> extList;
 	/**
 	 * Create the panel.
 	 */
@@ -46,20 +53,20 @@ public class ConsumerGradePanel extends JPanel implements ActionListener {
 		panel_1.add(panel_2);
 		panel_2.setLayout(new GridLayout(0, 2, 10, 0));
 		
-		JLabel label = new JLabel("고객명");
-		label.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		label.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 12));
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(label);
+		JLabel lblConsumer = new JLabel("고객명");
+		lblConsumer.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		lblConsumer.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 12));
+		lblConsumer.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_2.add(lblConsumer);
 		
-		textField = new JTextField();
-		textField.setBorder(new LineBorder(new Color(0, 0, 0)));
-		textField.setColumns(10);
-		panel_2.add(textField);
+		tfConsumer = new JTextField();
+		tfConsumer.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tfConsumer.setColumns(10);
+		panel_2.add(tfConsumer);
 		
-		JPanel panel_3 = new JPanel();
-		panel_1.add(panel_3);
-		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
+		JPanel pSelect = new JPanel();
+		panel_1.add(pSelect);
+		pSelect.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		btnSelect = new JButton("검색");
 		btnSelect.addActionListener(this);
@@ -67,16 +74,16 @@ public class ConsumerGradePanel extends JPanel implements ActionListener {
 		btnSelect.setMaximumSize(new Dimension(100, 100));
 		btnSelect.setPreferredSize(new Dimension(100, 25));
 		btnSelect.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel_3.add(btnSelect);
+		pSelect.add(btnSelect);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0), 0));
-		add(panel);
-		panel.setLayout(new GridLayout(0, 2, 10, 0));
+		JPanel pGrDc = new JPanel();
+		pGrDc.setBorder(new LineBorder(new Color(0, 0, 0), 0));
+		add(pGrDc);
+		pGrDc.setLayout(new GridLayout(0, 2, 10, 0));
 		
 		JPanel pGrade = new JPanel();
 		pGrade.setBorder(new LineBorder(new Color(0, 0, 0), 0));
-		panel.add(pGrade);
+		pGrDc.add(pGrade);
 		pGrade.setLayout(new GridLayout(0, 2, 10, 0));
 		
 		JLabel lblGrade = new JLabel("등급");
@@ -91,7 +98,7 @@ public class ConsumerGradePanel extends JPanel implements ActionListener {
 		
 		JPanel pDisc = new JPanel();
 		pDisc.setBorder(new LineBorder(new Color(0, 0, 0), 0));
-		panel.add(pDisc);
+		pGrDc.add(pDisc);
 		pDisc.setLayout(new GridLayout(1, 2, 10, 0));
 		
 		JLabel lblDiscount = new JLabel("할인율");
@@ -112,6 +119,13 @@ public class ConsumerGradePanel extends JPanel implements ActionListener {
 		}
 	}
 	protected void actionPerformedBtnSelect(ActionEvent e) {
-		
+		String a = tfConsumer.getText();
+		System.out.println(a);
+//		extList = service.selectConsumersByName(a);
+		Consumer ext1List = (Consumer) service.selectConsumersByName(a);
+		ConsumerListPanel<Consumer> data= new ConsumerListPanel<Consumer>();
+		data.setList(extList);
 	}
+
+
 }

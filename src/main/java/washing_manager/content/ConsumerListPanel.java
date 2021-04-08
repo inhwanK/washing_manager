@@ -43,7 +43,7 @@ public class ConsumerListPanel<T> extends JPanel {
 	
 	public void loadData() {
 		initList();
-		setList();
+		setList(list);
 	}
 	
 	public void initList() {
@@ -54,7 +54,7 @@ public class ConsumerListPanel<T> extends JPanel {
 		this.service = service;
 	}
 	
-	public void setList() {
+	public void setList(List<Consumer> list) {
 		Object[][] data = new Object[list.size()][];
 		for (int i = 0; i < data.length; i++) {
 			data[i] = toArray(list.get(i));

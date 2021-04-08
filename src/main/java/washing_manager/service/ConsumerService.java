@@ -12,4 +12,8 @@ public class ConsumerService {
 	public List<Consumer> showConsumers(){
 		return dao.selectConsumerByAll();
 	}
+	
+	public List<Consumer> selectConsumersByName(String conName){
+		return dao.selectConsumerByName(conName);
+	}
 }

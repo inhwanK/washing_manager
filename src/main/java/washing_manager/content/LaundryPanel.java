@@ -1,13 +1,13 @@
 package washing_manager.content;
 
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
+
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
 
 public class LaundryPanel extends JPanel {
 	private JTextField tfLnName;
