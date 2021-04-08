@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,19 +16,13 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 
 import washing_manager.content.ConsumerGradePanel;
 import washing_manager.content.ConsumerListPanel;
 import washing_manager.content.LaundryPanel;
 import washing_manager.output.Ouput1;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.border.LineBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.JSeparator;
 
 @SuppressWarnings("serial")
 public class WashingMain extends JFrame implements ActionListener {
@@ -34,7 +30,6 @@ public class WashingMain extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JTextField tfEach;
 	private JTextField tfOrderPrice;
-	private Color defColor = new Color(240,240,240);
 	private JButton btnOuput1;
 
 
