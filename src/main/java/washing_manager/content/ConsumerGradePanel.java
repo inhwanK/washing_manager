@@ -5,6 +5,8 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JSeparator;
 
 public class ConsumerGradePanel extends JPanel {
 	private JTextField tfGrade;
@@ -19,6 +21,7 @@ public class ConsumerGradePanel extends JPanel {
 		initialize();
 	}
 	private void initialize() {
+		setBorder(new EmptyBorder(10, 0, 10, 0));
 		setLayout(new GridLayout(0, 2, 10, 2));
 		
 		JPanel pConName = new JPanel();

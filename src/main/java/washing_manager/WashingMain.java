@@ -73,7 +73,7 @@ public class WashingMain extends JFrame implements ActionListener {
 		pOrder.setLayout(new BorderLayout(0, 0));
 		
 		JPanel pOrderPrice = new JPanel();
-		pOrderPrice.setBorder(new LineBorder(Color.GREEN, 2, true));
+		pOrderPrice.setBorder(new LineBorder(Color.GREEN, 3, true));
 		pOrder.add(pOrderPrice, BorderLayout.SOUTH);
 		pOrderPrice.setLayout(new GridLayout(0, 2, 10, 0));
 		
@@ -108,6 +108,7 @@ public class WashingMain extends JFrame implements ActionListener {
 		pInfo.setLayout(new BorderLayout(0, 0));
 		
 		ConsumerListPanel pConList = new ConsumerListPanel();
+		pConList.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		pInfo.add(pConList, BorderLayout.CENTER);
 		
 		JPanel pBtn = new JPanel();
@@ -130,15 +131,24 @@ public class WashingMain extends JFrame implements ActionListener {
 		contentPane.add(pCon, BorderLayout.NORTH);
 		pCon.setLayout(new GridLayout(2, 1, 0, 2));
 		
-		ConsumerGradePanel pGrade = new ConsumerGradePanel();
-		pGrade.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		pGrade.setBackground(UIManager.getColor("defColor"));
-		pCon.add(pGrade);
+		JPanel pConLine = new JPanel();
+		pConLine.setBorder(new LineBorder(Color.BLACK, 2, true));
+		pCon.add(pConLine);
+		pConLine.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		LaundryPanel panel = new LaundryPanel();
-		GridLayout gridLayout = (GridLayout) panel.getLayout();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		pCon.add(panel);
+		ConsumerGradePanel pConGrade = new ConsumerGradePanel();
+		pConGrade.setBorder(new EmptyBorder(2, 2, 2, 2));
+		pConGrade.setBackground((Color) null);
+		pConLine.add(pConGrade);
+		
+		JPanel pCodeLine = new JPanel();
+		pCodeLine.setBorder(new LineBorder(Color.BLACK, 2));
+		pCon.add(pCodeLine);
+		pCodeLine.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		LaundryPanel pLn = new LaundryPanel();
+		pLn.setBorder(new EmptyBorder(2, 2, 2, 2));
+		pCodeLine.add(pLn);
 	}
 
 	public void actionPerformed(ActionEvent e) {
