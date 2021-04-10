@@ -1,28 +1,22 @@
 package washing_manager.content;
 
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JSeparator;
-import javax.swing.JButton;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
 
 import washing_manager.dto.Consumer;
 import washing_manager.service.ConsumerService;
-
-import java.awt.Color;
-import javax.swing.border.EtchedBorder;
-import java.awt.Font;
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class ConsumerGradePanel extends JPanel implements ActionListener {
@@ -30,11 +24,10 @@ public class ConsumerGradePanel extends JPanel implements ActionListener {
 	private JTextField tfDiscount;
 	private JTextField tfConsumer;
 	private JButton btnSelect;
-	private ConsumerService service;
-	private List<Consumer> extList;
-	/**
-	 * Create the panel.
-	 */
+
+	
+	
+
 	public ConsumerGradePanel() {
 		initialize();
 	}
@@ -121,11 +114,8 @@ public class ConsumerGradePanel extends JPanel implements ActionListener {
 	protected void actionPerformedBtnSelect(ActionEvent e) {
 		String a = tfConsumer.getText();
 		System.out.println(a);
-//		extList = service.selectConsumersByName(a);
-		Consumer ext1List = (Consumer) service.selectConsumersByName(a);
-		ConsumerListPanel<Consumer> data= new ConsumerListPanel<Consumer>();
-		data.setList(extList);
+		ConsumerService service = new ConsumerService();
+		List<Consumer> namelist = service.selectConsumersByName(a);
+		
 	}
-
-
 }

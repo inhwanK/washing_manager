@@ -22,7 +22,9 @@ import javax.swing.border.MatteBorder;
 import washing_manager.content.ConsumerGradePanel;
 import washing_manager.content.ConsumerListPanel;
 import washing_manager.content.LaundryPanel;
+import washing_manager.dto.Consumer;
 import washing_manager.output.Ouput1;
+import washing_manager.output.Output2;
 
 @SuppressWarnings("serial")
 public class WashingMain extends JFrame implements ActionListener {
@@ -31,6 +33,7 @@ public class WashingMain extends JFrame implements ActionListener {
 	private JTextField tfEach;
 	private JTextField tfOrderPrice;
 	private JButton btnOuput1;
+	private JButton btnOutput2;
 
 
 	/**
@@ -102,8 +105,7 @@ public class WashingMain extends JFrame implements ActionListener {
 		pInfo.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		pOrder.add(pInfo, BorderLayout.CENTER);
 		pInfo.setLayout(new BorderLayout(0, 0));
-		
-		ConsumerListPanel pConList = new ConsumerListPanel();
+		ConsumerListPanel<Consumer> pConList = new ConsumerListPanel<Consumer>();
 		pConList.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		pInfo.add(pConList, BorderLayout.CENTER);
 		
@@ -119,7 +121,8 @@ public class WashingMain extends JFrame implements ActionListener {
 		btnOuput1.addActionListener(this);
 		pBtn.add(btnOuput1);
 		
-		JButton btnOutput2 = new JButton("[출력2]");
+		btnOutput2 = new JButton("[출력2]");
+		btnOutput2.addActionListener(this);
 		pBtn.add(btnOutput2);
 		
 		JPanel pCon = new JPanel();
@@ -148,12 +151,19 @@ public class WashingMain extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnOutput2) {
+			actionPerformedBtnOutput2(e);
+		}
 		if (e.getSource() == btnOuput1) {
 			actionPerformedBtnOuput1(e);
 		}
 	}
 	protected void actionPerformedBtnOuput1(ActionEvent e) {
 		Ouput1 frame = new Ouput1();
+		frame.setVisible(true);
+	}
+	protected void actionPerformedBtnOutput2(ActionEvent e) {
+		Output2 frame = new Output2();
 		frame.setVisible(true);
 	}
 }

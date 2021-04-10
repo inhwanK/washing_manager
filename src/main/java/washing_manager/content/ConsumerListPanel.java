@@ -27,7 +27,7 @@ public class ConsumerListPanel<T> extends JPanel {
 	public ConsumerListPanel() {
 		initialize();
 	}
-
+	
 	private void initialize() {
 		setLayout(new BorderLayout(0, 0));
 
@@ -36,25 +36,29 @@ public class ConsumerListPanel<T> extends JPanel {
 
 		table = new JTable();
 		scrollPane.add(table);
-		loadData();
+		initList();
+		setData();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 	}
 	
 	public void loadData() {
 		initList();
-		setList(list);
+		setData();
 	}
 	
 	public void initList() {
 		list = service.showConsumers();
 	}
 	
+	public void nameList(String a) {
+		list= service.selectConsumersByName(a);
+	}
 	public void setService(ConsumerService service) {
 		this.service = service;
 	}
 	
-	public void setList(List<Consumer> list) {
+	public void setData() {
 		Object[][] data = new Object[list.size()][];
 		for (int i = 0; i < data.length; i++) {
 			data[i] = toArray(list.get(i));
@@ -68,6 +72,7 @@ public class ConsumerListPanel<T> extends JPanel {
 
 		setAlignAndWidth();
 	}
+	
 
 	private Object[] getColumnNames() {
 		return new String[] { "고객번호", "고객명", "고객등급" };
@@ -117,4 +122,7 @@ public class ConsumerListPanel<T> extends JPanel {
 			tcm.getColumn(idx[i]).setCellRenderer(dtcr);
 		}
 	}
+
+
+	
 }
