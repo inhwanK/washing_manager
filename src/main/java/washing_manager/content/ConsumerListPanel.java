@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -73,6 +74,10 @@ public class ConsumerListPanel<T> extends JPanel {
 		this.service = service;
 	}
 
+	public void setPopupMenu(JPopupMenu popMenu) {
+		table.setComponentPopupMenu(popMenu);
+	}
+	
 	public void setData() {
 		Object[][] data = new Object[list.size()][];
 		for (int i = 0; i < data.length; i++) {

@@ -11,7 +11,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -28,7 +31,7 @@ import washing_manager.output.Ouput1;
 import washing_manager.output.Output2;
 
 @SuppressWarnings("serial")
-public class WashingMain extends JFrame implements ActionListener {
+public class WashingMain extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField tfEach;
@@ -38,6 +41,9 @@ public class WashingMain extends JFrame implements ActionListener {
 	private ConsumerListPanel<Consumer> pConList;
 	private JButton btnSearch;
 	private ConsumerSearchPanel pConSearch;
+	private JPopupMenu popupMenu;
+	private JMenuItem menuOrder;
+	private JPopupMenu popupMenu_1;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -109,7 +115,13 @@ public class WashingMain extends JFrame implements ActionListener {
 		pConList = createListPanel();
 		pConList.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		pInfo.add(pConList, BorderLayout.CENTER);
-		
+
+		//팝업 메뉴 생성
+		JPopupMenu popup = new JPopupMenu();
+		JMenuItem menuItem = new JMenuItem("주문");
+		popup.add(menuItem);
+		pConList.setPopupMenu(popup);
+
 		JPanel pBtn = new JPanel();
 		pBtn.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(pBtn, BorderLayout.SOUTH);
@@ -165,8 +177,7 @@ public class WashingMain extends JFrame implements ActionListener {
 		pCodeLine.add(pLn);
 	}
 
-	private ConsumerListPanel<Consumer> createListPanel() {
-		
+	private ConsumerListPanel<Consumer> createListPanel() {		
 		return new ConsumerListPanel<Consumer>();
 	}
 
@@ -180,11 +191,14 @@ public class WashingMain extends JFrame implements ActionListener {
 		if (e.getSource() == btnOuput1) {
 			actionPerformedBtnOuput1(e);
 		} 
+		
 	}
+
 	protected void actionPerformedBtnOuput1(ActionEvent e) {
 		Ouput1 frame = new Ouput1();
 		frame.setVisible(true);
 	}
+	
 	protected void actionPerformedBtnOutput2(ActionEvent e) {
 		Output2 frame = new Output2();
 		frame.setVisible(true);
