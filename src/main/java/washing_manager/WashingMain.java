@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,12 +20,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
-import washing_manager.content.ConsumerGradePanel;
+import washing_manager.content.ConsumerSearchPanel;
 import washing_manager.content.ConsumerListPanel;
 import washing_manager.content.LaundryPanel;
 import washing_manager.dto.Consumer;
 import washing_manager.output.Ouput1;
 import washing_manager.output.Output2;
+import washing_manager.content.GradePanel;
 
 @SuppressWarnings("serial")
 public class WashingMain extends JFrame implements ActionListener {
@@ -34,11 +36,10 @@ public class WashingMain extends JFrame implements ActionListener {
 	private JTextField tfOrderPrice;
 	private JButton btnOuput1;
 	private JButton btnOutput2;
+	private ConsumerListPanel<Consumer> pConList;
+	private JButton btnSearch;
+	private ConsumerSearchPanel pConSearch;
 
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -105,7 +106,8 @@ public class WashingMain extends JFrame implements ActionListener {
 		pInfo.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		pOrder.add(pInfo, BorderLayout.CENTER);
 		pInfo.setLayout(new BorderLayout(0, 0));
-		ConsumerListPanel<Consumer> pConList = new ConsumerListPanel<Consumer>();
+		
+		pConList = createListPanel();
 		pConList.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		pInfo.add(pConList, BorderLayout.CENTER);
 		
@@ -128,17 +130,31 @@ public class WashingMain extends JFrame implements ActionListener {
 		JPanel pCon = new JPanel();
 		pCon.setBackground(UIManager.getColor("defColor"));
 		contentPane.add(pCon, BorderLayout.NORTH);
-		pCon.setLayout(new GridLayout(2, 1, 0, 5));
+		pCon.setLayout(new GridLayout(2, 1, 0, 2));
 		
 		JPanel pConLine = new JPanel();
-		pConLine.setBackground(Color.BLACK);
-		pConLine.setBorder(new LineBorder(new Color(0, 0, 0), 0, true));
+		pConLine.setBorder(new EmptyBorder(2, 2, 2, 2));
 		pCon.add(pConLine);
-		pConLine.setLayout(new GridLayout(0, 1, 0, 0));
+		pConLine.setLayout(new GridLayout(0, 1, 0, 2));
 		
-		ConsumerGradePanel pConGrade = new ConsumerGradePanel();
-		pConGrade.setBorder(new EmptyBorder(2, 2, 2, 2));
-		pConLine.add(pConGrade);
+		pConSearch = new ConsumerSearchPanel();
+		GridLayout gl_pConSearch = (GridLayout) pConSearch.getLayout();
+		gl_pConSearch.setColumns(2);
+		gl_pConSearch.setRows(0);
+		pConSearch.setBorder(new EmptyBorder(2, 2, 2, 2));
+		pConLine.add(pConSearch);
+		
+		JPanel pSearchBtn = new JPanel();
+		pConSearch.add(pSearchBtn);
+		pSearchBtn.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		btnSearch = new JButton("검색");
+		btnSearch.addActionListener(this);
+		pSearchBtn.add(btnSearch);
+		
+		GradePanel pGrade = new GradePanel();
+		pGrade.setBorder(new EmptyBorder(2, 2, 2, 2));
+		pConLine.add(pGrade);
 		
 		JPanel pCodeLine = new JPanel();
 		pCodeLine.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
@@ -150,7 +166,15 @@ public class WashingMain extends JFrame implements ActionListener {
 		pCodeLine.add(pLn);
 	}
 
+	private ConsumerListPanel<Consumer> createListPanel() {
+		
+		return new ConsumerListPanel<Consumer>();
+	}
+
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSearch) {
+			actionPerformedBtnSearch(e);
+		}
 		if (e.getSource() == btnOutput2) {
 			actionPerformedBtnOutput2(e);
 		}
@@ -165,5 +189,12 @@ public class WashingMain extends JFrame implements ActionListener {
 	protected void actionPerformedBtnOutput2(ActionEvent e) {
 		Output2 frame = new Output2();
 		frame.setVisible(true);
+	}
+
+	protected void actionPerformedBtnSearch(ActionEvent e) {
+		String name = ((JTextField) pConSearch.getTfConsumer()).getText();
+		pConList.setConName(name);
+		pConList.loadData();
+		System.out.println("이거 되냐?");
 	}
 }

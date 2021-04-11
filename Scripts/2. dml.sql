@@ -45,8 +45,8 @@ insert into consumer values
 					('010-9898-6529','김재환',null),
 					('010-7396-6529','강진선',null),
 					('010-3512-7001','김상화',null);
-				
-insert into consumer values('010-7396-6529','강진선',null);
+
+insert into consumer values('010-1111-1111','김인환',null);
 delete
   from consumer 
  where conname = '강진선';

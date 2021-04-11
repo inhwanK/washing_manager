@@ -23,11 +23,16 @@ public class ConsumerListPanel<T> extends JPanel {
 	private JTable table;
 	private List<Consumer> list;// dao만들어야함. 만들고 service 구현 후 initlist 구현해야함.
 	private ConsumerService service = new ConsumerService();
+	private String conName;
 	
+	public void setConName(String conName) {
+		this.conName = conName;
+	}
+
 	public ConsumerListPanel() {
 		initialize();
 	}
-	
+
 	private void initialize() {
 		setLayout(new BorderLayout(0, 0));
 
@@ -35,29 +40,39 @@ public class ConsumerListPanel<T> extends JPanel {
 		add(scrollPane, BorderLayout.CENTER);
 
 		table = new JTable();
-		scrollPane.add(table);
-		initList();
-		setData();
+		table.setModel(getModel());
+		loadData();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 	}
 	
-	public void loadData() {
-		initList();
-		setData();
+	public DefaultTableModel getModel() {
+		CustomTableModel model = new CustomTableModel(/* getData(), getColumnNames() */);
+		return model;
 	}
 	
+	public void loadData() {
+		
+		if (conName == null) {
+			initList();
+		}else {
+			setList(conName);
+		}
+		setData();
+	}
+
 	public void initList() {
 		list = service.showConsumers();
 	}
-	
-	public void nameList(String a) {
-		list= service.selectConsumersByName(a);
+
+	public void setList(String conName) {
+		list = service.selectConsumersByName(conName);
 	}
+
 	public void setService(ConsumerService service) {
 		this.service = service;
 	}
-	
+
 	public void setData() {
 		Object[][] data = new Object[list.size()][];
 		for (int i = 0; i < data.length; i++) {
@@ -72,16 +87,15 @@ public class ConsumerListPanel<T> extends JPanel {
 
 		setAlignAndWidth();
 	}
-	
 
 	private Object[] getColumnNames() {
 		return new String[] { "고객번호", "고객명", "고객등급" };
 	}
 
 	private Object[] toArray(Consumer consumer) {
-		return new Object[] {consumer.getConPhone(),consumer.getConName(),consumer.getConGrade()};
+		return new Object[] { consumer.getConPhone(), consumer.getConName(), consumer.getConGrade() };
 	}
-	
+
 	private class CustomTableModel extends DefaultTableModel {
 
 		public CustomTableModel() {
@@ -103,26 +117,24 @@ public class ConsumerListPanel<T> extends JPanel {
 		// 컬럼별 너비 조정
 		setTableCellWidth(100, 250);
 	}
-	
-	protected void setTableCellWidth(int...width) {
+
+	protected void setTableCellWidth(int... width) {
 		TableColumnModel tcm = table.getColumnModel();
-		
-		for(int i=0; i<width.length; i++) {
+
+		for (int i = 0; i < width.length; i++) {
 			tcm.getColumn(i).setPreferredWidth(width[i]);
 		}
 	}
-	
-	protected void setTableCellAlign(int align, int...idx) {
+
+	protected void setTableCellAlign(int align, int... idx) {
 		TableColumnModel tcm = table.getColumnModel();
-		
+
 		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
 		dtcr.setHorizontalAlignment(align);
-		
-		for(int i=0; i<idx.length; i++) {
+
+		for (int i = 0; i < idx.length; i++) {
 			tcm.getColumn(idx[i]).setCellRenderer(dtcr);
 		}
 	}
 
-
-	
 }
