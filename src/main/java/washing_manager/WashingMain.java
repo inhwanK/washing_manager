@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,13 +19,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
-import washing_manager.content.ConsumerSearchPanel;
 import washing_manager.content.ConsumerListPanel;
+import washing_manager.content.ConsumerSearchPanel;
+import washing_manager.content.GradePanel;
 import washing_manager.content.LaundryPanel;
 import washing_manager.dto.Consumer;
 import washing_manager.output.Ouput1;
 import washing_manager.output.Output2;
-import washing_manager.content.GradePanel;
 
 @SuppressWarnings("serial")
 public class WashingMain extends JFrame implements ActionListener {
@@ -180,7 +179,7 @@ public class WashingMain extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == btnOuput1) {
 			actionPerformedBtnOuput1(e);
-		}
+		} 
 	}
 	protected void actionPerformedBtnOuput1(ActionEvent e) {
 		Ouput1 frame = new Ouput1();

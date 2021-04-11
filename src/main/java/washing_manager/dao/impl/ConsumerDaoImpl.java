@@ -31,7 +31,7 @@ public class ConsumerDaoImpl implements ConsumerDao {
 	// 전체 검색. 초기에 떠있는 거임.
 	@Override
 	public List<Consumer> selectConsumerByAll() {
-		String sql = "select * from consumer;";
+		String sql = "select conphone, conname, congrade from consumer;";
 		try (Connection con = WashingJdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -51,7 +51,7 @@ public class ConsumerDaoImpl implements ConsumerDao {
 	// 이름으로 검색
 	@Override
 	public List<Consumer> selectConsumerByName(String conName) {
-		String sql = "select * from consumer where conname=?;";
+		String sql = "select conphone, conname, congrade from consumer where conname=?;";
 		try (Connection con = WashingJdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, conName);
