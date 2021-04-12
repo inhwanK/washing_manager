@@ -4,13 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.border.EmptyBorder;
+
 import washing_manager.content.SearchPanel;
 
-public class NewMain extends JFrame {
+@SuppressWarnings("serial")
+public class TabMain extends JFrame {
 
 	private JPanel contentPane;
 
@@ -21,7 +23,7 @@ public class NewMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NewMain frame = new NewMain();
+					TabMain frame = new TabMain();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,7 +35,7 @@ public class NewMain extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NewMain() {
+	public TabMain() {
 		initialize();
 	}
 	private void initialize() {
