@@ -20,7 +20,7 @@ import washing_manager.dto.Consumer;
 import washing_manager.service.ConsumerService;
 
 @SuppressWarnings("serial")
-public class ConsumerListPanel<T> extends JPanel {
+public class ConsumerListPanel<T> extends JPanel{
 	private JTable table;
 	private List<Consumer> list;// dao만들어야함. 만들고 service 구현 후 initlist 구현해야함.
 	private ConsumerService service = new ConsumerService();

@@ -27,8 +27,8 @@ import washing_manager.content.ConsumerSearchPanel;
 import washing_manager.content.GradePanel;
 import washing_manager.content.LaundryPanel;
 import washing_manager.dto.Consumer;
-import washing_manager.output.Ouput1;
-import washing_manager.output.Output2;
+import washing_manager.frame.Ouput1;
+import washing_manager.frame.Output2;
 
 @SuppressWarnings("serial")
 public class WashingMain extends JFrame implements ActionListener{
@@ -111,7 +111,7 @@ public class WashingMain extends JFrame implements ActionListener{
 		pOrder.add(pInfo, BorderLayout.CENTER);
 		pInfo.setLayout(new BorderLayout(0, 0));
 		
-		pConList = new ConsumerListPanel<Consumer>();
+		pConList = new ConsumerListPanel<>();
 		pConList.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		pInfo.add(pConList, BorderLayout.CENTER);
 
@@ -149,6 +149,7 @@ public class WashingMain extends JFrame implements ActionListener{
 		
 		pConSearch = new ConsumerSearchPanel();
 		GridLayout gl_pConSearch = (GridLayout) pConSearch.getLayout();
+		gl_pConSearch.setHgap(10);
 		gl_pConSearch.setColumns(2);
 		gl_pConSearch.setRows(0);
 		pConSearch.setBorder(new EmptyBorder(2, 2, 2, 2));

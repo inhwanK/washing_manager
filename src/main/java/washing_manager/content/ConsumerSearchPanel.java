@@ -26,7 +26,7 @@ public class ConsumerSearchPanel extends JPanel implements ActionListener {
 	
 	private void initialize() {
 		setBorder(new LineBorder(new Color(0, 0, 0), 0));
-		setLayout(new GridLayout(1, 1, 10, 10));
+		setLayout(new GridLayout(1, 1, 2, 2));
 		
 		JPanel pConName = new JPanel();
 		pConName.setBorder(new LineBorder(new Color(0, 0, 0), 0));
@@ -36,16 +36,16 @@ public class ConsumerSearchPanel extends JPanel implements ActionListener {
 		JPanel pConname = new JPanel();
 		pConname.setBorder(new LineBorder(new Color(0, 0, 0), 0));
 		pConName.add(pConname);
-		pConname.setLayout(new GridLayout(0, 2, 10, 0));
+		pConname.setLayout(new GridLayout(0, 2, 10, 10));
 		
 		JLabel lblConsumer = new JLabel("고객명");
-		lblConsumer.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		lblConsumer.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		lblConsumer.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 12));
 		lblConsumer.setHorizontalAlignment(SwingConstants.CENTER);
 		pConname.add(lblConsumer);
 		
 		tfConsumer = new JTextField();
-		tfConsumer.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tfConsumer.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		tfConsumer.setColumns(10);
 		pConname.add(tfConsumer);
 	}

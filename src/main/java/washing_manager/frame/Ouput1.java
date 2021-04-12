@@ -1,4 +1,4 @@
-package washing_manager.output;
+package washing_manager.frame;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
