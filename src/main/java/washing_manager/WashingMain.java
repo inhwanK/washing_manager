@@ -41,9 +41,8 @@ public class WashingMain extends JFrame implements ActionListener{
 	private ConsumerListPanel<Consumer> pConList;
 	private JButton btnSearch;
 	private ConsumerSearchPanel pConSearch;
-	private JPopupMenu popupMenu;
+	private JPopupMenu popup;
 	private JMenuItem menuOrder;
-	private JPopupMenu popupMenu_1;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -112,14 +111,14 @@ public class WashingMain extends JFrame implements ActionListener{
 		pOrder.add(pInfo, BorderLayout.CENTER);
 		pInfo.setLayout(new BorderLayout(0, 0));
 		
-		pConList = createListPanel();
+		pConList = new ConsumerListPanel<Consumer>();
 		pConList.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		pInfo.add(pConList, BorderLayout.CENTER);
 
-		//팝업 메뉴 생성
-		JPopupMenu popup = new JPopupMenu();
-		JMenuItem menuItem = new JMenuItem("주문");
-		popup.add(menuItem);
+		popup = new JPopupMenu();
+		menuOrder = new JMenuItem("주문");
+		menuOrder.addActionListener(this);
+		popup.add(menuOrder);
 		pConList.setPopupMenu(popup);
 
 		JPanel pBtn = new JPanel();
@@ -177,10 +176,6 @@ public class WashingMain extends JFrame implements ActionListener{
 		pCodeLine.add(pLn);
 	}
 
-	private ConsumerListPanel<Consumer> createListPanel() {		
-		return new ConsumerListPanel<Consumer>();
-	}
-
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
@@ -191,6 +186,14 @@ public class WashingMain extends JFrame implements ActionListener{
 		if (e.getSource() == btnOuput1) {
 			actionPerformedBtnOuput1(e);
 		} 
+		if(e.getSource() == menuOrder) {
+			actionPerformedMenuOrder(e);
+		}
+		
+	}
+
+	private void actionPerformedMenuOrder(ActionEvent e) {
+		JOptionPane.showMessageDialog(null, "뭘보냐?");
 		
 	}
 
