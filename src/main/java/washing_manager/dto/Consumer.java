@@ -10,6 +10,11 @@ public class Consumer {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Consumer(String conPhone) {
+		super();
+		this.conPhone = conPhone;
+	}
+	
 	public Consumer(String conPhone, String conName, String conGrade) {
 		super();
 		this.conPhone = conPhone;
@@ -85,6 +90,5 @@ public class Consumer {
 	public String toString() {
 		return String.format("Consumer [conPhone=%s, conName=%s, conGrade=%s]", conPhone, conName, conGrade);
 	}
-	
 	
 }

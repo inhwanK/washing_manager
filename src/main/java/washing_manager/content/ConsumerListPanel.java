@@ -3,6 +3,7 @@ package washing_manager.content;
 import java.awt.BorderLayout;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -47,6 +48,23 @@ public class ConsumerListPanel<T> extends JPanel{
 		scrollPane.setViewportView(table);
 	}
 	
+	public Consumer getItem() {
+		int row = table.getSelectedRow();
+		
+		String conPhone = (String) table.getValueAt(row, 2);
+		System.out.println(conPhone);
+		System.out.println(row);
+		if(row == -1) {
+			JOptionPane.showMessageDialog(null, "선택을 안햇자나 쉐기야 ");
+		}
+		System.out.println(new Consumer(conPhone));
+		System.out.println(list.lastIndexOf(0));
+		// 리턴이 문제임 인환아 indexOf메서드는 인덱스가 0인거랑 비교하는 듯?
+		return list.get(list.lastIndexOf(new Consumer(conPhone)));
+		
+	}
+	
+	
 	public DefaultTableModel getModel() {
 		CustomTableModel model = new CustomTableModel(/* getData(), getColumnNames() */);
 		return model;
@@ -70,6 +88,7 @@ public class ConsumerListPanel<T> extends JPanel{
 		list = service.selectConsumersByName(conName);
 	}
 
+	// 아직까지 서비스 필요성 없음
 	public void setService(ConsumerService service) {
 		this.service = service;
 	}
@@ -78,6 +97,7 @@ public class ConsumerListPanel<T> extends JPanel{
 		table.setComponentPopupMenu(popMenu);
 	}
 	
+	// 테이블 만들기
 	public void setData() {
 		Object[][] data = new Object[list.size()][];
 		for (int i = 0; i < data.length; i++) {
@@ -94,13 +114,14 @@ public class ConsumerListPanel<T> extends JPanel{
 	}
 
 	private Object[] getColumnNames() {
-		return new String[] { "고객번호", "고객명", "고객등급" };
+		return new String[] { "고객명", "고객등급", "고객번호" };
 	}
 
 	private Object[] toArray(Consumer consumer) {
-		return new Object[] { consumer.getConPhone(), consumer.getConName(), consumer.getConGrade() };
+		return new Object[] { consumer.getConName(), consumer.getConGrade(), consumer.getConPhone()};
 	}
-
+	
+	// 모델
 	private class CustomTableModel extends DefaultTableModel {
 
 		public CustomTableModel() {
@@ -116,11 +137,12 @@ public class ConsumerListPanel<T> extends JPanel{
 		}
 	}
 
+	// 정렬
 	protected void setAlignAndWidth() {
 		// 컬럼내용 정렬
-		setTableCellAlign(SwingConstants.CENTER, 0, 1);
+		setTableCellAlign(SwingConstants.CENTER, 0, 2);
 		// 컬럼별 너비 조정
-		setTableCellWidth(100, 250);
+		setTableCellWidth(90, 90, 210);
 	}
 
 	protected void setTableCellWidth(int... width) {

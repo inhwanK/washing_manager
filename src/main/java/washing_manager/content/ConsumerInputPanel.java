@@ -13,14 +13,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
-public class ConsumerSearchPanel extends JPanel implements ActionListener {
+public class ConsumerInputPanel extends JPanel {
 	private JTextField tfConsumer;
 	
 	public JTextField getTfConsumer() {
 		return tfConsumer;
 	}
 
-	public ConsumerSearchPanel() {
+	public ConsumerInputPanel() {
 		initialize();
 	}
 	
@@ -48,12 +48,6 @@ public class ConsumerSearchPanel extends JPanel implements ActionListener {
 		tfConsumer.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		tfConsumer.setColumns(10);
 		pConname.add(tfConsumer);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

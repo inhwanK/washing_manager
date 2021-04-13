@@ -23,7 +23,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 import washing_manager.content.ConsumerListPanel;
-import washing_manager.content.ConsumerSearchPanel;
+import washing_manager.content.ConsumerInputPanel;
 import washing_manager.content.GradePanel;
 import washing_manager.content.LaundryPanel;
 import washing_manager.dto.Consumer;
@@ -40,7 +40,7 @@ public class WashingMain extends JFrame implements ActionListener{
 	private JButton btnOutput2;
 	private ConsumerListPanel<Consumer> pConList;
 	private JButton btnSearch;
-	private ConsumerSearchPanel pConSearch;
+	private ConsumerInputPanel pConSearch;
 	private JPopupMenu popup;
 	private JMenuItem menuOrder;
 
@@ -147,7 +147,7 @@ public class WashingMain extends JFrame implements ActionListener{
 		pCon.add(pConLine);
 		pConLine.setLayout(new GridLayout(0, 1, 0, 2));
 		
-		pConSearch = new ConsumerSearchPanel();
+		pConSearch = new ConsumerInputPanel();
 		GridLayout gl_pConSearch = (GridLayout) pConSearch.getLayout();
 		gl_pConSearch.setHgap(10);
 		gl_pConSearch.setColumns(2);
