@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 public class OrderPanel extends JPanel implements ActionListener {
 	private JPanel pOrderList;
 	private JButton btnAddOrder;
-	private JPanel[] pArrayOrder = new JPanel[5];
+	private JPanel[] pArrayOrder = new JPanel[5]; //vector? List? 클래스로 생성하면  
 	private int i = 0;
 
 	public OrderPanel() {
@@ -42,30 +42,28 @@ public class OrderPanel extends JPanel implements ActionListener {
 		btnAddOrder.setFont(new Font("굴림", Font.BOLD, 60));
 		pArrayOrder[i].add(btnAddOrder);
 
-
-		
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnAddOrder) {
-			actionPerformendBtnAddOrder(e);
+			actionPerformedBtnAddOrder(e);
 		}
 	}
 	
-	private void actionPerformendBtnAddOrder(ActionEvent e) {
-		
+	private void actionPerformedBtnAddOrder(ActionEvent e) {
+		JLabel noimpl = new JLabel("주문 패널 아직 구현 안함.");
+		pArrayOrder[i].add(noimpl);
+		i++;
 		System.out.println("왜 갑자기 안되니?");
 		
 		pArrayOrder[i] = new JPanel();
 		pOrderList.add(pArrayOrder[i]);
-		
+//		
 		pArrayOrder[i].setLayout(new GridLayout(1, 1, 0, 0));
-		btnAddOrder = new JButton("+");
+		
 		btnAddOrder.setFont(new Font("굴림", Font.BOLD, 60));
 		pArrayOrder[i].add(btnAddOrder);
 		
 		
 	}
-
 }
