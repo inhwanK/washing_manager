@@ -2,6 +2,8 @@ package washing_manager;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,10 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
+import washing_manager.content.ChoiceConsumerPanel;
 import washing_manager.content.SearchPanel;
+import washing_manager.content.OrderPanel;
 
 @SuppressWarnings("serial")
-public class TabMain extends JFrame {
+public class TabbedMain extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 
@@ -23,7 +27,7 @@ public class TabMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TabMain frame = new TabMain();
+					TabbedMain frame = new TabbedMain();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +39,7 @@ public class TabMain extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TabMain() {
+	public TabbedMain() {
 		initialize();
 	}
 	private void initialize() {
@@ -52,12 +56,9 @@ public class TabMain extends JFrame {
 		SearchPanel pSearch = new SearchPanel();
 		tabMain.addTab("검색", null, pSearch, null);
 		
-		JPanel pOrder = new JPanel();
+		OrderPanel pOrder = new OrderPanel();
 		pOrder.setToolTipText("");
 		tabMain.addTab("주문", null, pOrder, null);
-		
-		JLabel lblNewLabel = new JLabel("장바구니처럼 + 버튼과 주문하기 버튼 구현");
-		pOrder.add(lblNewLabel);
 		
 		JPanel panel = new JPanel();
 		tabMain.addTab("현황", null, panel, null);
@@ -66,4 +67,6 @@ public class TabMain extends JFrame {
 		panel.add(label);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+	}
 }

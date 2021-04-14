@@ -18,10 +18,10 @@ public class ChoiceConsumerPanel extends JPanel {
 	private JTextField tfConGrade;
 	private JTextField tfConPhone;
 
-	public void setTfAll(String ConName, String ConGrade, String ConPhone) {
-		tfConName.setText(ConName);
-		tfConGrade.setText(ConGrade);
-		tfConPhone.setText(ConPhone);
+	public void setTfAll(String conName, String conGrade, String conPhone) {
+		tfConName.setText(conName);
+		tfConGrade.setText(conGrade);
+		tfConPhone.setText(conPhone);
 	}
 	
 	public ChoiceConsumerPanel() {

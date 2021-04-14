@@ -15,11 +15,11 @@ public class Consumer {
 		this.conPhone = conPhone;
 	}
 	
-	public Consumer(String conPhone, String conName, String conGrade) {
+	public Consumer(String conName, String conGrade, String conPhone) {
 		super();
-		this.conPhone = conPhone;
 		this.conName = conName;
 		this.conGrade = conGrade;
+		this.conPhone = conPhone;
 	}
 
 	public String getConPhone() {
@@ -88,7 +88,7 @@ public class Consumer {
 
 	@Override
 	public String toString() {
-		return String.format("Consumer [conPhone=%s, conName=%s, conGrade=%s]", conPhone, conName, conGrade);
+		return String.format("Consumer [conName=%s, conGrade=%s, conPhone=%s]", conName, conGrade, conPhone);
 	}
 	
 }

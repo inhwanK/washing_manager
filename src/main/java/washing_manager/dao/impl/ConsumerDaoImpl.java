@@ -22,16 +22,16 @@ public class ConsumerDaoImpl implements ConsumerDao {
 	}
 
 	public Consumer getConsumer(ResultSet rs) throws SQLException {
-		String conPhone = rs.getString("conphone");
 		String conName = rs.getString("conname");
 		String conGrade = rs.getString("congrade");
-		return new Consumer(conPhone, conName, conGrade);
+		String conPhone = rs.getString("conphone");
+		return new Consumer(conName, conGrade, conPhone);
 	}
 
 	// 전체 검색. 초기에 떠있는 거임.
 	@Override
 	public List<Consumer> selectConsumerByAll() {
-		String sql = "select conphone, conname, congrade from consumer;";
+		String sql = "select conname, congrade, conphone from consumer;";
 		try (Connection con = WashingJdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -51,7 +51,7 @@ public class ConsumerDaoImpl implements ConsumerDao {
 	// 이름으로 검색
 	@Override
 	public List<Consumer> selectConsumerByName(String conName) {
-		String sql = "select conphone, conname, congrade from consumer where conname=?;";
+		String sql = "select conname, congrade, conphone from consumer where conname=?;";
 		try (Connection con = WashingJdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, conName);

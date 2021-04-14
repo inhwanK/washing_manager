@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -19,13 +20,14 @@ import washing_manager.service.ConsumerService;
 import java.awt.FlowLayout;
 
 @SuppressWarnings("serial")
-public class SearchPanel extends JPanel implements ActionListener {
+public class SearchPanel extends JPanel implements ActionListener{
 	private JButton btnSearch;
 	private ConsumerService service;
 	private ConsumerInputPanel pTextInput;
 	private ConsumerListPanel pTable;
 	private JMenuItem mntmChoice;
 	private ChoiceConsumerPanel pChoiceConInfo;
+	private JButton btnCancel;
 
 	/**
 	 * Create the panel.
@@ -84,17 +86,24 @@ public class SearchPanel extends JPanel implements ActionListener {
 		pConChoice.add(pBtn);
 		pBtn.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnNewButton = new JButton("New button");
-		pBtn.add(btnNewButton);
+		JButton btnOrder = new JButton("주문하기");
+		pBtn.add(btnOrder);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		pBtn.add(btnNewButton_1);
+		btnCancel = new JButton("선택취소");
+		btnCancel.addActionListener(this);
+		pBtn.add(btnCancel);
 		
-		JButton btnNewButton_2 = new JButton("New button");
-		pBtn.add(btnNewButton_2);
+		JButton btnOrderList = new JButton("주문현황?");
+		pBtn.add(btnOrderList);
+		
+		JButton btnUpdate = new JButton("고객정보수정");
+		pBtn.add(btnUpdate);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCancel) {
+			actionPerformedBtnNewButton_1(e);
+		}
 		if (e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
 		}
@@ -120,4 +129,7 @@ public class SearchPanel extends JPanel implements ActionListener {
 		pTable.loadData();
 	}
 
+	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
+		pChoiceConInfo.setTfAll("", "", "");
+	}
 }

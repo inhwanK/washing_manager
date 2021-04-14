@@ -51,16 +51,16 @@ public class ConsumerListPanel<T> extends JPanel{
 	public Consumer getItem() {
 		int row = table.getSelectedRow();
 		
+		String conName = (String) table.getValueAt(row, 0);
+		String conGrade = (String) table.getValueAt(row, 1);
 		String conPhone = (String) table.getValueAt(row, 2);
-		System.out.println(conPhone);
-		System.out.println(row);
 		if(row == -1) {
 			JOptionPane.showMessageDialog(null, "선택을 안햇자나 쉐기야 ");
 		}
 		System.out.println(new Consumer(conPhone));
-		System.out.println(list.lastIndexOf(0));
+		System.out.println(row);
 		// 리턴이 문제임 인환아 indexOf메서드는 인덱스가 0인거랑 비교하는 듯?
-		return list.get(list.lastIndexOf(new Consumer(conPhone)));
+		return new Consumer(conName,conGrade,conPhone);
 		
 	}
 	
@@ -140,7 +140,7 @@ public class ConsumerListPanel<T> extends JPanel{
 	// 정렬
 	protected void setAlignAndWidth() {
 		// 컬럼내용 정렬
-		setTableCellAlign(SwingConstants.CENTER, 0, 2);
+		setTableCellAlign(SwingConstants.CENTER, 0, 1, 2);
 		// 컬럼별 너비 조정
 		setTableCellWidth(90, 90, 210);
 	}
