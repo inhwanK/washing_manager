@@ -5,22 +5,20 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class OrderPanel extends JPanel implements ActionListener {
 	private JPanel pOrderList;
 	private JButton btnAddOrder;
-//	private JPanel[] pArrayOrder = new JPanel[6]; // vector? List? 클래스로 생성하면 더 쉽게 할 수도 있음.
-//	private JPanel pArrayOrder = new JPanel();
 	private int i = 0;
-	private List<JPanel> pArray;
-	private JPanel a;
 
 	public OrderPanel() {
 
@@ -28,26 +26,24 @@ public class OrderPanel extends JPanel implements ActionListener {
 	}
 
 	private void initialize() {
-		setLayout(new BorderLayout(0, 0));
+		setLayout(new BorderLayout(0, 10));
 
 		ChoiceConsumerPanel pConInfo = new ChoiceConsumerPanel();
+		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\u3141\u3139\u3134\u3147\u3141\u3139\u3147", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
 		add(pConInfo, BorderLayout.NORTH);
 
 		pOrderList = new JPanel();
+		pOrderList.setBorder(new EmptyBorder(10, 5, 10, 5));
 
 		add(pOrderList, BorderLayout.CENTER);
-		pOrderList.setLayout(new GridLayout(5, 1, 0, 0));
-		
+		pOrderList.setLayout(new GridLayout(5, 1, 0, 5));
+
 		// 버튼을 생성 그리고 초기화.
 		btnAddOrder = new JButton("+");
 		btnAddOrder.addActionListener(this);
 		btnAddOrder.setFont(new Font("굴림", Font.BOLD, 60));
-		
+
 		pOrderList.add(btnAddOrder);
-
-	}
-
-	public void getOrderPanel() {
 
 	}
 
@@ -57,7 +53,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 		}
 	}
 
-	private void actionPerformedBtnAddOrder(ActionEvent e) { //쌤한테 여쭤보기
+	private void actionPerformedBtnAddOrder(ActionEvent e) { // 쌤한테 여쭤보기
 
 		pOrderList.add(new OrderItemPanel());
 		pOrderList.add(btnAddOrder);
