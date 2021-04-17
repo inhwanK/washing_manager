@@ -2,11 +2,11 @@ package washing_manager.content;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -17,7 +17,6 @@ import javax.swing.border.LineBorder;
 
 import washing_manager.dto.Consumer;
 import washing_manager.service.ConsumerService;
-import java.awt.FlowLayout;
 
 @SuppressWarnings("serial")
 public class SearchPanel extends JPanel implements ActionListener{

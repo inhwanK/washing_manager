@@ -11,9 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
-import washing_manager.content.ChoiceConsumerPanel;
-import washing_manager.content.SearchPanel;
 import washing_manager.content.OrderPanel;
+import washing_manager.content.SearchPanel;
 
 @SuppressWarnings("serial")
 public class TabbedMain extends JFrame implements ActionListener {
