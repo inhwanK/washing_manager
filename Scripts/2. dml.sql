@@ -42,18 +42,20 @@ select *
   from consumer;
 insert into consumer values
 					('010-9198-6529','김인환','S'),
-					('010-9898-6529','김재환',null),
-					('010-7396-6529','강진선',null),
-					('010-3512-7001','김상화',null);
+					('010-9898-6529','김재환','B'),
+					('010-7396-6529','강진선','A'),
+					('010-3512-7001','김상화','C');
 
-insert into consumer values('010-1111-1111','김인환',null);
+insert into consumer values('010-1111-1111','김인환','B');
 delete
   from consumer 
  where conname = '김인환';
 
 -- 주문목록
 insert into orderlist(lndea, lndno, conphone) values
-					(2,'AAA','010-9198-6529');
+					(2,'AAA','010-9198-6529'),
+					(1,'BBB','010-1111-1111'),
+					(3,'CCC','010-7396-6529');
 -- 주문번호를 기본키 해체 한뒤. select 할 때  주문번호 빼고 where절에 주문번호로 조건걸면 됨.
 select conphone, conname, grade, discount 
   from consumer c left join gradedc g
@@ -61,4 +63,26 @@ select conphone, conname, grade, discount
  where congrade = 'S';
 
 select * 
-from consumer c join gradedc g where c.congrade = g.discount;
+from consumer c join gradedc g where c.congrade = g.grade;
+
+-- 여러 row 합치는 법 알아내기.
+-- 순번 테이블 자원.
+create view v_turnno as
+select o.ordno as 순번,
+	   c.conname as 고객명,
+	   l.lndno as 세탁물코드,
+	   l.lndname as 제품명,
+	   l.lndprice as 세탁단가,
+	   o.lndea as 세탁수량,
+	   g.grade as 등급,
+	   g.discount as 할인율,
+	   round(o.lndea * l.lndprice -(o.lndea * l.lndprice * g.discount)) as 세탁가격
+  from orderlist o join consumer c on o.conphone = c.conphone
+  left join laundry l on o.lndno = l.lndno 
+  join gradedc g on c.congrade = g.grade order by ordno;
+  
+-- 순위 구하기
+select (select count(*)+1 from v_turnno where 세탁가격 > t.세탁가격) as 순위,
+		고객명, 세탁물코드, 제품명, 세탁단가, 세탁수량, 등급, 할인율, 세탁가격
+  from v_turnno t
+  order by 순위 asc;

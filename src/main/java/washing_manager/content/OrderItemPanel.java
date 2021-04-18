@@ -17,61 +17,71 @@ import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class OrderItemPanel extends JPanel implements ActionListener {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField tfLnCode;
+	private JTextField tfEach;
+	private JTextField tfPrice;
 	private JTextField textField_3;
 	private JButton btnDelOrder;
 	private OrderPanel order = OrderPanel.getInstance();
-	/**
-	 * Create the panel.
-	 */
+	
 	public OrderItemPanel() {
 
 		initialize();
 	}
 	private void initialize() {
 		setBorder(new LineBorder(null, 1, true));
-		setLayout(new GridLayout(0, 5, 10, 0));
+		setLayout(new GridLayout(0, 6, 10, 0));
+		
+		JPanel pLabel = new JPanel();
+		pLabel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		add(pLabel);
+		pLabel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		int a = order.getA();
+		JLabel lblNumber = new JLabel(Integer.toString(a+1));
+		lblNumber.setFont(new Font("굴림", Font.BOLD, 20));
+		lblNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNumber.setPreferredSize(new Dimension(30, 30));
+		pLabel.add(lblNumber);
 		
 		JPanel pLnCode = new JPanel();
 		add(pLnCode);
 		pLnCode.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblNewLabel = new JLabel("세탁코드");
-		lblNewLabel.setBackground(Color.WHITE);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		pLnCode.add(lblNewLabel);
+		JLabel lblLnCode = new JLabel("세탁코드");
+		lblLnCode.setBackground(Color.WHITE);
+		lblLnCode.setHorizontalAlignment(SwingConstants.CENTER);
+		pLnCode.add(lblLnCode);
 		
-		textField = new JTextField();
-		pLnCode.add(textField);
-		textField.setColumns(10);
+		tfLnCode = new JTextField();
+		pLnCode.add(tfLnCode);
+		tfLnCode.setColumns(10);
 		
 		JPanel pEach = new JPanel();
 		add(pEach);
 		pEach.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblNewLabel_1 = new JLabel("세탁수량");
-		lblNewLabel_1.setBackground(Color.WHITE);
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		pEach.add(lblNewLabel_1);
+		JLabel lblEach = new JLabel("세탁수량");
+		lblEach.setBackground(Color.WHITE);
+		lblEach.setHorizontalAlignment(SwingConstants.CENTER);
+		pEach.add(lblEach);
 		
-		textField_1 = new JTextField();
-		pEach.add(textField_1);
-		textField_1.setColumns(10);
+		tfEach = new JTextField();
+		pEach.add(tfEach);
+		tfEach.setColumns(10);
 		
 		JPanel pPrice = new JPanel();
 		add(pPrice);
 		pPrice.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblNewLabel_2 = new JLabel("세탁단가");
-		lblNewLabel_2.setBackground(Color.WHITE);
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		pPrice.add(lblNewLabel_2);
+		JLabel lblPrice = new JLabel("세탁단가");
+		lblPrice.setBackground(Color.WHITE);
+		lblPrice.setHorizontalAlignment(SwingConstants.CENTER);
+		pPrice.add(lblPrice);
 		
-		textField_2 = new JTextField();
-		pPrice.add(textField_2);
-		textField_2.setColumns(10);
+		tfPrice = new JTextField();
+		pPrice.add(tfPrice);
+		tfPrice.setColumns(10);
 		
 		JPanel pWhat = new JPanel();
 		add(pWhat);
@@ -100,7 +110,7 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnDelOrder) {
-			order.delListOrderitem(i);
+			order.actionPerformedBtnDelOrder(e);
 		}
 	}
 

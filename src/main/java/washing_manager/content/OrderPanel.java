@@ -15,44 +15,43 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-
 @SuppressWarnings("serial")
 public class OrderPanel extends JPanel implements ActionListener {
 	private JPanel pOrderList;
 	private JButton btnAddOrder;
 	private int a = 0;
-	private List<OrderItemPanel> listOrderitem = new ArrayList<>();
-	//싱글톤 패턴? 그 개념을 공부해야함. 그리고 사용해보자.
+	private List<JPanel> listOrderitem = new ArrayList<>();
+	// 싱글톤 패턴? 그 개념을 공부해야함. 그리고 사용해보자.
 	private static final OrderPanel instance = new OrderPanel();
 	
 	
+
+	public int getA() {
+		return a;
+	}
+
 	public static OrderPanel getInstance() {
 		return instance;
 	}
-			
-	
+
 	// 추가 삭제는 구현했음... 아마?
-	public List<OrderItemPanel> addListOrderitem(OrderItemPanel item) {
+	public List<JPanel> addListOrderitem(OrderItemPanel item) {
 		listOrderitem.add(item);
 		return listOrderitem;
 	}
 
 	public void delListOrderitem(int i) {
-		
-		if(listOrderitem.get(i+1) != null) {
-			listOrderitem.set(i, listOrderitem.get(i+1));
-			listOrderitem.set(i+1, null);
-		}else {
+
+		if (listOrderitem.get(i + 1) != null) {
+			listOrderitem.set(i, listOrderitem.get(i + 1));
+			listOrderitem.set(i + 1, null);
+		} else {
 			listOrderitem.set(i, null);
 		}
 	}
 
-	//loadData와 비슷한 기능 
-	private void loadOrderItem() {
-		int i=0;
-		
-		pOrderList.add(listOrderitem.get(i));
-	}
+	// loadData와 비슷한 기능
+
 	public OrderPanel() {
 
 		initialize();
@@ -62,7 +61,9 @@ public class OrderPanel extends JPanel implements ActionListener {
 		setLayout(new BorderLayout(0, 10));
 
 		ChoiceConsumerPanel pConInfo = new ChoiceConsumerPanel();
-		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\u3141\u3139\u3134\u3147\u3141\u3139\u3147", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
+		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+				"\u3141\u3139\u3134\u3147\u3141\u3139\u3147", TitledBorder.LEADING, TitledBorder.TOP, null,
+				Color.BLACK));
 		add(pConInfo, BorderLayout.NORTH);
 
 		pOrderList = new JPanel();
@@ -87,19 +88,38 @@ public class OrderPanel extends JPanel implements ActionListener {
 	}
 
 	private void actionPerformedBtnAddOrder(ActionEvent e) { // 쌤한테 여쭤보기
-		//loadData 처럼 ? 배열을 만들어 놓고 추가, 삭제할 때마다 배열의 요소를 땡겨오는 식으로 하는 것이 맞음.
+		// loadData 처럼 ? 배열을 만들어 놓고 추가, 삭제할 때마다 배열의 요소를 땡겨오는 식으로 하는 것이 맞음.
+//		for(int i=0;i<4;i++) {
+//			Object item = listOrderitem.get(i);
+//			if(item == btnAddOrder) {
+//				listOrderitem.add(i,new OrderItemPanel()); 
+//				break;
+//			}
+//		}
+//		
+//		pOrderList.invalidate();
+//		// loadData 역할
+//		for (a = 0; a < 4; a++) {
+//			if (listOrderitem.get(a) != null) {
+//				pOrderList.add(listOrderitem.get(a));
+//			}
+//		}
+//		pOrderList.validate();
+//		Integer.toString(order.getA()+1)
+		// 기존
 		pOrderList.add(new OrderItemPanel());
 		pOrderList.add(btnAddOrder);
-
-		if (a == 3) {
-			btnAddOrder.setVisible(false);
+		
+		if (a == 4) {
+			pOrderList.remove(5);
 		}
 		pOrderList.revalidate();
 		a++;
 
 	}
-	
+
 	public void actionPerformedBtnDelOrder(ActionEvent e) {
 		
+		System.out.println("이거되냐?");// 쌤한테 물어보기
 	}
 }
