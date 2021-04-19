@@ -1,4 +1,4 @@
-package washing_manager.content;
+package washing_manager.search;
 
 import java.awt.Color;
 import java.awt.Font;

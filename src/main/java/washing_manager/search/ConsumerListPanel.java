@@ -1,4 +1,4 @@
-package washing_manager.content;
+package washing_manager.search;
 
 import java.awt.BorderLayout;
 import java.util.List;
@@ -18,6 +18,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import washing_manager.dto.Consumer;
+import washing_manager.dto.GradeDc;
 import washing_manager.service.ConsumerService;
 
 @SuppressWarnings("serial")
@@ -52,7 +53,7 @@ public class ConsumerListPanel<T> extends JPanel{
 		int row = table.getSelectedRow();
 		
 		String conName = (String) table.getValueAt(row, 0);
-		String conGrade = (String) table.getValueAt(row, 1);
+		GradeDc conGrade = new GradeDc((String) table.getValueAt(row, 1));
 		String conPhone = (String) table.getValueAt(row, 2);
 		if(row == -1) {
 			JOptionPane.showMessageDialog(null, "선택을 안햇자나 쉐기야 ");

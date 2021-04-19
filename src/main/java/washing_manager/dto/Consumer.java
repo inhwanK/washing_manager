@@ -3,7 +3,7 @@ package washing_manager.dto;
 public class Consumer {
 	private String conPhone;
 	private String conName;
-	private String conGrade;
+	private GradeDc conGrade;
 	
 	public Consumer() {
 		super();
@@ -15,7 +15,7 @@ public class Consumer {
 		this.conPhone = conPhone;
 	}
 	
-	public Consumer(String conName, String conGrade, String conPhone) {
+	public Consumer(String conName, GradeDc conGrade, String conPhone) {
 		super();
 		this.conName = conName;
 		this.conGrade = conGrade;
@@ -38,11 +38,11 @@ public class Consumer {
 		this.conName = conName;
 	}
 
-	public String getConGrade() {
+	public GradeDc getConGrade() {
 		return conGrade;
 	}
 
-	public void setConGrade(String conGrade) {
+	public void setConGrade(GradeDc conGrade) {
 		this.conGrade = conGrade;
 	}
 

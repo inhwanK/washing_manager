@@ -10,6 +10,7 @@ import java.util.List;
 import washing_manager.conn.WashingJdbcUtil;
 import washing_manager.dao.ConsumerDao;
 import washing_manager.dto.Consumer;
+import washing_manager.dto.GradeDc;
 
 public class ConsumerDaoImpl implements ConsumerDao {
 	private static final ConsumerDaoImpl instance = new ConsumerDaoImpl();
@@ -23,7 +24,7 @@ public class ConsumerDaoImpl implements ConsumerDao {
 
 	public Consumer getConsumer(ResultSet rs) throws SQLException {
 		String conName = rs.getString("conname");
-		String conGrade = rs.getString("congrade");
+		GradeDc conGrade = new GradeDc(rs.getString("congrade"));
 		String conPhone = rs.getString("conphone");
 		return new Consumer(conName, conGrade, conPhone);
 	}

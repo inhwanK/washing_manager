@@ -5,12 +5,8 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import java.awt.BorderLayout;
-import javax.swing.JButton;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.FlowLayout;
+
+import washing_manager.dto.GradeDc;
 
 @SuppressWarnings("serial")
 public class ChoiceConsumerPanel extends JPanel {
@@ -18,9 +14,9 @@ public class ChoiceConsumerPanel extends JPanel {
 	private JTextField tfConGrade;
 	private JTextField tfConPhone;
 
-	public void setTfAll(String conName, String conGrade, String conPhone) {
+	public void setTfAll(String conName, String grade, String conPhone) {
 		tfConName.setText(conName);
-		tfConGrade.setText(conGrade);
+		tfConGrade.setText(grade);
 		tfConPhone.setText(conPhone);
 	}
 	

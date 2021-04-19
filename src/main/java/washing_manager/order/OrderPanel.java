@@ -1,4 +1,4 @@
-package washing_manager.content;
+package washing_manager.order;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,6 +15,8 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import washing_manager.content.ChoiceConsumerPanel;
+
 @SuppressWarnings("serial")
 public class OrderPanel extends JPanel implements ActionListener {
 	private JPanel pOrderList;
@@ -23,11 +25,14 @@ public class OrderPanel extends JPanel implements ActionListener {
 	private List<JPanel> listOrderitem = new ArrayList<>();
 	// 싱글톤 패턴? 그 개념을 공부해야함. 그리고 사용해보자.
 	private static final OrderPanel instance = new OrderPanel();
-	
-	
+	private JButton btnDelOrder;
 
 	public int getA() {
 		return a;
+	}
+
+	public void setA(int a) {
+		this.a = a;
 	}
 
 	public static OrderPanel getInstance() {
@@ -73,6 +78,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 		pOrderList.setLayout(new GridLayout(5, 1, 0, 5));
 
 		// 버튼을 생성 그리고 초기화.
+		a = 0;
 		btnAddOrder = new JButton("+");
 		btnAddOrder.addActionListener(this);
 		btnAddOrder.setFont(new Font("굴림", Font.BOLD, 60));
@@ -87,39 +93,29 @@ public class OrderPanel extends JPanel implements ActionListener {
 		}
 	}
 
-	private void actionPerformedBtnAddOrder(ActionEvent e) { // 쌤한테 여쭤보기
-		// loadData 처럼 ? 배열을 만들어 놓고 추가, 삭제할 때마다 배열의 요소를 땡겨오는 식으로 하는 것이 맞음.
-//		for(int i=0;i<4;i++) {
-//			Object item = listOrderitem.get(i);
-//			if(item == btnAddOrder) {
-//				listOrderitem.add(i,new OrderItemPanel()); 
-//				break;
-//			}
-//		}
-//		
-//		pOrderList.invalidate();
-//		// loadData 역할
-//		for (a = 0; a < 4; a++) {
-//			if (listOrderitem.get(a) != null) {
-//				pOrderList.add(listOrderitem.get(a));
-//			}
-//		}
-//		pOrderList.validate();
-//		Integer.toString(order.getA()+1)
-		// 기존
-		pOrderList.add(new OrderItemPanel());
-		pOrderList.add(btnAddOrder);
-		
-		if (a == 4) {
-			pOrderList.remove(5);
-		}
-		pOrderList.revalidate();
-		a++;
+	private void actionPerformedBtnAddOrder(ActionEvent e) {
 
+		OrderItemPanel item = new OrderItemPanel(a);
+		pOrderList.add(item);
+		pOrderList.add(btnAddOrder);
+
+		item.setpOrderList(pOrderList);
+		actionPerformedItemCheck(e);
+		
+		a++;
+		
+//		나중에 다시하자 
+//		자바 책에서 장바구니 있음.
 	}
 
-	public void actionPerformedBtnDelOrder(ActionEvent e) {
-		
-		System.out.println("이거되냐?");// 쌤한테 물어보기
+	public void actionPerformedItemCheck(ActionEvent e) {
+		if (e.getSource() == btnAddOrder) {
+			if (a == 4) {
+				pOrderList.remove(5);
+			}
+		} 
+
+		pOrderList.revalidate();
+
 	}
 }

@@ -1,4 +1,4 @@
-package washing_manager.content;
+package washing_manager.search;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,7 +15,9 @@ import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import washing_manager.content.ChoiceConsumerPanel;
 import washing_manager.dto.Consumer;
+import washing_manager.dto.GradeDc;
 import washing_manager.service.ConsumerService;
 
 @SuppressWarnings("serial")
@@ -115,10 +117,10 @@ public class SearchPanel extends JPanel implements ActionListener{
 		
 		System.out.println(choCon);
 		String name = choCon.getConName();
-		String grade = choCon.getConGrade();
+		GradeDc grade = choCon.getConGrade();
 		String phone = choCon.getConPhone();
 		
-		pChoiceConInfo.setTfAll(name, grade, phone);
+		pChoiceConInfo.setTfAll(name, grade.getGrade(), phone);
 		
 	}
 	
