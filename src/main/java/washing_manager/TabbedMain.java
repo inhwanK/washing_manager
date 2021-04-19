@@ -6,13 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
-import washing_manager.content.OrderPanel;
-import washing_manager.content.SearchPanel;
+import washing_manager.order.OrderPanel;
+import washing_manager.search.SearchPanel;
 
 @SuppressWarnings("serial")
 public class TabbedMain extends JFrame implements ActionListener {
@@ -59,11 +58,19 @@ public class TabbedMain extends JFrame implements ActionListener {
 		pOrder.setToolTipText("");
 		tabMain.addTab("주문", null, pOrder, null);
 		
-		JPanel panel = new JPanel();
-		tabMain.addTab("현황", null, panel, null);
+		JPanel pStatus = new JPanel();
+		pStatus.setToolTipText("");
+		tabMain.addTab("현황", null, pStatus, null);
+		pStatus.setLayout(new BorderLayout(0, 0));
 		
-		JLabel label = new JLabel("주문현황 라디오 버튼으로 두가지 구현");
-		panel.add(label);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.RIGHT);
+		pStatus.add(tabbedPane, BorderLayout.CENTER);
+		
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("순번", null, panel_1, null);
+		
+		JPanel panel_2 = new JPanel();
+		tabbedPane.addTab("순위", null, panel_2, null);
 	}
 
 	public void actionPerformed(ActionEvent e) {

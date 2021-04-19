@@ -22,13 +22,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
-import washing_manager.content.ConsumerListPanel;
-import washing_manager.content.ConsumerInputPanel;
 import washing_manager.content.GradePanel;
 import washing_manager.content.LaundryPanel;
 import washing_manager.dto.Consumer;
 import washing_manager.frame.Ouput1;
 import washing_manager.frame.Output2;
+import washing_manager.search.ConsumerInputPanel;
+import washing_manager.search.ConsumerListPanel;
 
 @SuppressWarnings("serial")
 public class WashingMain extends JFrame implements ActionListener{

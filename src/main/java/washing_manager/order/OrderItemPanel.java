@@ -1,4 +1,4 @@
-package washing_manager.content;
+package washing_manager.order;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -23,12 +23,17 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 	private JTextField textField_3;
 	private JButton btnDelOrder;
 	private OrderPanel order = OrderPanel.getInstance();
+	private JPanel pOrderList;
+	private int a;
+	private int b;
 	
-	public OrderItemPanel() {
-
-		initialize();
+	
+	
+	public OrderItemPanel(int a) {
+		this.a = a;
+		initialize(a);
 	}
-	private void initialize() {
+	private void initialize(int a) {
 		setBorder(new LineBorder(null, 1, true));
 		setLayout(new GridLayout(0, 6, 10, 0));
 		
@@ -37,8 +42,9 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		add(pLabel);
 		pLabel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		int a = order.getA();
-		JLabel lblNumber = new JLabel(Integer.toString(a+1));
+		b = a+1;
+		JLabel lblNumber = new JLabel(b+"");
+		
 		lblNumber.setFont(new Font("굴림", Font.BOLD, 20));
 		lblNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNumber.setPreferredSize(new Dimension(30, 30));
@@ -110,8 +116,17 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnDelOrder) {
-			order.actionPerformedBtnDelOrder(e);
+			
+			pOrderList.remove(a);
+			
+			order.actionPerformedItemCheck(e);
+			pOrderList.revalidate();
+			setpOrderList(pOrderList);
 		}
+	}
+
+	public void setpOrderList(JPanel pOrderList) {
+		this.pOrderList = pOrderList;
 	}
 
 }
