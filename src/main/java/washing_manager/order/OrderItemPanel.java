@@ -26,8 +26,17 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 	private JPanel pOrderList;
 	private int a;
 	private int b;
+	private JLabel lblNumber;
 	
 	
+	
+	public JLabel getLblNumber() {
+		return lblNumber;
+	}
+	
+	public void setLblNumber(JLabel lblNumber) {
+		this.lblNumber = lblNumber;
+	}
 	
 	public OrderItemPanel(int a) {
 		this.a = a;
@@ -43,7 +52,7 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		pLabel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		b = a+1;
-		JLabel lblNumber = new JLabel(b+"");
+		lblNumber = new JLabel(a+1+"");
 		
 		lblNumber.setFont(new Font("굴림", Font.BOLD, 20));
 		lblNumber.setHorizontalAlignment(SwingConstants.CENTER);
@@ -116,12 +125,10 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnDelOrder) {
-			
-			pOrderList.remove(a);
-			
-			order.actionPerformedItemCheck(e);
+			int c = Integer.parseInt(lblNumber.getText())-1;
+			pOrderList.remove(c);
+		
 			pOrderList.revalidate();
-			setpOrderList(pOrderList);
 		}
 	}
 

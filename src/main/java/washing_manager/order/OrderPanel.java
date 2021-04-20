@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -101,9 +102,9 @@ public class OrderPanel extends JPanel implements ActionListener {
 
 		item.setpOrderList(pOrderList);
 		actionPerformedItemCheck(e);
-		
+
 		a++;
-		
+
 //		나중에 다시하자 
 //		자바 책에서 장바구니 있음.
 	}
@@ -112,8 +113,8 @@ public class OrderPanel extends JPanel implements ActionListener {
 		if (e.getSource() == btnAddOrder) {
 			if (a == 4) {
 				pOrderList.remove(5);
-			}
-		} 
+			}			
+		}
 
 		pOrderList.revalidate();
 
