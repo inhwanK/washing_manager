@@ -9,21 +9,33 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
+import washing_manager.dto.OrderList;
+import washing_manager.service.OrderListService;
+
+import java.awt.BorderLayout;
+import java.util.List;
+
 @SuppressWarnings("serial")
 public class OrderTurnStatusPanel extends JPanel {
 
 	private JTable table;
+	private List<OrderList> list;
+	private OrderListService service = new OrderListService();
+	
+	
 	public OrderTurnStatusPanel() {
-
 		initialize();
 	}
+	
 	private void initialize() {
+		setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane);
 		
 		table = new JTable();
 		table.setModel(getModel());
+//		loadData(); 구현해야됨.
 		scrollPane.setViewportView(table);
 	}
 	private TableModel getModel() {

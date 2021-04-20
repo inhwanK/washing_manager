@@ -53,7 +53,7 @@ public class ConsumerListPanel<T> extends JPanel{
 		int row = table.getSelectedRow();
 		
 		String conName = (String) table.getValueAt(row, 0);
-		GradeDc conGrade = new GradeDc((String) table.getValueAt(row, 1));
+		String conGrade = (String) table.getValueAt(row, 1);
 		String conPhone = (String) table.getValueAt(row, 2);
 		if(row == -1) {
 			JOptionPane.showMessageDialog(null, "선택을 안햇자나 쉐기야 ");
@@ -61,7 +61,7 @@ public class ConsumerListPanel<T> extends JPanel{
 		System.out.println(new Consumer(conPhone));
 		System.out.println(row);
 		// 리턴이 문제임 인환아 indexOf메서드는 인덱스가 0인거랑 비교하는 듯?
-		return new Consumer(conName,conGrade,conPhone);
+		return new Consumer(conName,new GradeDc(conGrade),conPhone);
 		
 	}
 	
@@ -119,7 +119,7 @@ public class ConsumerListPanel<T> extends JPanel{
 	}
 
 	private Object[] toArray(Consumer consumer) {
-		return new Object[] { consumer.getConName(), consumer.getConGrade(), consumer.getConPhone()};
+		return new Object[] { consumer.getConName(), consumer.getConGrade().getGrade(), consumer.getConPhone()};
 	}
 	
 	// 모델

@@ -38,7 +38,7 @@ public class GradeDc {
 
 	@Override
 	public String toString() {
-		return String.format("%s", grade);
+		return String.format("GradeDcDto [grade=%s, discount=%s]", grade, discount);
 	}
 	
 	public String toStringAll() {
