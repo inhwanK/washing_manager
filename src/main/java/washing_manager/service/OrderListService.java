@@ -12,4 +12,8 @@ public class OrderListService {
 	public List<OrderList> showOrderListByTurn(){
 		return dao.selectOrderListByTurn();
 	}
+	
+	public List<OrderList> showOrderListByPrice(){
+		return dao.selectOrderListByPrice();
+	}
 }

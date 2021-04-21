@@ -13,6 +13,8 @@ import javax.swing.border.EmptyBorder;
 import washing_manager.order.OrderPanel;
 import washing_manager.search.SearchPanel;
 import washing_manager.status.OrderTurnStatusPanel;
+import java.awt.GridLayout;
+import washing_manager.status.OrderPriceStatusPanel;
 
 @SuppressWarnings("serial")
 public class TabbedMain extends JFrame implements ActionListener {
@@ -56,17 +58,13 @@ public class TabbedMain extends JFrame implements ActionListener {
 		JPanel pStatus = new JPanel();
 		pStatus.setToolTipText("");
 		tabMain.addTab("현황", null, pStatus, null);
-		pStatus.setLayout(new BorderLayout(0, 0));
+		pStatus.setLayout(new GridLayout(2, 0, 0, 10));
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.RIGHT);
-		pStatus.add(tabbedPane, BorderLayout.CENTER);
+		JPanel pTurnList = new OrderTurnStatusPanel();
+		pStatus.add(pTurnList);
 		
-		OrderTurnStatusPanel panel_1 = new OrderTurnStatusPanel();
-		tabbedPane.addTab("순번", null, panel_1, null);
-		
-		//패널 따로 만들어서 Morph 해야함. 
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("순위", null, panel_2, null);
+		OrderPriceStatusPanel pPriceList = new OrderPriceStatusPanel();
+		pStatus.add(pPriceList);
 	}
 
 	public void actionPerformed(ActionEvent e) {
