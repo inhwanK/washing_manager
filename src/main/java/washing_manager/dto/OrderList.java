@@ -5,7 +5,11 @@ public class OrderList {
 	private int lndEa;
 	private Laundry lndCode;
 	private Consumer conPhone;
+	private int priceRank;
 	
+	
+	
+
 	public OrderList() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -63,12 +67,18 @@ public class OrderList {
 		this.conPhone = conPhone;
 	}
 
+	public int getPriceRank() {
+		return priceRank;
+	}
+
+	public void setPriceRank(int priceRank) {
+		this.priceRank = priceRank;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("OrderList [ordNo=%s, lndEa=%s, lndCode=%s, conPhone=%s]", ordNo, lndEa, lndCode,
 				conPhone);
 	}
-	
-	
 	
 }

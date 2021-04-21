@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import washing_manager.dto.GradeDc;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class ChoiceConsumerPanel extends JPanel {
@@ -39,10 +40,14 @@ public class ChoiceConsumerPanel extends JPanel {
 		pConGrade.add(lblConGrade);
 		
 		tfConName = new JTextField();
+		tfConName.setEditable(false);
+		tfConName.setHorizontalAlignment(SwingConstants.CENTER);
 		pConGrade.add(tfConName);
 		tfConName.setColumns(10);
 		
 		tfConGrade = new JTextField();
+		tfConGrade.setEditable(false);
+		tfConGrade.setHorizontalAlignment(SwingConstants.CENTER);
 		pConGrade.add(tfConGrade);
 		tfConGrade.setColumns(10);
 		
@@ -54,6 +59,8 @@ public class ChoiceConsumerPanel extends JPanel {
 		pConPhone.add(lblConPhone);
 		
 		tfConPhone = new JTextField();
+		tfConPhone.setEditable(false);
+		tfConPhone.setHorizontalAlignment(SwingConstants.CENTER);
 		pConPhone.add(tfConPhone);
 		tfConPhone.setColumns(10);
 	}

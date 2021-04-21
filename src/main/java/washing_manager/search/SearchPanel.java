@@ -54,7 +54,6 @@ public class SearchPanel extends JPanel implements ActionListener{
 		
 		btnSearch = new JButton("검색");
 		btnSearch.addActionListener(this);
-		btnSearch.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		btnSearch.setFont(new Font("나눔고딕", Font.BOLD, 15));
 		pSearchBtn.add(btnSearch);
 		
@@ -94,8 +93,8 @@ public class SearchPanel extends JPanel implements ActionListener{
 		btnCancel.addActionListener(this);
 		pBtn.add(btnCancel);
 		
-		JButton btnOrderList = new JButton("주문현황?");
-		pBtn.add(btnOrderList);
+		JButton btnConOrderList = new JButton("고객주문목록");
+		pBtn.add(btnConOrderList);
 		
 		JButton btnUpdate = new JButton("고객정보수정");
 		pBtn.add(btnUpdate);

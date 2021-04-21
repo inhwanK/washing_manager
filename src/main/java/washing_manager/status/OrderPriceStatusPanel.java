@@ -19,19 +19,22 @@ import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
-public class OrderTurnStatusPanel extends JPanel {
+public class OrderPriceStatusPanel extends JPanel {
 
 	private JTable table;
 	private List<OrderList> list;
 	private OrderListService service = new OrderListService();
 
-	public OrderTurnStatusPanel() {
+	public OrderPriceStatusPanel() {
 		initialize();
 	}
 
 	private void initialize() {
+		setBorder(new LineBorder(null));
 		setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -42,7 +45,7 @@ public class OrderTurnStatusPanel extends JPanel {
 		loadData(); // 구현해야됨.
 		scrollPane.setViewportView(table);
 		
-		JLabel lblNewLabel = new JLabel("세 탁 물 주 문 현 황");
+		JLabel lblNewLabel = new JLabel("세 탁 가 격 순 위");
 		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 20));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblNewLabel, BorderLayout.NORTH);
@@ -56,7 +59,7 @@ public class OrderTurnStatusPanel extends JPanel {
 	}
 
 	private void initList() {
-		list = service.showOrderListByTurn();
+		list = service.showOrderListByPrice();
 	}
 
 	public void setData() {
@@ -76,15 +79,15 @@ public class OrderTurnStatusPanel extends JPanel {
 
 	private Object[] getColumnNames() {
 
-		return new String[] { "순번", "고객명", "세탁물코드", "제품명", "세탁단가", "세탁수량", "등급", "할인율", "세탁가격" };
+		return new String[] { "가격순위", "고객명", "세탁물코드", "제품명", "세탁단가", "세탁수량", "등급", "할인율", "세탁가격" };
 	}
 
 	private Object[] toArray(OrderList orderList) {
 		GradeDc conGrade = orderList.getConPhone().getConGrade(); // 그 고객의 / 등급.
 		int totalPrice = (int) (orderList.getLndEa() * orderList.getLndCode().getLndPrice()
 				- (orderList.getLndEa() * orderList.getLndCode().getLndPrice() * conGrade.getDiscount()));
-
-		return new Object[] { orderList.getOrdNo(), orderList.getConPhone().getConName(),
+		// dto에서 정리가능함.
+		return new Object[] { orderList.getPriceRank(), orderList.getConPhone().getConName(),
 				orderList.getLndCode().getLndCode(), orderList.getLndCode().getLndName(),
 				orderList.getLndCode().getLndPrice(), orderList.getLndEa(), conGrade.getGrade(),
 				(int) (conGrade.getDiscount() * 100), /* 세탁가격 */totalPrice };

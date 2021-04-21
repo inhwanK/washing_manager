@@ -22,12 +22,12 @@ import washing_manager.dto.GradeDc;
 import washing_manager.service.ConsumerService;
 
 @SuppressWarnings("serial")
-public class ConsumerListPanel<T> extends JPanel{
+public class ConsumerListPanel<T> extends JPanel {
 	private JTable table;
 	private List<Consumer> list;// dao만들어야함. 만들고 service 구현 후 initlist 구현해야함.
 	private ConsumerService service = new ConsumerService();
 	private String conName;
-	
+
 	public void setConName(String conName) {
 		this.conName = conName;
 	}
@@ -48,34 +48,33 @@ public class ConsumerListPanel<T> extends JPanel{
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 	}
-	
+
 	public Consumer getItem() {
 		int row = table.getSelectedRow();
-		
+
 		String conName = (String) table.getValueAt(row, 0);
 		String conGrade = (String) table.getValueAt(row, 1);
 		String conPhone = (String) table.getValueAt(row, 2);
-		if(row == -1) {
+		if (row == -1) {
 			JOptionPane.showMessageDialog(null, "선택을 안햇자나 쉐기야 ");
 		}
 		System.out.println(new Consumer(conPhone));
 		System.out.println(row);
 		// 리턴이 문제임 인환아 indexOf메서드는 인덱스가 0인거랑 비교하는 듯?
-		return new Consumer(conName,new GradeDc(conGrade),conPhone);
-		
+		return new Consumer(conName, new GradeDc(conGrade), conPhone);
+
 	}
-	
-	
+
 	public DefaultTableModel getModel() {
 		CustomTableModel model = new CustomTableModel(/* getData(), getColumnNames() */);
 		return model;
 	}
-	
+
 	public void loadData() {
-		
+
 		if (conName == null) {
 			initList();
-		}else {
+		} else {
 			setList(conName);
 		}
 		setData();
@@ -97,7 +96,7 @@ public class ConsumerListPanel<T> extends JPanel{
 	public void setPopupMenu(JPopupMenu popMenu) {
 		table.setComponentPopupMenu(popMenu);
 	}
-	
+
 	// 테이블 만들기
 	public void setData() {
 		Object[][] data = new Object[list.size()][];
@@ -119,9 +118,9 @@ public class ConsumerListPanel<T> extends JPanel{
 	}
 
 	private Object[] toArray(Consumer consumer) {
-		return new Object[] { consumer.getConName(), consumer.getConGrade().getGrade(), consumer.getConPhone()};
+		return new Object[] { consumer.getConName(), consumer.getConGrade().getGrade(), consumer.getConPhone() };
 	}
-	
+
 	// 모델
 	private class CustomTableModel extends DefaultTableModel {
 

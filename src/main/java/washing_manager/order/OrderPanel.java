@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import washing_manager.content.ChoiceConsumerPanel;
+import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
 public class OrderPanel extends JPanel implements ActionListener {
@@ -67,9 +68,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 		setLayout(new BorderLayout(0, 10));
 
 		ChoiceConsumerPanel pConInfo = new ChoiceConsumerPanel();
-		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
-				"\u3141\u3139\u3134\u3147\u3141\u3139\u3147", TitledBorder.LEADING, TitledBorder.TOP, null,
-				Color.BLACK));
+		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uACE0\uAC1D\uC815\uBCF4", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		add(pConInfo, BorderLayout.NORTH);
 
 		pOrderList = new JPanel();

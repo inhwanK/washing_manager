@@ -82,7 +82,7 @@ select o.ordno as 순번,
 	   o.lndea as 세탁수량,
 	   g.grade as 등급,
 	   g.discount as 할인율,
-	   round(o.lndea * l.lndprice -(o.lndea * l.lndprice * g.discount)) as 세탁가격,
+	   round(o.lndea * l.lndprice -(o.lndea * l.lndprice * g.discount),2) as 세탁가격,
 	   c.conphone as 고객번호
   from orderlist o join consumer c on o.conphone = c.conphone
   left join laundry l on o.lndcode = l.lndcode
@@ -100,7 +100,11 @@ delete
   from orderlist 
  where ordno = 3;
 -- 순위 구하기
-select (select count(*)+1 from v_turnno where 세탁가격 > t.세탁가격) as 순위,
+select (select count(*)+1 from v_turnno where 세탁가격 > t.세탁가격) as 순위,순번,
 		고객명, 세탁물코드, 제품명, 세탁단가, 세탁수량, 등급, round(할인율,2) as 할인율 , 세탁가격
   from v_turnno t
   order by 순위 asc;
+ 
+  select 순번,
+		고객명, 세탁물코드, 제품명, 세탁단가, 세탁수량, 등급, round(할인율,2) as 할인율 , 세탁가격,고객번호
+  from v_turnno t;
