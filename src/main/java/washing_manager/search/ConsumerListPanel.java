@@ -58,8 +58,6 @@ public class ConsumerListPanel<T> extends JPanel {
 		if (row == -1) {
 			JOptionPane.showMessageDialog(null, "선택을 안햇자나 쉐기야 ");
 		}
-		System.out.println(new Consumer(conPhone));
-		System.out.println(row);
 		// 리턴이 문제임 인환아 indexOf메서드는 인덱스가 0인거랑 비교하는 듯?
 		return new Consumer(conName, new GradeDc(conGrade), conPhone);
 

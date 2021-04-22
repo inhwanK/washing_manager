@@ -14,6 +14,8 @@ public class OrderListService {
 	}
 	
 	public List<OrderList> showOrderListByPrice(){
+		
+		
 		return dao.selectOrderListByPrice();
 	}
 }
