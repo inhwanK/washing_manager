@@ -22,7 +22,6 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 	private JTextField tfPrice;
 	private JTextField textField_3;
 	private JButton btnDelOrder;
-	private OrderPanel order = OrderPanel.getInstance();
 	private JPanel pOrderList;
 	private int a;
 	private int b;

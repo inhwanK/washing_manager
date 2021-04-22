@@ -2,6 +2,7 @@ package washing_manager;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,14 +13,21 @@ import javax.swing.border.EmptyBorder;
 
 import washing_manager.order.OrderPanel;
 import washing_manager.search.SearchPanel;
-import washing_manager.status.OrderTurnStatusPanel;
-import java.awt.GridLayout;
 import washing_manager.status.OrderPriceStatusPanel;
+import washing_manager.status.OrderTurnStatusPanel;
 
 @SuppressWarnings("serial")
 public class TabbedMain extends JFrame implements ActionListener {
 
+	private OrderPanel pOrder = OrderPanel.getInstance();
+	private SearchPanel pSearch = SearchPanel.getInstance();
+	
 	private JPanel contentPane;
+	private JTabbedPane tabMain;
+	
+	public OrderPanel getpOrder() {
+		return pOrder;
+	}		
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -45,13 +53,14 @@ public class TabbedMain extends JFrame implements ActionListener {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JTabbedPane tabMain = new JTabbedPane(JTabbedPane.TOP);
+		tabMain = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabMain, BorderLayout.CENTER);
 		
-		SearchPanel pSearch = new SearchPanel();
+		pSearch = new SearchPanel();
 		tabMain.addTab("검색", null, pSearch, null);
+		pSearch.setTabMain(tabMain);
 		
-		OrderPanel pOrder = new OrderPanel();
+		pOrder = new OrderPanel();
 		pOrder.setToolTipText("");
 		tabMain.addTab("주문", null, pOrder, null);
 		
@@ -65,8 +74,12 @@ public class TabbedMain extends JFrame implements ActionListener {
 		
 		OrderPriceStatusPanel pPriceList = new OrderPriceStatusPanel();
 		pStatus.add(pPriceList);
+		
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
+			
 	}
+
 }

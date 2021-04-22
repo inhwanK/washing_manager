@@ -1,7 +1,6 @@
 package washing_manager.search;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -12,27 +11,43 @@ import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 import washing_manager.content.ChoiceConsumerPanel;
 import washing_manager.dto.Consumer;
-import washing_manager.dto.GradeDc;
+import washing_manager.order.OrderPanel;
 import washing_manager.service.ConsumerService;
 
 @SuppressWarnings("serial")
 public class SearchPanel extends JPanel implements ActionListener{
 	private JButton btnSearch;
 	private ConsumerService service;
-	private ConsumerInputPanel pTextInput;
 	private ConsumerListPanel pTable;
+	private ConsumerInputPanel pTextInput;
 	private JMenuItem mntmChoice;
 	private ChoiceConsumerPanel pChoiceConInfo;
 	private JButton btnCancel;
+	private JTabbedPane tabMain;
+	private ChoiceConsumerPanel pConInfo;
+	private static OrderPanel pOrder = OrderPanel.getInstance();
 
-	/**
-	 * Create the panel.
-	 */
+	private static SearchPanel instance = new SearchPanel();
+	
+	
+	public static SearchPanel getInstance() {
+		return instance;
+	}
+
+	public void setTabMain(JTabbedPane tabMain) {
+		this.tabMain = tabMain;
+	}
+	
+	
+	public void setpConInfo(ChoiceConsumerPanel pConInfo) {
+		this.pConInfo = pConInfo;
+	}
+
 	public SearchPanel() {
 
 		initialize();
@@ -112,16 +127,39 @@ public class SearchPanel extends JPanel implements ActionListener{
 		}
 	}
 	private void actionPerformedMntmChoice(ActionEvent e) {
-		Consumer choCon = pTable.getItem();
-		
-		System.out.println(choCon);
+//		String name;
+//		String grade;
+//		String phone;
+		Consumer choCon = new Consumer();
+		choCon = pTable.getItem();
 		String name = choCon.getConName();
-		GradeDc grade = choCon.getConGrade();
+		String grade = choCon.getConGrade().getGrade();
 		String phone = choCon.getConPhone();
+//		getTfAll();
 		
-		pChoiceConInfo.setTfAll(name, grade.getGrade(), phone);
-		
+		pChoiceConInfo.setTfAll(name, grade, phone);
+
+		tabMain.setSelectedIndex(1);
+//		pOrder.setpConInfo(pChoiceConInfo);
+		//물어보기 하 ...
+//		tabMain.getComponent(1);
 	}
+//	너무어려워
+//	private void getTfAll() {
+//		getTfName();
+//		getTfGrade();
+//		getTfPhone();
+//	}
+//
+//	public void getTfName() {
+//		name = choCon.getConName();
+//	}
+//	public void getTfGrade() {
+//		grade = choCon.getConGrade().getGrade();
+//	}
+//	public void getTfPhone() {
+//		phone = choCon.getConPhone();
+//	}
 	
 	protected void actionPerformedBtnSearch(ActionEvent e) {
 		String name = pTextInput.getTfConsumer().getText();
