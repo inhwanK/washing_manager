@@ -63,6 +63,7 @@ public class TabbedMain extends JFrame implements ActionListener {
 		pOrder = new OrderPanel();
 		pOrder.setToolTipText("");
 		tabMain.addTab("주문", null, pOrder, null);
+		pSearch.setpOrder(pOrder);
 		
 		JPanel pStatus = new JPanel();
 		pStatus.setToolTipText("");

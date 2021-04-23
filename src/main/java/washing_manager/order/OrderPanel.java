@@ -16,36 +16,32 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import washing_manager.content.ChoiceConsumerPanel;
+import washing_manager.dto.Consumer;
 import washing_manager.search.SearchPanel;
 
 @SuppressWarnings("serial")
 public class OrderPanel extends JPanel implements ActionListener {
 	private JPanel pOrderList;
 	private JButton btnAddOrder;
-	private String name;
-	private String grade;
-	private String phone;
+
 	private int a = 0;
 	private List<JPanel> listOrderitem = new ArrayList<>();
 	private ChoiceConsumerPanel pConInfo;
 	private SearchPanel pSearch = SearchPanel.getInstance();
 	// 싱글톤 패턴? 그 개념을 공부해야함. 그리고 사용해보자.
 	private JButton btnDelOrder;
-	
+
 	private static OrderPanel instance = new OrderPanel();
 		
 	public static OrderPanel getInstance() {
 		return instance;
 	}
 
+	
 	public ChoiceConsumerPanel getpConInfo() {
 		return pConInfo;
 	}
 
-
-	public void setpConInfo(ChoiceConsumerPanel pConInfo) {
-		this.pConInfo = pConInfo;
-	}
 
 	// 추가 삭제는 구현했음... 아마?
 	public List<JPanel> addListOrderitem(OrderItemPanel item) {
@@ -68,6 +64,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 	public OrderPanel() {
 
 		initialize();
+		
 	}
 
 	private void initialize() {
@@ -76,11 +73,6 @@ public class OrderPanel extends JPanel implements ActionListener {
 		pConInfo = new ChoiceConsumerPanel();
 		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uACE0\uAC1D\uC815\uBCF4", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		add(pConInfo, BorderLayout.NORTH);
-		
-//		pSearch.getTfName();
-//		pSearch.getTfGrade();
-//		pSearch.getTfPhone();
-//		pConInfo.setTfAll(name, grade, phone);
 		
 		pOrderList = new JPanel();
 		pOrderList.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -129,6 +121,4 @@ public class OrderPanel extends JPanel implements ActionListener {
 		pOrderList.revalidate();
 
 	}
-
-	
 }

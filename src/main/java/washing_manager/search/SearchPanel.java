@@ -30,20 +30,33 @@ public class SearchPanel extends JPanel implements ActionListener{
 	private JButton btnCancel;
 	private JTabbedPane tabMain;
 	private ChoiceConsumerPanel pConInfo;
-	private static OrderPanel pOrder = OrderPanel.getInstance();
+	private static OrderPanel pOrder;
+
 
 	private static SearchPanel instance = new SearchPanel();
 	
 	
+	public static void setpOrder(OrderPanel pOrder) {
+		SearchPanel.pOrder = pOrder;
+	}
+
 	public static SearchPanel getInstance() {
 		return instance;
 	}
 
-	public void setTabMain(JTabbedPane tabMain) {
+	public void setTabMain(JTabbedPane tabMain) {// 필수
 		this.tabMain = tabMain;
 	}
 	
 	
+	public ConsumerListPanel getpTable() {
+		return pTable;
+	}
+
+	public void setpTable(ConsumerListPanel pTable) {
+		this.pTable = pTable;
+	}
+
 	public void setpConInfo(ChoiceConsumerPanel pConInfo) {
 		this.pConInfo = pConInfo;
 	}
@@ -127,40 +140,18 @@ public class SearchPanel extends JPanel implements ActionListener{
 		}
 	}
 	private void actionPerformedMntmChoice(ActionEvent e) {
-//		String name;
-//		String grade;
-//		String phone;
+
 		Consumer choCon = new Consumer();
 		choCon = pTable.getItem();
 		String name = choCon.getConName();
 		String grade = choCon.getConGrade().getGrade();
 		String phone = choCon.getConPhone();
-//		getTfAll();
 		
-		pChoiceConInfo.setTfAll(name, grade, phone);
-
 		tabMain.setSelectedIndex(1);
-//		pOrder.setpConInfo(pChoiceConInfo);
-		//물어보기 하 ...
-//		tabMain.getComponent(1);
+		
+		pOrder.getpConInfo().setTfAll(name, grade, phone);
+
 	}
-//	너무어려워
-//	private void getTfAll() {
-//		getTfName();
-//		getTfGrade();
-//		getTfPhone();
-//	}
-//
-//	public void getTfName() {
-//		name = choCon.getConName();
-//	}
-//	public void getTfGrade() {
-//		grade = choCon.getConGrade().getGrade();
-//	}
-//	public void getTfPhone() {
-//		phone = choCon.getConPhone();
-//	}
-	
 	protected void actionPerformedBtnSearch(ActionEvent e) {
 		String name = pTextInput.getTfConsumer().getText();
 		pTable.setConName(name);
