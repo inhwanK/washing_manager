@@ -47,18 +47,24 @@ select * from orderturn;
 -- 순번 데이터
 insert into orderturn(orderdate) values (now());
 
--- 주문 순번 맞추려고 노력중...
+-- 주문 순번 테이블로 순번에 따라 검색하기
 select * from orderlist;
 select group_concat(ordno separator ',') from orderlist;
 
 select concat(o2.lndcode,'(' ,o2.lndea,')') as '제품코드(주문수량)', turn from orderlist o2;
 
+-- 순번 검색 성공!!!!
 select turn as 순번,
-	   group_concat(concat(lndcode,'(' ,lndea,')') separator ',') as '제품코드(주문수량)' ,
-	   as 
-  from orderlist join 
- group by turn 
- order by turn asc;
+	   c.conname as 고객명,
+	   group_concat(concat(l.lndname ,' (' ,o.lndea,')') separator ', ') as '제품코드(주문수량)',
+	   group_concat(l.lndprice separator ', ') as 세탁단가,
+	   c.congrade as 등급,
+	   g.discount as 할인율,
+	   sum(o.lndea * l.lndprice) * (1-round(g.discount, 3)) as 세탁가격
+  from orderlist o join consumer c on o.conphone = c.conphone 
+  left join laundry l on o.lndcode = l.lndcode join gradedc g on c.congrade = g.grade 
+ group by o.turn 
+ order by o.turn asc;
 
 -- 주문목록 데이터
 select * from orderlist;
