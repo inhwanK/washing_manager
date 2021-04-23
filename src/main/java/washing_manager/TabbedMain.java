@@ -61,12 +61,10 @@ public class TabbedMain extends JFrame implements ActionListener {
 		pSearch.setTabMain(tabMain);
 		
 		pOrder = new OrderPanel();
-		pOrder.setToolTipText("");
 		tabMain.addTab("주문", null, pOrder, null);
 		pSearch.setpOrder(pOrder);
 		
 		JPanel pStatus = new JPanel();
-		pStatus.setToolTipText("");
 		tabMain.addTab("현황", null, pStatus, null);
 		pStatus.setLayout(new GridLayout(2, 0, 0, 10));
 		
