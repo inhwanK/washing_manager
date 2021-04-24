@@ -2,20 +2,18 @@ package washing_manager.service;
 
 import java.util.List;
 
-import washing_manager.dao.OrderListDao;
-import washing_manager.dao.impl.OrderListDaoImpl;
-import washing_manager.dto.OrderList;
+import washing_manager.dao.OrderViewDao;
+import washing_manager.dao.impl.OrderViewDaoImpl;
+import washing_manager.dto.ViewAll;
 
 public class OrderListService {
-	private OrderListDao dao = OrderListDaoImpl.getInstance();
-	
-	public List<OrderList> showOrderListByTurn(){
-		return dao.selectOrderListByTurn();
+	private OrderViewDao dao = OrderViewDaoImpl.getInstance();
+
+	public List<ViewAll> showOrderViewAll() {
+		return dao.selectOrderListViewAll();
 	}
-	
-	public List<OrderList> showOrderListByPrice(){
-		
-		
-		return dao.selectOrderListByPrice();
+
+	public List<ViewAll> showOrderViewByPrice() {
+		return dao.selectOrderListViewByPrice();
 	}
 }

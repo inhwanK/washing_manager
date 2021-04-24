@@ -1,29 +1,27 @@
 package washing_manager.dao.impl;
 
-
-
-import static org.junit.Assert.fail;
-
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import washing_manager.dto.OrderList;
+import washing_manager.dto.ViewAll;
 
 public class OrderListDaoImplTest {
-	private OrderListDaoImpl dao = OrderListDaoImpl.getInstance();
-	
+	private OrderViewDaoImpl dao = OrderViewDaoImpl.getInstance();
+
 	@Test
-	public void testSelectOrderListByTurn() {
-		System.out.println("testSelectOrderListByTurn()");
-		List<OrderList> res = dao.selectOrderListByTurn();
+	public void testSelectOrderListViewAll() {
+		System.out.println("testSelectOrderListViewAll()");
+		List<ViewAll> res = dao.selectOrderListViewAll();
 		Assert.assertNotNull(res);
 	}
 
 	@Test
-	public void testSelectOrderListByPrice() {
-		fail("Not yet implemented");
+	public void testSelectOrderListViewByPrice() {
+		System.out.println("testSelectOrderListViewByPrice()");
+		List<ViewAll> res = dao.selectOrderListViewAll();
+		Assert.assertNotNull(res);
 	}
 
 }
