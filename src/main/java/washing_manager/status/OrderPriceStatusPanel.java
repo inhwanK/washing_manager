@@ -10,7 +10,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.RowSorter;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -18,21 +17,20 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import washing_manager.dto.ViewAll;
-import washing_manager.service.OrderListService;
+import washing_manager.service.OrderViewService;
 
 @SuppressWarnings("serial")
 public class OrderPriceStatusPanel extends JPanel {
 
 	private JTable table;
 	private List<ViewAll> list;
-	private OrderListService service = new OrderListService();
+	private OrderViewService service = new OrderViewService();
 
 	public OrderPriceStatusPanel() {
 		initialize();
 	}
 
 	private void initialize() {
-		setBorder(new LineBorder(null));
 		setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -43,11 +41,12 @@ public class OrderPriceStatusPanel extends JPanel {
 		loadData(); // 구현해야됨.
 		scrollPane.setViewportView(table);
 
-		JLabel lblNewLabel = new JLabel("세 탁 가 격 순 위");
-		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 20));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblNewLabel, BorderLayout.NORTH);
+		JLabel lblPriceRank = new JLabel("세 탁 가 격 순 위");
+		lblPriceRank.setFont(new Font("굴림", Font.BOLD, 20));
+		lblPriceRank.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblPriceRank, BorderLayout.NORTH);
 	}
+	
 
 	private void loadData() {
 		initList();
@@ -75,7 +74,7 @@ public class OrderPriceStatusPanel extends JPanel {
 
 	private Object[] getColumnNames() {
 
-		return new String[] { "순번", "고객명", "제품명", "세탁수량", "세탁단가", "등급", "할인율", "세탁가격" };
+		return new String[] { "순위", "고객명", "제품명", "세탁수량", "세탁단가", "등급", "할인율", "세탁가격" };
 	}
 
 	private Object[] toArray(ViewAll viewAll) {

@@ -95,10 +95,10 @@ public class SearchPanel extends JPanel implements ActionListener{
 		mntmOrder.addActionListener(this);
 		popupMenu.add(mntmOrder);
 		
-		JMenuItem mntmConOrderList = new JMenuItem("고객 주문 목록");
+		JMenuItem mntmConOrderList = new JMenuItem("고객 주문 목록"); // not implement yet
 		popupMenu.add(mntmConOrderList);
 		
-		JMenuItem mntmConUpdate = new JMenuItem("고객 정보 수정");
+		JMenuItem mntmConUpdate = new JMenuItem("고객 정보 수정"); // not implement yet
 		popupMenu.add(mntmConUpdate);
 		
 		JPanel pConChoice = new JPanel();

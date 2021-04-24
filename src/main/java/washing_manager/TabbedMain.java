@@ -15,6 +15,7 @@ import washing_manager.order.OrderPanel;
 import washing_manager.search.SearchPanel;
 import washing_manager.status.OrderPriceStatusPanel;
 import washing_manager.status.OrderTurnStatusPanel;
+import washing_manager.status.StatusPanel;
 
 @SuppressWarnings("serial")
 public class TabbedMain extends JFrame implements ActionListener {
@@ -24,6 +25,7 @@ public class TabbedMain extends JFrame implements ActionListener {
 	
 	private JPanel contentPane;
 	private JTabbedPane tabMain;
+	private StatusPanel pStatus;
 	
 	public OrderPanel getpOrder() {
 		return pOrder;
@@ -47,7 +49,7 @@ public class TabbedMain extends JFrame implements ActionListener {
 	}
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 513, 387);
+		setBounds(100, 100, 700, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -64,21 +66,14 @@ public class TabbedMain extends JFrame implements ActionListener {
 		tabMain.addTab("주문", null, pOrder, null);
 		pSearch.setpOrder(pOrder);
 		
-		JPanel pStatus = new JPanel();
-		tabMain.addTab("현황", null, pStatus, null);
-		pStatus.setLayout(new GridLayout(2, 0, 0, 10));
-		
-		JPanel pTurnList = new OrderTurnStatusPanel();
-		pStatus.add(pTurnList);
-		
-		OrderPriceStatusPanel pPriceList = new OrderPriceStatusPanel();
-		pStatus.add(pPriceList);
+		pStatus = new StatusPanel();
+		tabMain.addTab("현황", null, pStatus, null); // 현황 탭 눌렸을 때 setbounds 더 크게 설정해보자.
 		
 		
 	}
 
 	public void actionPerformed(ActionEvent e) {
-			
+		
 	}
 
 }

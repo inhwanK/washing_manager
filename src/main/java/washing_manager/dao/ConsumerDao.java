@@ -2,7 +2,6 @@ package washing_manager.dao;
 
 import java.util.List;
 
-import washing_manager.dao.impl.ConsumerDaoImpl;
 import washing_manager.dto.Consumer;
 
 public interface ConsumerDao {
