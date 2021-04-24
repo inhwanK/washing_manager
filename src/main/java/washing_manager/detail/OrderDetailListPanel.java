@@ -1,16 +1,11 @@
-package washing_manager.status;
+package washing_manager.detail;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 import java.util.List;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.RowSorter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -19,17 +14,18 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import washing_manager.dto.ViewAll;
-import washing_manager.service.OrderViewService;
+import washing_manager.dto.OrderList;
+import washing_manager.service.OrderDetailService;
 
 @SuppressWarnings("serial")
-public class OrderTurnStatusPanel extends JPanel {
-
+public class OrderDetailListPanel extends JPanel {
 	private JTable table;
-	private List<ViewAll> list;
-	private OrderViewService service = new OrderViewService();
+	private List<OrderList> list;
+	private OrderDetailService service = new OrderDetailService();
+	private int turnNo;
 
-	public OrderTurnStatusPanel() {
+	public OrderDetailListPanel() {
+
 		initialize();
 	}
 
@@ -41,14 +37,8 @@ public class OrderTurnStatusPanel extends JPanel {
 
 		table = new JTable();
 		table.setModel(getModel());
-		loadData();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		loadData(); // 구현해야됨.
 		scrollPane.setViewportView(table);
-		
-		JLabel lblOrderStatus = new JLabel("세 탁 물 주 문 현 황");
-		lblOrderStatus.setFont(new Font("굴림", Font.BOLD, 20));
-		lblOrderStatus.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblOrderStatus, BorderLayout.NORTH);
 	}
 
 	private void loadData() {
@@ -57,14 +47,10 @@ public class OrderTurnStatusPanel extends JPanel {
 	}
 
 	private void initList() {
-		list = service.showOrderViewAll();
+		list = service.showOrderDetailByTurn(turnNo); // turnNo 전달해줘야함.
 	}
 
-	public void setPopupMenu(JPopupMenu popMenu) { // 이거 꼭필요함
-		table.setComponentPopupMenu(popMenu); 
-	}
-	
-	public void setData() {
+	public void setData() { 
 		Object[][] data = new Object[list.size()][];
 		for (int i = 0; i < data.length; i++) {
 			data[i] = toArray(list.get(i));
@@ -79,35 +65,16 @@ public class OrderTurnStatusPanel extends JPanel {
 		setAlignAndWidth();
 	}
 
-	
 	private Object[] getColumnNames() {
 
-		return new String[] { "순번", "고객명", "제품명(세탁수량)", "세탁단가", "등급", "할인율", "세탁가격"};
+		return new String[] {};
 	}
 
-	// toArray 다시짜봄.
-	private Object[] toArray(ViewAll viewAll) {
-	
-		return new Object[] { viewAll.getTurnNo(), viewAll.getConName(), viewAll.getLndNameEa(), viewAll.getPriceEa(),
-				viewAll.getConGrade(), viewAll.getDiscount(), viewAll.getPriceAll() };
-	}
-	
-	public int getItem() { // 수정 필수
-		int row = table.getSelectedRow();
+	private Object[] toArray(OrderList orderList) {
 
-		int turnNo = (int) table.getValueAt(row, 0);
-		
-		if (row == -1) {
-			
-			// exception을 던지고 그다음 메세지 출력해야돼 인환아
-			JOptionPane.showMessageDialog(null, "선택을 안햇자나");
-		}
-		// 리턴이 문제임 인환아 indexOf메서드는 인덱스가 0인거랑 비교하는 듯?
-		return turnNo;
-
+		return new Object[] {};
 	}
-	//
-	
+
 	private TableModel getModel() {
 		CustomTableModel model = new CustomTableModel(/* getData(), getColumnNames() */);
 		return model;
@@ -115,9 +82,9 @@ public class OrderTurnStatusPanel extends JPanel {
 
 	protected void setAlignAndWidth() {
 		// 컬럼내용 정렬
-		setTableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5, 6);
+		setTableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5, 6, 7);
 		// 컬럼별 너비 조정
-		setTableCellWidth(90, 90, 150, 120, 90, 90, 90);
+		setTableCellWidth(90, 90, 90, 90, 90, 90, 90, 90);
 	}
 
 	protected void setTableCellWidth(int... width) {
@@ -154,4 +121,8 @@ public class OrderTurnStatusPanel extends JPanel {
 		}
 	}
 
+	public void setTurnNo(int turnNo) {
+		this.turnNo = turnNo;
+
+	}
 }

@@ -6,7 +6,8 @@ import washing_manager.dao.OrderViewDao;
 import washing_manager.dao.impl.OrderViewDaoImpl;
 import washing_manager.dto.ViewAll;
 
-public class OrderListService {
+public class OrderViewService {
+
 	private OrderViewDao dao = OrderViewDaoImpl.getInstance();
 
 	public List<ViewAll> showOrderViewAll() {
