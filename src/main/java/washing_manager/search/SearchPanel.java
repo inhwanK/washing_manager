@@ -25,8 +25,7 @@ public class SearchPanel extends JPanel implements ActionListener{
 	private ConsumerService service;
 	private ConsumerListPanel pTable;
 	private ConsumerInputPanel pTextInput;
-	private JMenuItem mntmChoice;
-	private ChoiceConsumerPanel pChoiceConInfo;
+	private JMenuItem mntmOrder;
 	private JButton btnCancel;
 	private JTabbedPane tabMain;
 	private ChoiceConsumerPanel pConInfo;
@@ -92,50 +91,31 @@ public class SearchPanel extends JPanel implements ActionListener{
 		JPopupMenu popupMenu = new JPopupMenu();
 		pTable.setPopupMenu(popupMenu);
 		
-		mntmChoice = new JMenuItem("선택");
-		mntmChoice.addActionListener(this);
-		popupMenu.add(mntmChoice);
+		mntmOrder = new JMenuItem("주문");
+		mntmOrder.addActionListener(this);
+		popupMenu.add(mntmOrder);
 		
-		JMenuItem mntmConInfo = new JMenuItem("고객정보");
-		popupMenu.add(mntmConInfo);
-		
-		JMenuItem mntmConOrderList = new JMenuItem("고객 주문 현황");
+		JMenuItem mntmConOrderList = new JMenuItem("고객 주문 목록");
 		popupMenu.add(mntmConOrderList);
+		
+		JMenuItem mntmConUpdate = new JMenuItem("고객 정보 수정");
+		popupMenu.add(mntmConUpdate);
 		
 		JPanel pConChoice = new JPanel();
 		pConChoice.setBorder(new EmptyBorder(2, 2, 2, 2));
 		add(pConChoice, BorderLayout.SOUTH);
 		pConChoice.setLayout(new GridLayout(0, 1, 10, 0));
 		
-		pChoiceConInfo = new ChoiceConsumerPanel();
-		pConChoice.add(pChoiceConInfo);
-		
 		JPanel pBtn = new JPanel();
 		pConChoice.add(pBtn);
 		pBtn.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JButton btnOrder = new JButton("주문하기");
-		pBtn.add(btnOrder);
-		
-		btnCancel = new JButton("선택취소");
-		btnCancel.addActionListener(this);
-		pBtn.add(btnCancel);
-		
-		JButton btnConOrderList = new JButton("고객주문목록");
-		pBtn.add(btnConOrderList);
-		
-		JButton btnUpdate = new JButton("고객정보수정");
-		pBtn.add(btnUpdate);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnCancel) {
-			actionPerformedBtnNewButton_1(e);
-		}
 		if (e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
 		}
-		if (e.getSource() == mntmChoice) {
+		if (e.getSource() == mntmOrder) {
 			actionPerformedMntmChoice(e);
 		}
 	}
@@ -156,9 +136,5 @@ public class SearchPanel extends JPanel implements ActionListener{
 		String name = pTextInput.getTfConsumer().getText();
 		pTable.setConName(name);
 		pTable.loadData();
-	}
-
-	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
-		pChoiceConInfo.setTfAll("", "", "");
 	}
 }
