@@ -9,7 +9,7 @@ public class ViewAll {
 	private String lndNameEa; // 값이 여러개임.
 	private String priceEa; // 값이 여러개임.
 	private String conGrade;
-	private float discount;
+	private int discount;
 	private int priceAll;
 	private String lndCode;
 	private String conPhone;
@@ -68,7 +68,7 @@ public class ViewAll {
 		return discount;
 	}
 	
-	public void setDiscount(float discount) {
+	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
 	public int getPriceAll() {

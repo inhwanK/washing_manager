@@ -63,7 +63,7 @@ public class OrderViewDaoImpl implements OrderViewDao {
 		}
 
 		try {
-			v_all.setDiscount((rs.getFloat("할인율")));
+			v_all.setDiscount(rs.getInt("할인율"));
 		} catch (SQLException e) {
 		}
 
@@ -136,7 +136,7 @@ public class OrderViewDaoImpl implements OrderViewDao {
 	@Override
 	public List<ViewAll> selectOrderListViewByPrice() {
 		String sql = "select (select count(*)+1 from v_all where 세탁가격 > a.세탁가격) as 순위,\r\n"
-				+ "		고객명, 제품명, 세탁수량, 세탁단가, 등급, round(할인율,2) as 할인율 , 세탁가격\r\n" + "  from v_all a\r\n"
+				+ "		고객명, 제품명, 세탁수량, 세탁단가, 등급, 할인율 , 세탁가격\r\n" + "  from v_all a\r\n"
 				+ "  order by 순위 asc;";
 		try (Connection con = WashingJdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
