@@ -22,14 +22,13 @@ public class OrderDetailListPanel extends JPanel {
 	private JTable table;
 	private List<OrderList> list;
 	private OrderDetailService service = new OrderDetailService();
-	private int turnNo;
+	
+	public OrderDetailListPanel(int turnNo) {
 
-	public OrderDetailListPanel() {
-
-		initialize();
+		initialize(turnNo);
 	}
 
-	private void initialize() {
+	private void initialize(int turnNo) {
 		setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -37,16 +36,16 @@ public class OrderDetailListPanel extends JPanel {
 
 		table = new JTable();
 		table.setModel(getModel());
-		loadData(); // 구현해야됨.
+		loadData(turnNo); // 구현해야됨.
 		scrollPane.setViewportView(table);
 	}
 
-	private void loadData() {
-		initList();
+	private void loadData(int turnNo) {
+		initList(turnNo);
 		setData();
 	}
 
-	private void initList() {
+	private void initList(int turnNo) {
 		list = service.showOrderDetailByTurn(turnNo); // turnNo 전달해줘야함.
 	}
 
@@ -67,12 +66,12 @@ public class OrderDetailListPanel extends JPanel {
 
 	private Object[] getColumnNames() {
 
-		return new String[] {};
+		return new String[] {"번호", "제품코드", "제품명", "세탁수량", "세탁단가", "세탁물별총가격"};
 	}
 
 	private Object[] toArray(OrderList orderList) {
-
-		return new Object[] {};
+		return new Object[] {orderList.getDetailNo(), orderList.getLndCode().getLndCode(), orderList.getLndCode().getLndName(),
+				orderList.getLndEa() ,orderList.getLndCode().getLndPrice(), orderList.getTotalPrice() };
 	}
 
 	private TableModel getModel() {
@@ -82,9 +81,9 @@ public class OrderDetailListPanel extends JPanel {
 
 	protected void setAlignAndWidth() {
 		// 컬럼내용 정렬
-		setTableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5, 6, 7);
+		setTableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5);
 		// 컬럼별 너비 조정
-		setTableCellWidth(90, 90, 90, 90, 90, 90, 90, 90);
+		setTableCellWidth(90, 90, 90, 90, 90, 90);
 	}
 
 	protected void setTableCellWidth(int... width) {
@@ -119,10 +118,5 @@ public class OrderDetailListPanel extends JPanel {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		}
-	}
-
-	public void setTurnNo(int turnNo) {
-		this.turnNo = turnNo;
-
 	}
 }

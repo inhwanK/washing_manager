@@ -63,7 +63,7 @@ select o.turn as 순번,
 	   group_concat(concat(l.lndname ,' (' ,o.lndea,')') separator ', ') as '제품명(세탁수량)',
 	   group_concat(l.lndprice separator ', ') as 세탁단가,
 	   c.congrade as 등급,
-	   round(g.discount,2) as 할인율,
+	   round(g.discount * 100, 3) as 할인율,
 	   sum(o.lndea * l.lndprice) * (1-round(g.discount, 3)) as 세탁가격,
 	   group_concat(l.lndcode separator ', ') as 세탁물코드,
 	   c.conphone as 고객번호,
@@ -110,23 +110,4 @@ select conphone, conname, grade, discount
 select * 
 from consumer c join gradedc g where c.congrade = g.grade;
 
-
--- 순번 테이블 자원.
-create view v_turnno as
-select o.ordno as 순번,
-	   c.conname as 고객명,
-	   l.lndcode as 세탁물코드,
-	   l.lndname as 제품명,
-	   l.lndprice as 세탁단가,
-	   o.lndea as 세탁수량,
-	   g.grade as 등급,
-	   g.discount as 할인율,
-	   round(o.lndea * l.lndprice -(o.lndea * l.lndprice * g.discount),2) as 세탁가격,
-	   c.conphone as 고객번호
-  from orderlist o join consumer c on o.conphone = c.conphone
-  left join laundry l on o.lndcode = l.lndcode
-  join gradedc g on c.congrade = g.grade order by ordno;
-
-
-  
  

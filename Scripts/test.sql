@@ -44,7 +44,7 @@ select o.turn as 순번,
 	   group_concat(concat(l.lndname ,' (' ,o.lndea,')') separator ', ') as '제품명(세탁수량)',
 	   group_concat(l.lndprice separator ', ') as 세탁단가,
 	   c.congrade as 등급,
-	   g.discount as 할인율,
+	   round(g.discount * 100, 3) as 할인율,
 	   sum(o.lndea * l.lndprice) * (1-round(g.discount, 3)) as 세탁가격,
 	   group_concat(l.lndcode separator ', ') as 세탁물코드,
 	   c.conphone as 고객번호,
@@ -60,8 +60,6 @@ select o.turn as 순번,
 
 
 -- test
- 
-
  select * from v_all;
 
 set @count=0;
@@ -77,6 +75,15 @@ SELECT @ROWNUM:=@ROWNUM+1, A.*
 FROM 테이블명 A, (SELECT @ROWNUM:=0) R;
 
 select concat(o.turn, '-', @rownum:=@rownum+1) as 번호,
+	   o.lndcode as 제품코드,
+	   l.lndname as 제품명,
+	   o.lndea as 세탁수량,
+	   l.lndprice as 세탁단가,
+	   o.lndea * l.lndprice as 세탁물별총가격
+  from orderlist o left join laundry l on o.lndcode =l.lndcode , (select @rownum:=0) r 
+  where o.turn = 3;
+  
+select @rownum:=@rownum+1 as 번호,
 	   o.lndcode as 제품코드,
 	   l.lndname as 제품명,
 	   o.lndea as 세탁수량,

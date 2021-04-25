@@ -1,13 +1,12 @@
 package washing_manager.status;
 
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
 
 import washing_manager.detail.OrderDetailListFrame;
@@ -18,17 +17,15 @@ public class StatusPanel extends JPanel implements ActionListener{
 	private OrderPriceStatusPanel pPriceStatus;
 	private OrderTurnStatusPanel pTurnStatus;
 	private JMenuItem mntmOrderDetail;
-	private OrderDetailListFrame frame = new OrderDetailListFrame();
-	/**
-	 * Create the panel.
-	 */
+
+	
 	public StatusPanel() {
 
 		initialize();
 	}
 	private void initialize() {
-		setBorder(new EmptyBorder(0, 10, 0, 10));
-		setLayout(new GridLayout(1, 2, 10, 0));
+		setBorder(new EmptyBorder(0, 5, 0, 5));
+		setLayout(new GridLayout(2, 1, 0, 10));
 		
 		pTurnStatus = new OrderTurnStatusPanel();
 		add(pTurnStatus);
@@ -47,7 +44,7 @@ public class StatusPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == mntmOrderDetail) {
 			int turnNo = pTurnStatus.getItem();
-			frame.setTurnNo(turnNo);
+			OrderDetailListFrame frame = new OrderDetailListFrame(turnNo);
 			frame.setVisible(true);
 		}
 		

@@ -2,7 +2,6 @@ package washing_manager;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,8 +12,6 @@ import javax.swing.border.EmptyBorder;
 
 import washing_manager.order.OrderPanel;
 import washing_manager.search.SearchPanel;
-import washing_manager.status.OrderPriceStatusPanel;
-import washing_manager.status.OrderTurnStatusPanel;
 import washing_manager.status.StatusPanel;
 
 @SuppressWarnings("serial")

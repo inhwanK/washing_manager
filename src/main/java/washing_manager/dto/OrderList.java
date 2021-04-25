@@ -8,13 +8,9 @@ public class OrderList {
 	private Consumer conPhone;
 	private OrderTurn turn;
 	
-	//impl 용
-	private String ordersNo;
-	private int priceRank;
-	private String lndsNameEa;
-	private int turnNo;
-	
-	
+	//impl 
+	private int detailNo;
+	private int totalPrice;
 
 	public OrderList() {
 		super();
@@ -89,15 +85,25 @@ public class OrderList {
 	public void setTurn(OrderTurn turn) {
 		this.turn = turn;
 	}
-	
-	// 여기부터 리스트용
 
-	public int getPriceRank() {
-		return priceRank;
+	
+	// impl
+	
+	public int getDetailNo() {
+		return detailNo;
 	}
 
-	public void setPriceRank(int priceRank) {
-		this.priceRank = priceRank;
+	public void setDetailNo(int detailNo) {
+		this.detailNo = detailNo;
+	}
+
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 	@Override
@@ -105,5 +111,5 @@ public class OrderList {
 		return String.format("OrderList [ordNo=%s, lndEa=%s, lndCode=%s, conPhone=%s, turn=%s]", ordNo, lndEa, lndCode,
 				conPhone, turn);
 	}
-	
+
 }
