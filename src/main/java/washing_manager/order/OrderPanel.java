@@ -3,7 +3,6 @@ package washing_manager.order;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -16,32 +15,33 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import washing_manager.content.ChoiceConsumerPanel;
-import washing_manager.dto.Consumer;
 import washing_manager.search.SearchPanel;
 
 @SuppressWarnings("serial")
 public class OrderPanel extends JPanel implements ActionListener {
-	private JPanel pOrderList;
-	private JButton btnAddOrder;
+	private JPanel pOrderEdit;
 
-	private int a = 0;
 	private List<JPanel> listOrderitem = new ArrayList<>();
 	private ChoiceConsumerPanel pConInfo;
 	private SearchPanel pSearch = SearchPanel.getInstance();
-	// 싱글톤 패턴? 그 개념을 공부해야함. 그리고 사용해보자.
-	private JButton btnDelOrder;
 
 	private static OrderPanel instance = new OrderPanel();
-		
+	private JPanel pBtn;
+	private JButton btnAddOrd;
+	private JPanel pOrderItem;
+	private int labelNumber;
+
+	public void setpOrderItem(JPanel pOrderItem) {
+		this.pOrderItem = pOrderItem;
+	}
+
 	public static OrderPanel getInstance() {
 		return instance;
 	}
 
-	
 	public ChoiceConsumerPanel getpConInfo() {
 		return pConInfo;
 	}
-
 
 	// 추가 삭제는 구현했음... 아마?
 	public List<JPanel> addListOrderitem(OrderItemPanel item) {
@@ -64,61 +64,97 @@ public class OrderPanel extends JPanel implements ActionListener {
 	public OrderPanel() {
 
 		initialize();
-		
+
 	}
 
 	private void initialize() {
 		setLayout(new BorderLayout(0, 10));
 
 		pConInfo = new ChoiceConsumerPanel();
-		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uACE0\uAC1D\uC815\uBCF4", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uACE0\uAC1D\uC815\uBCF4",
+				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		add(pConInfo, BorderLayout.NORTH);
-		
-		pOrderList = new JPanel();
-		pOrderList.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		add(pOrderList, BorderLayout.CENTER);
-		pOrderList.setLayout(new GridLayout(5, 1, 0, 5));
+		pOrderEdit = new JPanel();
+		pOrderEdit.setBorder(new EmptyBorder(5, 5, 5, 5));
+		add(pOrderEdit, BorderLayout.CENTER);
+		pOrderEdit.setLayout(new BorderLayout(0, 0));
+
+		pBtn = new JPanel();
+		pOrderEdit.add(pBtn, BorderLayout.SOUTH);
+
+		btnAddOrd = new JButton("+");
+		btnAddOrd.setFont(new Font("굴림", Font.BOLD, 60));
+		btnAddOrd.addActionListener(this);
+		pBtn.add(btnAddOrd);
+
+		pOrderItem = new JPanel();
+		pOrderEdit.add(pOrderItem, BorderLayout.CENTER);
 
 		// 버튼을 생성 그리고 초기화.
-		a = 0;
-		btnAddOrder = new JButton("+");
-		btnAddOrder.addActionListener(this);
-		btnAddOrder.setFont(new Font("굴림", Font.BOLD, 60));
-
-		pOrderList.add(btnAddOrder);
-		
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnAddOrder) {
-			actionPerformedBtnAddOrder(e);
+		if (e.getSource() == btnAddOrd) {
+			actionPerformedBtnAddOrd(e);
 		}
 	}
 
-	private void actionPerformedBtnAddOrder(ActionEvent e) {
+	private void actionPerformedBtnAddOrd(ActionEvent e) {
+		int comCount = pOrderItem.getComponentCount();
+		OrderItemPanel2 item = new OrderItemPanel2(comCount + 1);
 
-		OrderItemPanel item = new OrderItemPanel(a);
-		pOrderList.add(item);
-		pOrderList.add(btnAddOrder);
+		pOrderItem.add(item);
 
-		item.setpOrderList(pOrderList);
-		actionPerformedItemCheck(e);
-
-		a++;
-
-//		나중에 다시하자 
-//		자바 책에서 장바구니 있음.
-	}
-
-	public void actionPerformedItemCheck(ActionEvent e) {
-		if (e.getSource() == btnAddOrder) {
-			if (a == 4) {
-				pOrderList.remove(5);
-			}			
+		if (pOrderItem.getComponentCount() == 5) {
+			pOrderEdit.remove(pBtn);
 		}
 
-		pOrderList.revalidate();
+		comCount = pOrderItem.getComponentCount();
+		for (int i = 0; i < comCount; i++) {
+			((OrderItemPanel2) pOrderItem.getComponent(i)).setpOrderItem(pOrderItem);
+		}
+
+		pOrderItem.revalidate();
+		pOrderEdit.revalidate();
+	}
+
+	private void actionPerformedSortComponent(ActionEvent e) {
+		int itemCount = pOrderItem.getComponentCount();
+
+		for (int i = 0; i < itemCount; i++) {
+
+//			((OrderItemPanel2) pOrderItem.getComponent(i)).setLabelNumber(i + 1);
+			pOrderItem.revalidate();
+
+		}
+	}
+
+	public void actionPerformedRemoveOrder(ActionEvent e) {
+
+		pOrderItem.remove(labelNumber - 1);
+
+		int itemCount = pOrderItem.getComponentCount();
+		for (int i = 0; i < itemCount; i++) {
+			((OrderItemPanel2) pOrderItem.getComponent(i)).setpOrderItem(pOrderItem);
+			((OrderItemPanel2) pOrderItem.getComponent(i)).setLabelNumber(i + 1); //레이블 새로 세팅 ...?
+		}
+		
+		if (itemCount == 4) {
+			pBtn = new JPanel();
+			pOrderEdit.add(pBtn, BorderLayout.SOUTH);
+
+			btnAddOrd = new JButton("+");
+			btnAddOrd.setFont(new Font("굴림", Font.BOLD, 60));
+			btnAddOrd.addActionListener(this);
+			pBtn.add(btnAddOrd);
+		}
+		pOrderItem.revalidate();
+		pOrderEdit.revalidate();
+	}
+
+	public void setItemLbl(int labelNumber) {
+		this.labelNumber = labelNumber;
 
 	}
 }
