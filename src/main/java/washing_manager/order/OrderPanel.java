@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -15,21 +13,26 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import washing_manager.content.ChoiceConsumerPanel;
-import washing_manager.search.SearchPanel;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
 
 @SuppressWarnings("serial")
 public class OrderPanel extends JPanel implements ActionListener {
 	private JPanel pOrderEdit;
-
-	private List<JPanel> listOrderitem = new ArrayList<>();
 	private ChoiceConsumerPanel pConInfo;
-	private SearchPanel pSearch = SearchPanel.getInstance();
-
 	private static OrderPanel instance = new OrderPanel();
-	private JPanel pBtn;
-	private JButton btnAddOrd;
+	private JButton btnAddOrder;
 	private JPanel pOrderItem;
 	private int labelNumber;
+	private JPanel pBtn;
+
+	public void setpBtn(JPanel pBtn) {
+		this.pBtn = pBtn;
+	}
+
+	public void setItemLbl(int labelNumber) {
+		this.labelNumber = labelNumber;
+	}
 
 	public void setpOrderItem(JPanel pOrderItem) {
 		this.pOrderItem = pOrderItem;
@@ -41,22 +44,6 @@ public class OrderPanel extends JPanel implements ActionListener {
 
 	public ChoiceConsumerPanel getpConInfo() {
 		return pConInfo;
-	}
-
-	// 추가 삭제는 구현했음... 아마?
-	public List<JPanel> addListOrderitem(OrderItemPanel item) {
-		listOrderitem.add(item);
-		return listOrderitem;
-	}
-
-	public void delListOrderitem(int i) {
-
-		if (listOrderitem.get(i + 1) != null) {
-			listOrderitem.set(i, listOrderitem.get(i + 1));
-			listOrderitem.set(i + 1, null);
-		} else {
-			listOrderitem.set(i, null);
-		}
 	}
 
 	// loadData와 비슷한 기능
@@ -83,51 +70,42 @@ public class OrderPanel extends JPanel implements ActionListener {
 		pBtn = new JPanel();
 		pOrderEdit.add(pBtn, BorderLayout.SOUTH);
 
-		btnAddOrd = new JButton("+");
-		btnAddOrd.setFont(new Font("굴림", Font.BOLD, 60));
-		btnAddOrd.addActionListener(this);
-		pBtn.add(btnAddOrd);
+		btnAddOrder = new JButton("+");
+		btnAddOrder.setFont(new Font("굴림", Font.BOLD, 60));
+		btnAddOrder.addActionListener(this);
+		pBtn.add(btnAddOrder);
 
 		pOrderItem = new JPanel();
 		pOrderEdit.add(pOrderItem, BorderLayout.CENTER);
+		pOrderItem.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		// 버튼을 생성 그리고 초기화.
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnAddOrd) {
-			actionPerformedBtnAddOrd(e);
+		if (e.getSource() == btnAddOrder) {
+			actionPerformedBtnAddOrder(e);
 		}
 	}
 
-	private void actionPerformedBtnAddOrd(ActionEvent e) {
+	private void actionPerformedBtnAddOrder(ActionEvent e) {
 		int comCount = pOrderItem.getComponentCount();
-		OrderItemPanel2 item = new OrderItemPanel2(comCount + 1);
+		OrderItemPanel item = new OrderItemPanel(comCount + 1);
 
 		pOrderItem.add(item);
 
 		if (pOrderItem.getComponentCount() == 5) {
-			pOrderEdit.remove(pBtn);
+//			pOrderEdit.remove(pBtn);
+			btnAddOrder.setEnabled(false);
 		}
 
 		comCount = pOrderItem.getComponentCount();
 		for (int i = 0; i < comCount; i++) {
-			((OrderItemPanel2) pOrderItem.getComponent(i)).setpOrderItem(pOrderItem);
+			((OrderItemPanel) pOrderItem.getComponent(i)).setpOrderItem(pOrderItem);
 		}
 
 		pOrderItem.revalidate();
 		pOrderEdit.revalidate();
-	}
-
-	private void actionPerformedSortComponent(ActionEvent e) {
-		int itemCount = pOrderItem.getComponentCount();
-
-		for (int i = 0; i < itemCount; i++) {
-
-//			((OrderItemPanel2) pOrderItem.getComponent(i)).setLabelNumber(i + 1);
-			pOrderItem.revalidate();
-
-		}
 	}
 
 	public void actionPerformedRemoveOrder(ActionEvent e) {
@@ -135,26 +113,21 @@ public class OrderPanel extends JPanel implements ActionListener {
 		pOrderItem.remove(labelNumber - 1);
 
 		int itemCount = pOrderItem.getComponentCount();
-		for (int i = 0; i < itemCount; i++) {
-			((OrderItemPanel2) pOrderItem.getComponent(i)).setpOrderItem(pOrderItem);
-			((OrderItemPanel2) pOrderItem.getComponent(i)).setLabelNumber(i + 1); //레이블 새로 세팅 ...?
-		}
-		
 		if (itemCount == 4) {
-			pBtn = new JPanel();
-			pOrderEdit.add(pBtn, BorderLayout.SOUTH);
-
-			btnAddOrd = new JButton("+");
-			btnAddOrd.setFont(new Font("굴림", Font.BOLD, 60));
-			btnAddOrd.addActionListener(this);
-			pBtn.add(btnAddOrd);
+			btnAddOrder.setEnabled(true);
+//			addPbtn();
 		}
+		for (int i = 0; i < itemCount; i++) {
+			((OrderItemPanel) pOrderItem.getComponent(i)).setpOrderItem(pOrderItem);
+			((OrderItemPanel) pOrderItem.getComponent(i)).setLabelNumber(i + 1); // 레이블 새로 세팅 ...?
+		}
+
+		
 		pOrderItem.revalidate();
 		pOrderEdit.revalidate();
 	}
 
-	public void setItemLbl(int labelNumber) {
-		this.labelNumber = labelNumber;
-
+	private void addPbtn() {
+		pOrderEdit.add(pBtn, BorderLayout.SOUTH);
 	}
 }
