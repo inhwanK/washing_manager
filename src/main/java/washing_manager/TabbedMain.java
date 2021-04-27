@@ -22,7 +22,7 @@ public class TabbedMain extends JFrame implements ActionListener {
 	
 	private JPanel contentPane;
 	private JTabbedPane tabMain;
-	private StatusPanel pStatus;
+	private StatusPanel pStatus = StatusPanel.getInstance();
 	
 	public OrderPanel getpOrder() {
 		return pOrder;
@@ -62,9 +62,11 @@ public class TabbedMain extends JFrame implements ActionListener {
 		pOrder = new OrderPanel();
 		tabMain.addTab("주문", null, pOrder, null);
 		pSearch.setpOrder(pOrder);
+		pOrder.setTabMain(tabMain);
 		
 		pStatus = new StatusPanel();
 		tabMain.addTab("현황", null, pStatus, null); // 현황 탭 눌렸을 때 setbounds 더 크게 설정해보자.
+		pOrder.setpStatus(pStatus);
 		
 		
 	}

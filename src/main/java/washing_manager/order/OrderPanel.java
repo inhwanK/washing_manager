@@ -2,13 +2,15 @@ package washing_manager.order;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.security.auth.callback.LanguageCallback;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -18,10 +20,7 @@ import washing_manager.dto.Consumer;
 import washing_manager.dto.Laundry;
 import washing_manager.dto.OrderList;
 import washing_manager.service.OrderListService;
-
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
-import javax.swing.border.LineBorder;
+import washing_manager.status.StatusPanel;
 
 @SuppressWarnings("serial")
 public class OrderPanel extends JPanel implements ActionListener {
@@ -35,6 +34,16 @@ public class OrderPanel extends JPanel implements ActionListener {
 	private JPanel panel;
 	private JButton btnOrderExe;
 	private OrderListService service = new OrderListService();
+	private StatusPanel pStatus;
+	private JTabbedPane tabMain;
+	
+	public void setTabMain(JTabbedPane tabMain) {
+		this.tabMain = tabMain;
+	}
+
+	public void setpStatus(StatusPanel pStatus) {
+		this.pStatus = pStatus;
+	}
 
 	public void setpBtn(JPanel pBtn) {
 		this.pBtn = pBtn;
@@ -114,13 +123,14 @@ public class OrderPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	// 패널 추가 버튼
 	private void actionPerformedBtnAddOrder(ActionEvent e) {
 		int comCount = pOrderItem.getComponentCount();
 		OrderItemPanel item = new OrderItemPanel(comCount + 1);
 
 		pOrderItem.add(item);
 
-		if (pOrderItem.getComponentCount() == 5) {
+		if (pOrderItem.getComponentCount() == 5) { // 곧 삭제될 코드 ㅠㅠ
 //			pOrderEdit.remove(pBtn);
 //			btnAddOrder.setEnabled(true);
 		}
@@ -133,7 +143,8 @@ public class OrderPanel extends JPanel implements ActionListener {
 		pOrderItem.revalidate();
 		pOrderEdit.revalidate();
 	}
-
+	
+	// 삭제 액션 수행
 	public void actionPerformedRemoveOrder(ActionEvent e) {
 
 		pOrderItem.remove(labelNumber - 1);
@@ -141,10 +152,8 @@ public class OrderPanel extends JPanel implements ActionListener {
 		int itemCount = pOrderItem.getComponentCount();
 		System.out.println(itemCount);
 		if (itemCount == 4) {
-
 //			pOrderEdit.add(pBtn);
 			btnAddOrder.setEnabled(false);
-
 //			addPbtn();
 		}
 		for (int i = 0; i < itemCount; i++) {
@@ -160,7 +169,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 	private void addPbtn() {
 		pOrderEdit.add(pBtn, BorderLayout.SOUTH);
 	}
-	
+	// 주문 버튼 
 	protected void actionPerformedBtnOrderExe(ActionEvent e) {
 		System.out.println("주문 실행");
 		
@@ -179,5 +188,12 @@ public class OrderPanel extends JPanel implements ActionListener {
 			
 			service.insertOrderList(orderList);
 		}
+		
+		
+		pStatus.getpTurnStatus().loadData();
+		pStatus.getpPriceStatus().loadData();
+		tabMain.setSelectedIndex(2);
+		
+		// 현황 탭 revalidate() 필요함.
 	}
 }

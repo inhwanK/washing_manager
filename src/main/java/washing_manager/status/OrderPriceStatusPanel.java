@@ -48,7 +48,7 @@ public class OrderPriceStatusPanel extends JPanel {
 	}
 	
 
-	private void loadData() {
+	public void loadData() {
 		initList();
 		setData();
 	}

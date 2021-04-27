@@ -91,19 +91,20 @@ select @rownum:=@rownum+1 as 번호,
   where o.turn = 3;
  
 
-select * from orderlist where turn = 5;
+select * from orderlist;
+delete 
+  from orderturn 
+ where turn = 5;
 
 set @count=0;
 update orderturn set turn = @count:=@count+1;
 
 -- auto_increment 초기화
 ALTER TABLE orderturn AUTO_INCREMENT = 1;
+ALTER TABLE orderlist AUTO_INCREMENT = 1;
 
 select * from orderturn;
 
-delete
-  from orderturn 
- where turn = 6;
 
 select turn from orderturn order by turn desc limit 1;
 

@@ -17,8 +17,23 @@ public class StatusPanel extends JPanel implements ActionListener{
 	private OrderPriceStatusPanel pPriceStatus;
 	private OrderTurnStatusPanel pTurnStatus;
 	private JMenuItem mntmOrderDetail;
-
+	private static StatusPanel instance = new StatusPanel();
 	
+	public static StatusPanel getInstance() {
+		return instance;
+	}
+	
+	
+	public OrderPriceStatusPanel getpPriceStatus() {
+		return pPriceStatus;
+	}
+
+
+	public OrderTurnStatusPanel getpTurnStatus() {
+		return pTurnStatus;
+	}
+
+
 	public StatusPanel() {
 
 		initialize();
