@@ -112,7 +112,7 @@ public class OrderViewDaoImpl implements OrderViewDao {
 	}
 
 	@Override
-	public List<ViewAll> selectOrderListViewAll() {
+	public List<ViewAll> selectOrderListViewAll() { // 세탁 수량이랑 단가는 불필요함.
 		String sql = "select * from v_all;";
 		try (Connection con = WashingJdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -134,7 +134,7 @@ public class OrderViewDaoImpl implements OrderViewDao {
 	}
 
 	@Override
-	public List<ViewAll> selectOrderListViewByPrice() {
+	public List<ViewAll> selectOrderListViewByPrice() { // 세탁 수량이랑 단가는 불필요함.
 		String sql = "select (select count(*)+1 from v_all where 세탁가격 > a.세탁가격) as 순위,\r\n"
 				+ "		고객명, 제품명, 세탁수량, 세탁단가, 등급, 할인율 , 세탁가격\r\n" + "  from v_all a\r\n"
 				+ "  order by 순위 asc;";

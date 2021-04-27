@@ -74,13 +74,13 @@ public class OrderPriceStatusPanel extends JPanel {
 
 	private Object[] getColumnNames() {
 
-		return new String[] { "순위", "고객명", "제품명", "세탁수량", "세탁단가", "등급", "할인율", "세탁가격" };
+		return new String[] { "순위", "고객명", "제품명", "등급", "할인율", "세탁가격" };
 	}
 
 	private Object[] toArray(ViewAll viewAll) {
 
-		return new Object[] { viewAll.getRank(), viewAll.getConName(), viewAll.getLndName(), viewAll.getLndEa(),
-				viewAll.getPriceEa(), viewAll.getConGrade(), viewAll.getDiscount(), viewAll.getPriceAll() };
+		return new Object[] { viewAll.getRank(), viewAll.getConName(), viewAll.getLndName(),
+				viewAll.getConGrade(), viewAll.getDiscount(), viewAll.getPriceAll() };
 	}
 
 	//
@@ -92,9 +92,9 @@ public class OrderPriceStatusPanel extends JPanel {
 
 	protected void setAlignAndWidth() {
 		// 컬럼내용 정렬
-		setTableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5, 6, 7);
+		setTableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5);
 		// 컬럼별 너비 조정
-		setTableCellWidth(90, 90, 90, 90, 90, 90, 90, 90);
+		setTableCellWidth(90, 90, 230, 90, 90, 90);
 	}
 
 	protected void setTableCellWidth(int... width) {
