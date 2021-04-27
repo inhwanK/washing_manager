@@ -8,27 +8,35 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+
+import washing_manager.dao.impl.LaundryDaoImpl;
+import washing_manager.dto.Laundry;
+
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class OrderItemPanel extends JPanel implements ActionListener {
-	private JTextField tfLnCode;
+	private JComboBox<String> cbLnName;
 	private JTextField tfEach;
 	private JTextField tfPrice;
 	private JButton btnDelOrder;
 	private JPanel pOrderItem;
 	private JLabel lblNo;
 	private int labelNumber;
-
 	private OrderPanel order = OrderPanel.getInstance();
+	private LaundryDaoImpl dao = LaundryDaoImpl.getInstance();
 
-	public JTextField getTfLnCode() {
-		return tfLnCode;
+
+	public JComboBox<String> getCbLnName() {
+		return cbLnName;
 	}
 
 	public JTextField getTfEach() {
@@ -85,14 +93,16 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		add(pLnCode);
 		pLnCode.setLayout(new GridLayout(0, 1, 0, 0));
 
-		JLabel lblLnCode = new JLabel("세탁코드");
-		lblLnCode.setBackground(Color.WHITE);
-		lblLnCode.setHorizontalAlignment(SwingConstants.CENTER);
-		pLnCode.add(lblLnCode);
-
-		tfLnCode = new JTextField();
-		pLnCode.add(tfLnCode);
-		tfLnCode.setColumns(10);
+		cbLnName = new JComboBox<String>();
+		//
+		List<Laundry> list = dao.selectLaundryAll();
+		cbLnName.addItem("세탁물명");
+		for(int i =0 ; i < list.size(); i++) {
+			cbLnName.addItem(list.get(i).getLndName());
+		}
+		pLnCode.add(cbLnName);
+		
+//		cbLnCode.setColumns(10);
 
 		JPanel pEach = new JPanel();
 		add(pEach);

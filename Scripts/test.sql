@@ -120,5 +120,6 @@ select conphone, conname, grade, discount
 select * 
 from consumer c join gradedc g where c.congrade = g.grade;
 
-
-
+select * from laundry;
+SELECT lndcode, lndname, lndprice
+FROM laundry where lndname = '점퍼';

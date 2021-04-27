@@ -2,7 +2,6 @@ package washing_manager.order;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -19,6 +18,7 @@ import washing_manager.content.ChoiceConsumerPanel;
 import washing_manager.dto.Consumer;
 import washing_manager.dto.Laundry;
 import washing_manager.dto.OrderList;
+import washing_manager.service.LaundryService;
 import washing_manager.service.OrderListService;
 import washing_manager.status.StatusPanel;
 
@@ -33,7 +33,8 @@ public class OrderPanel extends JPanel implements ActionListener {
 	private JPanel pBtn;
 	private JPanel panel;
 	private JButton btnOrderExe;
-	private OrderListService service = new OrderListService();
+	private OrderListService orderService = new OrderListService();
+	private LaundryService lndService = new LaundryService();
 	private StatusPanel pStatus;
 	private JTabbedPane tabMain;
 	
@@ -100,7 +101,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 
 		pOrderItem = new JPanel();
 		pOrderEdit.add(pOrderItem, BorderLayout.CENTER);
-		pOrderItem.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		pOrderItem.setLayout(new GridLayout(5, 1, 0, 5));
 
 		// 버튼을 생성 그리고 초기화.
 		
@@ -173,7 +174,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 	protected void actionPerformedBtnOrderExe(ActionEvent e) {
 		System.out.println("주문 실행");
 		
-		service.insertTurn();
+		orderService.insertTurn();
 		
 		int itemCount = pOrderItem.getComponentCount();
 		
@@ -181,12 +182,17 @@ public class OrderPanel extends JPanel implements ActionListener {
 			OrderItemPanel item = ((OrderItemPanel) pOrderItem.getComponent(i));
 			OrderList orderList = new OrderList();
 			
-			orderList.setConPhone(new Consumer(pConInfo.getTfConPhone().getText()));
+			orderList.setConPhone(new Consumer(pConInfo.getTfConPhone().getText())); // 고객 번호 가져오기
 			
-			orderList.setLndCode(new Laundry(item.getTfLnCode().getText()));
+			//세탁물명에 따른 세탁물 데이터 가져오기
+			String lndName = ((String) item.getCbLnName().getSelectedItem()); 
+			Laundry laundry = lndService.showLaundryByName(lndName);
+			orderList.setLndCode(laundry); 
+			
+			// 세탁수량 스피너로 가져오기
 			orderList.setLndEa(Integer.parseInt(item.getTfEach().getText())); 
 			
-			service.insertOrderList(orderList);
+			orderService.insertOrderList(orderList);
 		}
 		
 		

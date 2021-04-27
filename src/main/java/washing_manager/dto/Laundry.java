@@ -46,4 +46,6 @@ public class Laundry {
 		return String.format("LaundryDto [lndCode=%s, lndName=%s, lndPrice=%s]", lndCode, lndName, lndPrice);
 	}
 
+	
+
 }
