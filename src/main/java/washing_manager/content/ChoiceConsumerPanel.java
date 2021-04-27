@@ -19,6 +19,10 @@ public class ChoiceConsumerPanel extends JPanel {
 		tfConPhone.setText(conPhone);
 	}
 	
+	public JTextField getTfConPhone() {
+		return tfConPhone;
+	}
+
 	public ChoiceConsumerPanel() {
 
 		initialize();

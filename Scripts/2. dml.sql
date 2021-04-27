@@ -85,12 +85,9 @@ drop view v_all;
 select * from orderlist;
 insert into orderlist(lndea, lndcode , conphone,turn) values
 					(2,'AAA','010-9198-6529',1),
-					(1,'BBB','010-1111-1111',2),
-					(3,'CCC','010-7396-6529',3);
-				
+					(1,'BBB','010-1111-1111',2);		
 insert into orderlist(lndea, lndcode , conphone,turn) values(3,'CCC','010-7396-6529',3);
 insert into orderlist(lndea, lndcode , conphone,turn) values(2,'AAA','010-7396-6529',3);
-delete from orderlist where turn = 3;
 
 -- 트리거 사용해야할 듯???
 -- 순번의 데이터가 지워지면
@@ -102,12 +99,10 @@ delete from orderlist where turn = 3;
 drop table orderlist;
 
 -- 주문번호를 기본키 해체 한뒤. select 할 때  주문번호 빼고 where절에 주문번호로 조건걸면 됨.
-select conphone, conname, grade, discount 
-  from consumer c left join gradedc g
-    on c.congrade = g.grade
- where congrade = 'S';
 
-select * 
-from consumer c join gradedc g where c.congrade = g.grade;
-
+-- turn 추가
+insert into orderturn(orderdate) values (now());
+-- order 마지막 순번에 추가
+insert into orderlist(lndea, lndcode , conphone, turn) 
+values(2,'AAA','010-9198-6529',(select turn from orderturn order by turn desc limit 1));
  

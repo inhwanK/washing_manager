@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.security.auth.callback.LanguageCallback;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -13,6 +14,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import washing_manager.content.ChoiceConsumerPanel;
+import washing_manager.dto.Consumer;
+import washing_manager.dto.Laundry;
+import washing_manager.dto.OrderList;
+import washing_manager.service.OrderListService;
+
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.border.LineBorder;
@@ -24,12 +30,11 @@ public class OrderPanel extends JPanel implements ActionListener {
 	private static OrderPanel instance = new OrderPanel();
 	private JButton btnAddOrder;
 	private JPanel pOrderItem;
-	
-
 	private int labelNumber;
 	private JPanel pBtn;
 	private JPanel panel;
 	private JButton btnOrderExe;
+	private OrderListService service = new OrderListService();
 
 	public void setpBtn(JPanel pBtn) {
 		this.pBtn = pBtn;
@@ -96,10 +101,14 @@ public class OrderPanel extends JPanel implements ActionListener {
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		btnOrderExe = new JButton("주문");
+		btnOrderExe.addActionListener(this);
 		panel.add(btnOrderExe);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnOrderExe) {
+			actionPerformedBtnOrderExe(e);
+		}
 		if (e.getSource() == btnAddOrder) {
 			actionPerformedBtnAddOrder(e);
 		}
@@ -150,5 +159,25 @@ public class OrderPanel extends JPanel implements ActionListener {
 
 	private void addPbtn() {
 		pOrderEdit.add(pBtn, BorderLayout.SOUTH);
+	}
+	
+	protected void actionPerformedBtnOrderExe(ActionEvent e) {
+		System.out.println("주문 실행");
+		
+		service.insertTurn();
+		
+		int itemCount = pOrderItem.getComponentCount();
+		
+		for(int i=0; i < itemCount;i++) {
+			OrderItemPanel item = ((OrderItemPanel) pOrderItem.getComponent(i));
+			OrderList orderList = new OrderList();
+			
+			orderList.setConPhone(new Consumer(pConInfo.getTfConPhone().getText()));
+			
+			orderList.setLndCode(new Laundry(item.getTfLnCode().getText()));
+			orderList.setLndEa(Integer.parseInt(item.getTfEach().getText())); 
+			
+			service.insertOrderList(orderList);
+		}
 	}
 }

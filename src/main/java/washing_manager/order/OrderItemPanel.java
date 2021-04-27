@@ -27,6 +27,18 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 
 	private OrderPanel order = OrderPanel.getInstance();
 
+	public JTextField getTfLnCode() {
+		return tfLnCode;
+	}
+
+	public JTextField getTfEach() {
+		return tfEach;
+	}
+
+	public JTextField getTfPrice() {
+		return tfPrice;
+	}
+
 	public JLabel getLblNo() {
 		return lblNo;
 	}

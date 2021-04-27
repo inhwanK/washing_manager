@@ -111,6 +111,13 @@ insert into orderturn(orderdate) values (now());
 insert into orderlist(lndea, lndcode , conphone, turn) 
 values(2,'AAA','010-9198-6529',(select turn from orderturn order by turn desc limit 1));
 
+select conphone, conname, grade, discount 
+  from consumer c left join gradedc g
+    on c.congrade = g.grade
+ where congrade = 'S';
+
+select * 
+from consumer c join gradedc g where c.congrade = g.grade;
 
 
 
