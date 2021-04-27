@@ -15,6 +15,7 @@ import javax.swing.border.TitledBorder;
 import washing_manager.content.ChoiceConsumerPanel;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
+import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
 public class OrderPanel extends JPanel implements ActionListener {
@@ -23,8 +24,12 @@ public class OrderPanel extends JPanel implements ActionListener {
 	private static OrderPanel instance = new OrderPanel();
 	private JButton btnAddOrder;
 	private JPanel pOrderItem;
+	
+
 	private int labelNumber;
 	private JPanel pBtn;
+	private JPanel panel;
+	private JButton btnOrderExe;
 
 	public void setpBtn(JPanel pBtn) {
 		this.pBtn = pBtn;
@@ -34,6 +39,10 @@ public class OrderPanel extends JPanel implements ActionListener {
 		this.labelNumber = labelNumber;
 	}
 
+	public JPanel getpOrderItem() {
+		return pOrderItem;
+	}
+	
 	public void setpOrderItem(JPanel pOrderItem) {
 		this.pOrderItem = pOrderItem;
 	}
@@ -55,7 +64,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 	}
 
 	private void initialize() {
-		setLayout(new BorderLayout(0, 10));
+		setLayout(new BorderLayout(0, 5));
 
 		pConInfo = new ChoiceConsumerPanel();
 		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uACE0\uAC1D\uC815\uBCF4",
@@ -80,6 +89,14 @@ public class OrderPanel extends JPanel implements ActionListener {
 		pOrderItem.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		// 버튼을 생성 그리고 초기화.
+		
+		panel = new JPanel();
+		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
+		add(panel, BorderLayout.SOUTH);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		btnOrderExe = new JButton("주문");
+		panel.add(btnOrderExe);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -96,7 +113,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 
 		if (pOrderItem.getComponentCount() == 5) {
 //			pOrderEdit.remove(pBtn);
-			btnAddOrder.setEnabled(false);
+//			btnAddOrder.setEnabled(true);
 		}
 
 		comCount = pOrderItem.getComponentCount();
@@ -113,8 +130,12 @@ public class OrderPanel extends JPanel implements ActionListener {
 		pOrderItem.remove(labelNumber - 1);
 
 		int itemCount = pOrderItem.getComponentCount();
+		System.out.println(itemCount);
 		if (itemCount == 4) {
-			btnAddOrder.setEnabled(true);
+
+//			pOrderEdit.add(pBtn);
+			btnAddOrder.setEnabled(false);
+
 //			addPbtn();
 		}
 		for (int i = 0; i < itemCount; i++) {

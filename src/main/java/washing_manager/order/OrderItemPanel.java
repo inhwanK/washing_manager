@@ -20,7 +20,6 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 	private JTextField tfLnCode;
 	private JTextField tfEach;
 	private JTextField tfPrice;
-	private JTextField textField_3;
 	private JButton btnDelOrder;
 	private JPanel pOrderItem;
 	private JLabel lblNo;
@@ -56,7 +55,7 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 
 	private void initialize(int labelNumber) {
 		setBorder(new LineBorder(null, 1, true));
-		setLayout(new GridLayout(0, 6, 10, 0));
+		setLayout(new GridLayout(0, 5, 10, 0));
 
 		JPanel pLabel = new JPanel();
 		pLabel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -108,19 +107,6 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		tfPrice = new JTextField();
 		pPrice.add(tfPrice);
 		tfPrice.setColumns(10);
-
-		JPanel pWhat = new JPanel();
-		add(pWhat);
-		pWhat.setLayout(new GridLayout(0, 1, 0, 0));
-
-		JLabel lblNewLabel_3 = new JLabel("세탁물별가격?");
-		lblNewLabel_3.setBackground(Color.WHITE);
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		pWhat.add(lblNewLabel_3);
-
-		textField_3 = new JTextField();
-		pWhat.add(textField_3);
-		textField_3.setColumns(10);
 
 		JPanel pDelBtn = new JPanel();
 		pDelBtn.setBorder(new EmptyBorder(5, 17, 5, 17));

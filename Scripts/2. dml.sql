@@ -35,8 +35,8 @@ insert into consumer values
 					('010-9898-6529','김재환','B'),
 					('010-7396-6529','강진선','A'),
 					('010-3512-7001','김상화','C');
-
 insert into consumer values('010-1111-1111','김인환','B');
+
 insert into consumer values('010-9198-6529','김인환','S');
 delete
   from consumer 

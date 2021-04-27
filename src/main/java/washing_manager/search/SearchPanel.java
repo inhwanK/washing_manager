@@ -1,7 +1,6 @@
 package washing_manager.search;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -100,15 +99,6 @@ public class SearchPanel extends JPanel implements ActionListener{
 		
 		JMenuItem mntmConUpdate = new JMenuItem("고객 정보 수정"); // not implement yet
 		popupMenu.add(mntmConUpdate);
-		
-		JPanel pConChoice = new JPanel();
-		pConChoice.setBorder(new EmptyBorder(2, 2, 2, 2));
-		add(pConChoice, BorderLayout.SOUTH);
-		pConChoice.setLayout(new GridLayout(0, 1, 10, 0));
-		
-		JPanel pBtn = new JPanel();
-		pConChoice.add(pBtn);
-		pBtn.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -128,7 +118,7 @@ public class SearchPanel extends JPanel implements ActionListener{
 		String phone = choCon.getConPhone();
 		
 		tabMain.setSelectedIndex(1);
-		
+		(pOrder.getpOrderItem()).removeAll();
 		pOrder.getpConInfo().setTfAll(name, grade, phone);
 
 	}

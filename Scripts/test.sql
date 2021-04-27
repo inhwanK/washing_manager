@@ -9,7 +9,7 @@ delete
 select * from orderlist;
 delete from orderlist where ordno =4;
 
--- 여러 row 합치는 법 알아내기.
+-- 여러 row 합치는 법.
 select group_concat(orderlist.ordno separator ',') as 이게머시여
   from orderlist;
   
@@ -21,8 +21,6 @@ delete
  where ordno = 3;
  
 -- 순위 구하기
-
-
  select (select count(*)+1 from v_all where 세탁가격 > a.세탁가격) as 순위,순번,
 		고객명, 제품명, 세탁수량, 세탁단가, 등급, round(할인율,2) as 할인율 , 세탁가격
   from v_all a
@@ -91,3 +89,28 @@ select @rownum:=@rownum+1 as 번호,
 	   o.lndea * l.lndprice as 세탁물별총가격
   from orderlist o left join laundry l on o.lndcode =l.lndcode , (select @rownum:=0) r 
   where o.turn = 3;
+ 
+
+select * from orderlist;
+
+set @count=0;
+update orderturn set turn = @count:=@count+1;
+
+-- auto_increment 초기화
+ALTER TABLE orderturn AUTO_INCREMENT = 1;
+
+select * from orderturn;
+
+delete
+  from orderturn 
+ where turn = 6;
+
+select turn from orderturn order by turn desc limit 1;
+
+insert into orderturn(orderdate) values (now());
+insert into orderlist(lndea, lndcode , conphone, turn) 
+values(2,'AAA','010-9198-6529',(select turn from orderturn order by turn desc limit 1));
+
+
+
+

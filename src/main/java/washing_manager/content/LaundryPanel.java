@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+@SuppressWarnings("serial")
 public class LaundryPanel extends JPanel {
 	private JTextField tfLnName;
 	private JTextField tfLnprice;
