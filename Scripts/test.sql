@@ -91,7 +91,7 @@ select @rownum:=@rownum+1 as 번호,
   where o.turn = 3;
  
 
-select * from orderlist;
+select * from orderlist where turn = 5;
 
 set @count=0;
 update orderturn set turn = @count:=@count+1;

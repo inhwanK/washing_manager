@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import washing_manager.conn.WashingJdbcUtil;
 import washing_manager.dao.OrderListDao;
 import washing_manager.dto.OrderList;
-import washing_manager.dto.OrderTurn;
 
 public class OrderListDaoImpl implements OrderListDao {
 	private static OrderListDaoImpl instance = new OrderListDaoImpl();
