@@ -3,8 +3,6 @@ package washing_manager.status;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -12,7 +10,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
 
 import washing_manager.detail.OrderDetailListFrame;
-import washing_manager.dto.OrderList;
 import washing_manager.service.OrderListService;
 
 @SuppressWarnings("serial")

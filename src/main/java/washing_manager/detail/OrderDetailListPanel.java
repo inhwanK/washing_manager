@@ -1,9 +1,13 @@
 package washing_manager.detail;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.RowSorter;
@@ -18,10 +22,11 @@ import washing_manager.dto.OrderList;
 import washing_manager.service.OrderListService;
 
 @SuppressWarnings("serial")
-public class OrderDetailListPanel extends JPanel {
+public class OrderDetailListPanel extends JPanel implements ActionListener{
 	private JTable table;
 	private List<OrderList> list;
 	private OrderListService service = new OrderListService();
+	private JMenuItem mntmDelOrderDetail;
 	
 	public OrderDetailListPanel(int turnNo) {
 
@@ -36,8 +41,15 @@ public class OrderDetailListPanel extends JPanel {
 
 		table = new JTable();
 		table.setModel(getModel());
-		loadData(turnNo); // 구현해야됨.
+		loadData(turnNo);
 		scrollPane.setViewportView(table);
+		
+		JPopupMenu popupMenu = new JPopupMenu();
+		table.setComponentPopupMenu(popupMenu); 
+
+		mntmDelOrderDetail = new JMenuItem("상세 주문 목록");
+		mntmDelOrderDetail.addActionListener(this);
+		popupMenu.add(mntmDelOrderDetail);
 	}
 
 	private void loadData(int turnNo) {
@@ -48,7 +60,7 @@ public class OrderDetailListPanel extends JPanel {
 	private void initList(int turnNo) {
 		list = service.showOrderDetailByTurn(turnNo); // turnNo 전달해줘야함.
 	}
-
+	
 	public void setData() { 
 		Object[][] data = new Object[list.size()][];
 		for (int i = 0; i < data.length; i++) {
@@ -63,7 +75,7 @@ public class OrderDetailListPanel extends JPanel {
 
 		setAlignAndWidth();
 	}
-
+	
 	private Object[] getColumnNames() {
 
 		return new String[] {"번호", "제품코드", "제품명", "세탁수량", "세탁단가", "세탁물별총가격"};
@@ -118,5 +130,17 @@ public class OrderDetailListPanel extends JPanel {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		}
+	}
+
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == mntmDelOrderDetail) {
+			actionPerformedMntmDelOrderDetail(e);
+		}
+	}
+
+	private void actionPerformedMntmDelOrderDetail(ActionEvent e) {
+		// 이거 너무 귀찮음... 힘들구... 그냥 운동 갔다와서 하던지...
 	}
 }

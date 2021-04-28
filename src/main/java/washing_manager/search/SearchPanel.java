@@ -29,11 +29,12 @@ public class SearchPanel extends JPanel implements ActionListener{
 	private JTabbedPane tabMain;
 	private ChoiceConsumerPanel pConInfo;
 	private static OrderPanel pOrder;
-
-
 	private static SearchPanel instance = new SearchPanel();
 	
-	
+	public ConsumerInputPanel getpTextInput() {
+		return pTextInput;
+	}
+
 	public static void setpOrder(OrderPanel pOrder) {
 		SearchPanel.pOrder = pOrder;
 	}
@@ -63,6 +64,8 @@ public class SearchPanel extends JPanel implements ActionListener{
 
 		initialize();
 	}
+	
+	
 	private void initialize() {
 		setLayout(new BorderLayout(0, 0));
 		
