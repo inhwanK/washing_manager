@@ -27,7 +27,7 @@ dependencies {
 
 jar {
     version = 1.0
-    mainClassName= 'washing_manager.TabbedMain'
+    mainClassName= 'washing_manager.WashingMain'
     baseName= 'washing_manager'
     appendix = 'bin'
     
