@@ -15,13 +15,13 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import washing_manager.dto.OrderList;
-import washing_manager.service.OrderDetailService;
+import washing_manager.service.OrderListService;
 
 @SuppressWarnings("serial")
 public class OrderDetailListPanel extends JPanel {
 	private JTable table;
 	private List<OrderList> list;
-	private OrderDetailService service = new OrderDetailService();
+	private OrderListService service = new OrderListService();
 	
 	public OrderDetailListPanel(int turnNo) {
 
