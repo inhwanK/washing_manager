@@ -21,11 +21,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
 public class OrderItemPanel extends JPanel implements ActionListener {
 	private JComboBox<String> cbLnName;
-	private JTextField tfEach;
+	private JSpinner spEach;
 	private JTextField tfPrice;
 	private JButton btnDelOrder;
 	private JPanel pOrderItem;
@@ -39,8 +41,8 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		return cbLnName;
 	}
 
-	public JTextField getTfEach() {
-		return tfEach;
+	public JSpinner getSpEach() {
+		return spEach;
 	}
 
 	public JTextField getTfPrice() {
@@ -74,7 +76,7 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 	}
 
 	private void initialize(int labelNumber) {
-		setBorder(new LineBorder(null, 1, true));
+		setBorder(new LineBorder(Color.GREEN, 2, true));
 		setLayout(new GridLayout(0, 5, 10, 0));
 
 		JPanel pLabel = new JPanel();
@@ -90,10 +92,14 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		pLabel.add(lblNo);
 
 		JPanel pLnCode = new JPanel();
+		pLnCode.setForeground(Color.WHITE);
+		pLnCode.setBackground(Color.WHITE);
 		add(pLnCode);
 		pLnCode.setLayout(new GridLayout(0, 1, 0, 0));
 
 		cbLnName = new JComboBox<String>();
+		cbLnName.setForeground(Color.BLACK);
+		cbLnName.setBackground(Color.WHITE);
 		//
 		List<Laundry> list = dao.selectLaundryAll();
 		cbLnName.addItem("세탁물명");
@@ -109,20 +115,18 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		pEach.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JLabel lblEach = new JLabel("세탁수량");
-		lblEach.setBackground(Color.WHITE);
 		lblEach.setHorizontalAlignment(SwingConstants.CENTER);
 		pEach.add(lblEach);
 
-		tfEach = new JTextField();
-		pEach.add(tfEach);
-		tfEach.setColumns(10);
+		spEach = new JSpinner();
+		spEach.setModel(new SpinnerNumberModel(0, 0, 10, 1));
+		pEach.add(spEach);
 
 		JPanel pPrice = new JPanel();
 		add(pPrice);
 		pPrice.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JLabel lblPrice = new JLabel("세탁단가");
-		lblPrice.setBackground(Color.WHITE);
 		lblPrice.setHorizontalAlignment(SwingConstants.CENTER);
 		pPrice.add(lblPrice);
 

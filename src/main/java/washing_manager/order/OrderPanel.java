@@ -100,6 +100,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 		pBtn.add(btnAddOrder);
 
 		pOrderItem = new JPanel();
+		pOrderItem.setBorder(new EmptyBorder(10, 0, 10, 0));
 		pOrderEdit.add(pOrderItem, BorderLayout.CENTER);
 		pOrderItem.setLayout(new GridLayout(5, 1, 0, 5));
 
@@ -190,7 +191,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 			orderList.setLndCode(laundry); 
 			
 			// 세탁수량 스피너로 가져오기
-			orderList.setLndEa(Integer.parseInt(item.getTfEach().getText())); 
+			orderList.setLndEa((int) item.getSpEach().getValue()); 
 			
 			orderService.insertOrderList(orderList);
 		}
