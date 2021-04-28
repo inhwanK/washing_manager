@@ -4,12 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.PseudoColumnUsage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import washing_manager.order.OrderPanel;
@@ -40,15 +38,12 @@ public class TabbedMain extends JFrame implements ActionListener {
 				try {
 					TabbedMain frame = new TabbedMain();
 					frame.setVisible(true);
-					
-					JTextField focusTf = frame.getpSearch().getpTextInput().getTfConsumer();
-					boolean searchFocus = frame.getpSearch().getpTextInput().getTfConsumer().isFocusable();// 갓다와서하자
-					System.out.println(searchFocus);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		
 	}
 
 	public TabbedMain() {
@@ -77,8 +72,7 @@ public class TabbedMain extends JFrame implements ActionListener {
 		pStatus = new StatusPanel();
 		tabMain.addTab("현황", null, pStatus, null); // 현황 탭 눌렸을 때 setbounds 더 크게 설정해보자.
 		pOrder.setpStatus(pStatus);
-		
-		
+
 	}
 
 	public void actionPerformed(ActionEvent e) {

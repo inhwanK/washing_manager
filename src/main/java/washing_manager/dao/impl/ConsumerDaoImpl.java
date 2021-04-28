@@ -52,7 +52,7 @@ public class ConsumerDaoImpl implements ConsumerDao {
 	// 이름으로 검색
 	@Override
 	public List<Consumer> selectConsumerByName(String conName) {
-		String sql = "select conname, congrade, conphone from consumer where conname=?;";
+		String sql = "select conname, congrade, conphone from consumer where conname like ?;";
 		try (Connection con = WashingJdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, conName);

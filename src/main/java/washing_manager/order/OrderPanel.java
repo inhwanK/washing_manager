@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
@@ -109,7 +110,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		add(panel, BorderLayout.SOUTH);
-		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		panel.setLayout(new GridLayout(1, 1, 0, 0));
 		
 		btnOrderExe = new JButton("주문");
 		btnOrderExe.addActionListener(this);
@@ -130,11 +131,10 @@ public class OrderPanel extends JPanel implements ActionListener {
 		int comCount = pOrderItem.getComponentCount();
 		OrderItemPanel item = new OrderItemPanel(comCount + 1);
 
-		pOrderItem.add(item);
-
-		if (pOrderItem.getComponentCount() == 5) { // 곧 삭제될 코드 ㅠㅠ
-//			pOrderEdit.remove(pBtn);
-//			btnAddOrder.setEnabled(true);
+		if (pOrderItem.getComponentCount() == 5) {
+			JOptionPane.showMessageDialog(null, "더 이상 주문할 수 없습니다.");
+		}else {
+			pOrderItem.add(item);
 		}
 
 		comCount = pOrderItem.getComponentCount();
@@ -153,11 +153,6 @@ public class OrderPanel extends JPanel implements ActionListener {
 
 		int itemCount = pOrderItem.getComponentCount();
 		System.out.println(itemCount);
-		if (itemCount == 4) {
-//			pOrderEdit.add(pBtn);
-			btnAddOrder.setEnabled(false);
-//			addPbtn();
-		}
 		for (int i = 0; i < itemCount; i++) {
 			((OrderItemPanel) pOrderItem.getComponent(i)).setpOrderItem(pOrderItem);
 			((OrderItemPanel) pOrderItem.getComponent(i)).setLabelNumber(i + 1); // 레이블 새로 세팅 ...?
@@ -166,11 +161,9 @@ public class OrderPanel extends JPanel implements ActionListener {
 		
 		pOrderItem.revalidate();
 		pOrderEdit.revalidate();
+
 	}
 
-	private void addPbtn() {
-		pOrderEdit.add(pBtn, BorderLayout.SOUTH);
-	}
 	// 주문 버튼 
 	protected void actionPerformedBtnOrderExe(ActionEvent e) {
 		System.out.println("주문 실행");
