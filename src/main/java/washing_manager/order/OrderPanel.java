@@ -22,6 +22,7 @@ import washing_manager.dto.OrderList;
 import washing_manager.service.LaundryService;
 import washing_manager.service.OrderListService;
 import washing_manager.status.StatusPanel;
+import washing_manager.turnlist.TurnListPanel;
 
 @SuppressWarnings("serial")
 public class OrderPanel extends JPanel implements ActionListener {
@@ -36,15 +37,22 @@ public class OrderPanel extends JPanel implements ActionListener {
 	private JButton btnOrderExe;
 	private OrderListService orderService = new OrderListService();
 	private LaundryService lndService = new LaundryService();
-	private StatusPanel pStatus;
+	private TurnListPanel pTurnList;
+	private StatusPanel pStatistics;
 	private JTabbedPane tabMain;
+	
 	
 	public void setTabMain(JTabbedPane tabMain) {
 		this.tabMain = tabMain;
 	}
+	
+	
+	public void setpStatistics(StatusPanel pStatistics) {
+		this.pStatistics = pStatistics;
+	}
 
-	public void setpStatus(StatusPanel pStatus) {
-		this.pStatus = pStatus;
+	public void setpTurnList(TurnListPanel pTurnList) {
+		this.pTurnList = pTurnList;
 	}
 
 	public void setpBtn(JPanel pBtn) {
@@ -189,8 +197,8 @@ public class OrderPanel extends JPanel implements ActionListener {
 		}
 		
 		
-		pStatus.getpTurnStatus().loadData();
-		pStatus.getpPriceStatus().loadData();
+		pTurnList.getpTurnStatus().loadData();
+		pStatistics.actionPerformedRenewStatistics(e);
 		tabMain.setSelectedIndex(2);
 		
 		// 현황 탭 revalidate() 필요함.

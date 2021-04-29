@@ -56,7 +56,7 @@ public class ConsumerListPanel<T> extends JPanel {
 		String conGrade = (String) table.getValueAt(row, 1);
 		String conPhone = (String) table.getValueAt(row, 2);
 		if (row == -1) {
-			
+
 			// exception을 던지고 그다음 메세지 출력해야돼 인환아
 			JOptionPane.showMessageDialog(null, "선택을 안햇자나");
 		}
@@ -99,18 +99,20 @@ public class ConsumerListPanel<T> extends JPanel {
 
 	// 테이블 만들기
 	public void setData() {
-		Object[][] data = new Object[list.size()][];
-		for (int i = 0; i < data.length; i++) {
-			data[i] = toArray(list.get(i));
-		}
+		try {
+			
+			Object[][] data = new Object[list.size()][];
+			for (int i = 0; i < data.length; i++) {
+				data[i] = toArray(list.get(i));
+			}
+			CustomTableModel model = new CustomTableModel(data, getColumnNames());
+			table.setModel(model);
+			RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
+			table.setRowSorter(sorter);
+			setAlignAndWidth();
+			
+		} catch (NullPointerException e) {}
 
-		CustomTableModel model = new CustomTableModel(data, getColumnNames());
-		table.setModel(model);
-
-		RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
-		table.setRowSorter(sorter);
-
-		setAlignAndWidth();
 	}
 
 	private Object[] getColumnNames() {

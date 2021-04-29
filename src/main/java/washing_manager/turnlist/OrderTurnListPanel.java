@@ -1,4 +1,4 @@
-package washing_manager.status;
+package washing_manager.turnlist;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -23,13 +23,13 @@ import washing_manager.dto.ViewAll;
 import washing_manager.service.OrderViewService;
 
 @SuppressWarnings("serial")
-public class OrderTurnStatusPanel extends JPanel {
+public class OrderTurnListPanel extends JPanel {
 
 	private JTable table;
 	private List<ViewAll> list;
 	private OrderViewService service = new OrderViewService();
 
-	public OrderTurnStatusPanel() {
+	public OrderTurnListPanel() {
 		initialize();
 	}
 

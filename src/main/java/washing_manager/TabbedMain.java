@@ -12,17 +12,19 @@ import javax.swing.border.EmptyBorder;
 
 import washing_manager.order.OrderPanel;
 import washing_manager.search.SearchPanel;
+import washing_manager.turnlist.TurnListPanel;
 import washing_manager.status.StatusPanel;
 
 @SuppressWarnings("serial")
 public class TabbedMain extends JFrame implements ActionListener {
 
 	private OrderPanel pOrder = OrderPanel.getInstance();
-	private SearchPanel pSearch = SearchPanel.getInstance();
-	
+	private SearchPanel pSearch = SearchPanel.getInstance();	
 	private JPanel contentPane;
 	private JTabbedPane tabMain;
-	private StatusPanel pStatus = StatusPanel.getInstance();
+//	private TurnListPanel pStatus = TurnListPanel.getInstance();
+	private TurnListPanel pTurnList;
+	private StatusPanel pStatistics;
 	
 	public SearchPanel getpSearch() {
 		return pSearch;
@@ -69,14 +71,19 @@ public class TabbedMain extends JFrame implements ActionListener {
 		pSearch.setpOrder(pOrder);
 		pOrder.setTabMain(tabMain);
 		
-		pStatus = new StatusPanel();
-		tabMain.addTab("현황", null, pStatus, null); // 현황 탭 눌렸을 때 setbounds 더 크게 설정해보자.
-		pOrder.setpStatus(pStatus);
+		pTurnList = new TurnListPanel();
+		tabMain.addTab("현황", null, pTurnList, null); // 현황 탭 눌렸을 때 setbounds 더 크게 설정해보자.
+		pOrder.setpTurnList(pTurnList);
+		
+		pStatistics = new StatusPanel();
+		tabMain.addTab("통계", null, pStatistics, null);
+		pTurnList.setpStatistics(pStatistics);
+		pOrder.setpStatistics(pStatistics);
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		
+
 	}
 
 }
