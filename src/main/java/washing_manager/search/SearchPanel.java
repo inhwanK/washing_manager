@@ -31,6 +31,8 @@ public class SearchPanel extends JPanel implements ActionListener {
 	private ChoiceConsumerPanel pConInfo;
 	private static OrderPanel pOrder;
 	private static SearchPanel instance = new SearchPanel();
+	private JPanel pRenew;
+	private JButton btnRenew;
 
 	public ConsumerInputPanel getpTextInput() {
 		return pTextInput;
@@ -104,9 +106,19 @@ public class SearchPanel extends JPanel implements ActionListener {
 
 		JMenuItem mntmConUpdate = new JMenuItem("고객 정보 수정"); // not implement yet
 		popupMenu.add(mntmConUpdate);
+		
+		pRenew = new JPanel();
+		add(pRenew, BorderLayout.SOUTH);
+		
+		btnRenew = new JButton("새로고침");
+		btnRenew.addActionListener(this);
+		pRenew.add(btnRenew);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnRenew) {
+			actionPerformedBtnRenew(e);
+		}
 		if (e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
 		}
@@ -135,4 +147,8 @@ public class SearchPanel extends JPanel implements ActionListener {
 		pTable.loadData();
 	}
 
+	protected void actionPerformedBtnRenew(ActionEvent e) {
+		pTable.setConName(null);
+		pTable.loadData();
+	}
 }
