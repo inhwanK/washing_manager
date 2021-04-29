@@ -23,7 +23,6 @@ import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class TabbedMain extends JFrame implements ActionListener {
-
 	private OrderPanel pOrder = OrderPanel.getInstance();
 	private SearchPanel pSearch = SearchPanel.getInstance();	
 	private JPanel contentPane;
@@ -105,5 +104,6 @@ public class TabbedMain extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		pSearch.getpTable().setConName(null);
 		pSearch.getpTable().loadData();
+
 	}
 }

@@ -127,7 +127,7 @@ public class SearchPanel extends JPanel implements ActionListener {
 
 		tabMain.setSelectedIndex(1);
 		(pOrder.getpOrderItem()).removeAll();
-		pOrder.getpConInfo().setTfAll(name, grade, phone);
+		pOrder.getpConInfo().setConInfoAll(name, grade, phone);
 
 	}
 

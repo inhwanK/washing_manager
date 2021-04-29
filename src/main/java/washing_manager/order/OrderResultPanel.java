@@ -83,7 +83,7 @@ public class OrderResultPanel extends JPanel implements ActionListener {
 
 		System.out.println(totalPrice);
 		orderPanel.getpResult().getTfTotalOrdPrice().setText(totalPrice + "");
-		String a = orderPanel.getpConInfo().getTfConGrade().getText();
+		String a = (String) orderPanel.getpConInfo().getTfConGrade().getSelectedItem();
 		GradeDc grade = gradeService.showGradeDcByGrade(a);
 		try {
 		float dc = grade.getDiscount();

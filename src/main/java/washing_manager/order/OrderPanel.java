@@ -138,6 +138,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 		pResult.setPreferredSize(new Dimension(464, 40));
 		pSouth.add(pResult);
 		pSouth.add(btnOrderExe);
+	
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -218,7 +219,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 			pStatistics.actionPerformedRenewStatistics(e);
 
 			pOrderItem.removeAll();
-			pConInfo.setTfAll("", "", "");
+			pConInfo.setConInfoAll("", "D", "");
 			
 			pResult.getTfDisOrdPrice().setText("");
 			pResult.getTfTotalOrdPrice().setText("");

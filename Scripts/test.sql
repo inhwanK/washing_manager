@@ -136,4 +136,4 @@ FROM laundry where lndname = '점퍼';
 
 select sum(세탁가격) from v_all;
 
-select grade, discount from gradedc where grade = 'S';
+select grade, discount from gradedc;

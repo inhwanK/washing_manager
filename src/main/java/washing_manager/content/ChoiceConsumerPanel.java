@@ -1,28 +1,40 @@
 package washing_manager.content;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import java.awt.Font;
+import javax.swing.border.EmptyBorder;
+
+import washing_manager.dto.GradeDc;
+import washing_manager.service.GradeDcService;
 
 @SuppressWarnings("serial")
-public class ChoiceConsumerPanel extends JPanel {
+public class ChoiceConsumerPanel extends JPanel implements ActionListener{
 	private JTextField tfConName;
-	private JTextField tfConGrade;
+//	private JTextField tfConGrade;
+	private GradeDcService service = new GradeDcService();
+	private JComboBox<String> cbConGrade;
 	private JTextField tfConPhone;
 	
-	public void setTfAll(String conName, String grade, String conPhone) {
+	public void setConInfoAll(String conName, String grade, String conPhone) {
 		tfConName.setText(conName);
-		tfConGrade.setText(grade);
+		cbConGrade.setSelectedItem(grade);
 		tfConPhone.setText(conPhone);
+
 	}
 	
 	
-	public JTextField getTfConGrade() {
-		return tfConGrade;
+	public JComboBox<String> getTfConGrade() {
+		return cbConGrade;
 	}
 
 	public JTextField getTfConPhone() {
@@ -57,11 +69,30 @@ public class ChoiceConsumerPanel extends JPanel {
 		pConGrade.add(tfConName);
 		tfConName.setColumns(10);
 		
-		tfConGrade = new JTextField();
-		tfConGrade.setFont(new Font("휴먼모음T", Font.PLAIN, 20));
-		tfConGrade.setHorizontalAlignment(SwingConstants.CENTER);
-		pConGrade.add(tfConGrade);
-		tfConGrade.setColumns(10);
+//		tfConGrade = new JTextField();
+//		tfConGrade.setFont(new Font("휴먼모음T", Font.PLAIN, 20));
+//		tfConGrade.setHorizontalAlignment(SwingConstants.CENTER);
+//		pConGrade.add(tfConGrade);
+//		tfConGrade.setColumns(10);
+		
+		cbConGrade = new JComboBox<String>();
+		cbConGrade.setFont(new Font("휴먼모음T", Font.PLAIN, 20));
+		cbConGrade.setBorder(new EmptyBorder(0, 0, 0, 0));
+		cbConGrade.setBackground(Color.WHITE);
+		cbConGrade.addActionListener(this);
+		cbConGrade.setForeground(Color.BLACK);
+		//
+		List<GradeDc> list = service.showGradeDcAll();
+//		cbLnName.addItem("세탁물명");
+		for (int i = 0; i < list.size(); i++) {
+			cbConGrade.addItem(list.get(i).getGrade());
+		}
+		pConGrade.add(cbConGrade);
+		
+		
+		
+		
+		
 		
 		JPanel pConPhone = new JPanel();
 		add(pConPhone);
@@ -77,6 +108,13 @@ public class ChoiceConsumerPanel extends JPanel {
 		tfConPhone.setHorizontalAlignment(SwingConstants.CENTER);
 		pConPhone.add(tfConPhone);
 		tfConPhone.setColumns(10);
+		
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 }
