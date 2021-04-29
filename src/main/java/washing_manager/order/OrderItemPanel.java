@@ -36,7 +36,7 @@ public class OrderItemPanel extends JPanel implements ActionListener, ChangeList
 	private JPanel pOrderItem;
 	private JLabel lblNo;
 	private int labelNumber;
-	private OrderPanel order;
+	private OrderPanel order = OrderPanel.getInstance();
 	private LaundryDaoImpl dao = LaundryDaoImpl.getInstance();
 	private LaundryService service = new LaundryService();
 	private OrderPanel orderPanel;

@@ -2,6 +2,7 @@ package washing_manager.order;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,11 +15,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
 
 import washing_manager.content.ChoiceConsumerPanel;
 import washing_manager.dto.Consumer;
-import washing_manager.dto.GradeDc;
 import washing_manager.dto.Laundry;
 import washing_manager.dto.OrderList;
 import washing_manager.service.GradeDcService;
@@ -27,7 +26,6 @@ import washing_manager.service.OrderListService;
 import washing_manager.service.OrderViewService;
 import washing_manager.status.StatusPanel;
 import washing_manager.turnlist.TurnListPanel;
-import java.awt.Dimension;
 
 @SuppressWarnings("serial")
 public class OrderPanel extends JPanel implements ActionListener {
@@ -193,35 +191,48 @@ public class OrderPanel extends JPanel implements ActionListener {
 	protected void actionPerformedBtnOrderExe(ActionEvent e) {
 		System.out.println("주문 실행");
 
-		orderService.insertTurn();
+		int res = JOptionPane.showConfirmDialog(null, "주문하시겠습니까?","영남세탁소",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null);
+		if(res ==JOptionPane.YES_OPTION) {
+			orderService.insertTurn();
 
-		int itemCount = pOrderItem.getComponentCount();
+			int itemCount = pOrderItem.getComponentCount();
 
-		for (int i = 0; i < itemCount; i++) {
-			OrderItemPanel item = ((OrderItemPanel) pOrderItem.getComponent(i));
-			OrderList orderList = new OrderList();
+			for (int i = 0; i < itemCount; i++) {
+				OrderItemPanel item = ((OrderItemPanel) pOrderItem.getComponent(i));
+				OrderList orderList = new OrderList();
 
-			orderList.setConPhone(new Consumer(pConInfo.getTfConPhone().getText())); // 고객 번호 가져오기
+				orderList.setConPhone(new Consumer(pConInfo.getTfConPhone().getText())); // 고객 번호 가져오기
 
-			// 세탁물명에 따른 세탁물 데이터 가져오기
-			String lndName = ((String) item.getCbLnName().getSelectedItem());
-			Laundry laundry = lndService.showLaundryByName(lndName);
-			orderList.setLndCode(laundry);
+				// 세탁물명에 따른 세탁물 데이터 가져오기
+				String lndName = ((String) item.getCbLnName().getSelectedItem());
+				Laundry laundry = lndService.showLaundryByName(lndName);
+				orderList.setLndCode(laundry);
 
-			// 세탁수량 스피너로 가져오기
-			orderList.setLndEa((int) item.getSpEach().getValue());
+				// 세탁수량 스피너로 가져오기
+				orderList.setLndEa((int) item.getSpEach().getValue());
 
-			orderService.insertOrderList(orderList);
+				orderService.insertOrderList(orderList);
+			}
+
+			pTurnList.getpTurnStatus().loadData();
+			pStatistics.actionPerformedRenewStatistics(e);
+
+			pOrderItem.removeAll();
+			pConInfo.setTfAll("", "", "");
+			
+			pResult.getTfDisOrdPrice().setText("");
+			pResult.getTfTotalOrdPrice().setText("");
+			
+			pTurnList.getpResult().actionPerformedSetTfTotalPrice(e);
+			tabMain.setSelectedIndex(2);
 		}
-
-		pTurnList.getpTurnStatus().loadData();
-		pStatistics.actionPerformedRenewStatistics(e);
-
-		pOrderItem.removeAll();
-		pConInfo.setTfAll("", "", "");
-
-		pTurnList.getpResult().actionPerformedSetTfTotalPrice(e);
-		tabMain.setSelectedIndex(2);
+		if(res == JOptionPane.NO_OPTION) {
+			
+		}
+		if(res == -1) {
+			
+		}
+		
 
 		// 현황 탭 revalidate() 필요함.
 	}

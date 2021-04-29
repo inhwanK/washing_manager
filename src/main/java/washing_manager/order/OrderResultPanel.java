@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
@@ -83,14 +84,16 @@ public class OrderResultPanel extends JPanel implements ActionListener {
 		System.out.println(totalPrice);
 		orderPanel.getpResult().getTfTotalOrdPrice().setText(totalPrice + "");
 		String a = orderPanel.getpConInfo().getTfConGrade().getText();
-		System.out.println(a);
 		GradeDc grade = gradeService.showGradeDcByGrade(a);
-		System.out.println(orderPanel.getpConInfo().getTfConPhone().getText());
-		System.out.println(orderPanel.getpConInfo().getTfConGrade());
-		System.out.println(grade);
+		try {
 		float dc = grade.getDiscount();
+		
 		int disPrice = (int) (totalPrice - (totalPrice * dc));
 		orderPanel.getpResult().getTfDisOrdPrice().setText(disPrice + "");
+		}catch(NullPointerException e1) {
+			System.out.println("고객이 선택 되지 않아서 등급객체도 생성이 안됨.");
+			JOptionPane.showMessageDialog(null, "고객 정보를 입력하세요.");
+		}
 
 	}
 }

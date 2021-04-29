@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import washing_manager.conn.WashingJdbcUtil;
 import washing_manager.dao.GradeDao;
@@ -46,6 +48,26 @@ public class GradeDaoImpl implements GradeDao {
 		} catch (SQLException e) {}
 		
 		return gradeDc;
+	}
+
+	@Override
+	public List<GradeDc> selectGradeDcAll() {
+		String sql = "select grade, discount from gradedc;";
+		try (Connection con = WashingJdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()){
+			if(rs.next()) {
+				List<GradeDc> list = new ArrayList<>();
+				do {
+					list.add(getGrade(rs));
+				}while(rs.next());
+				return list;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
