@@ -17,6 +17,7 @@ import washing_manager.content.ChoiceConsumerPanel;
 import washing_manager.dto.Consumer;
 import washing_manager.order.OrderPanel;
 import washing_manager.service.ConsumerService;
+import java.awt.Dimension;
 
 @SuppressWarnings("serial")
 public class SearchPanel extends JPanel implements ActionListener {
@@ -65,13 +66,14 @@ public class SearchPanel extends JPanel implements ActionListener {
 	}
 
 	private void initialize() {
-		setLayout(new BorderLayout(0, 0));
+		setLayout(new BorderLayout(0, 5));
 
 		JPanel pSearch = new JPanel();
 		add(pSearch, BorderLayout.NORTH);
 		pSearch.setLayout(new GridLayout(2, 1, 0, 0));
 
 		pTextInput = new ConsumerInputPanel();
+		pTextInput.setPreferredSize(new Dimension(234, 30));
 		pTextInput.getTfConsumer().addActionListener(this);
 		pSearch.add(pTextInput);
 
@@ -81,6 +83,7 @@ public class SearchPanel extends JPanel implements ActionListener {
 		pSearchBtn.setLayout(new GridLayout(0, 1, 0, 0));
 
 		btnSearch = new JButton("검색");
+		btnSearch.setPreferredSize(new Dimension(57, 40));
 		btnSearch.addActionListener(this);
 		btnSearch.setFont(new Font("나눔고딕", Font.BOLD, 15));
 		pSearchBtn.add(btnSearch);

@@ -21,8 +21,10 @@ import washing_manager.dto.Laundry;
 import washing_manager.dto.OrderList;
 import washing_manager.service.LaundryService;
 import washing_manager.service.OrderListService;
+import washing_manager.service.OrderViewService;
 import washing_manager.status.StatusPanel;
 import washing_manager.turnlist.TurnListPanel;
+import java.awt.Dimension;
 
 @SuppressWarnings("serial")
 public class OrderPanel extends JPanel implements ActionListener {
@@ -37,6 +39,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 	private JButton btnOrderExe;
 	private OrderListService orderService = new OrderListService();
 	private LaundryService lndService = new LaundryService();
+	private OrderViewService viewService = new OrderViewService();
 	private TurnListPanel pTurnList;
 	private StatusPanel pStatistics;
 	private JTabbedPane tabMain;
@@ -91,6 +94,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 		setLayout(new BorderLayout(0, 5));
 
 		pConInfo = new ChoiceConsumerPanel();
+		pConInfo.setPreferredSize(new Dimension(494, 100));
 		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uACE0\uAC1D \uC815\uBCF4", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
 		add(pConInfo, BorderLayout.NORTH);
 
@@ -199,6 +203,11 @@ public class OrderPanel extends JPanel implements ActionListener {
 		
 		pTurnList.getpTurnStatus().loadData();
 		pStatistics.actionPerformedRenewStatistics(e);
+		
+		pOrderItem.removeAll();
+		pConInfo.setTfAll("", "", "");
+		
+		pTurnList.getpResult().actionPerformedSetTfTotalPrice(e);
 		tabMain.setSelectedIndex(2);
 		
 		// 현황 탭 revalidate() 필요함.

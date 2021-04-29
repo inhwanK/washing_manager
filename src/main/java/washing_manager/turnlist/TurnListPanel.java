@@ -12,6 +12,10 @@ import javax.swing.border.EmptyBorder;
 import washing_manager.detail.OrderDetailListFrame;
 import washing_manager.service.OrderListService;
 import washing_manager.status.StatusPanel;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class TurnListPanel extends JPanel implements ActionListener {
@@ -21,12 +25,18 @@ public class TurnListPanel extends JPanel implements ActionListener {
 	private JMenuItem mntmDelOrder;
 	private OrderListService service = new OrderListService();
 	private static TurnListPanel instance = new TurnListPanel();
+	private TurnTotalResultPanel pResult;
 
+	
 	public static TurnListPanel getInstance() {
 		return instance;
 	}
 
 	
+	public TurnTotalResultPanel getpResult() {
+		return pResult;
+	}
+
 	public JMenuItem getMntmDelOrder() {
 		return mntmDelOrder;
 	}
@@ -45,7 +55,7 @@ public class TurnListPanel extends JPanel implements ActionListener {
 
 	private void initialize() {
 		setBorder(new EmptyBorder(0, 5, 0, 5));
-		setLayout(new GridLayout(1, 1, 0, 10));
+		setLayout(new BorderLayout(0, 0));
 
 		pTurnStatus = new OrderTurnListPanel();
 		add(pTurnStatus);
@@ -60,6 +70,11 @@ public class TurnListPanel extends JPanel implements ActionListener {
 		mntmDelOrder = new JMenuItem("주문취소 또는 삭제?");
 		mntmDelOrder.addActionListener(this);
 		popupMenu.add(mntmDelOrder);
+		
+		pResult = new TurnTotalResultPanel();
+		pResult.setPreferredSize(new Dimension(232, 60));
+		add(pResult, BorderLayout.SOUTH);
+		pResult.setLayout(new GridLayout(0, 1, 0, 0));
 	}
 
 	@Override

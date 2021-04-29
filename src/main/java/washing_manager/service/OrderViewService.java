@@ -17,4 +17,8 @@ public class OrderViewService {
 	public List<ViewAll> showOrderViewByPrice() {
 		return dao.selectOrderListViewByPrice();
 	}
+	
+	public int showSumOrderTotalPrice() {
+		return dao.selectSumOrderPrice();
+	}
 }

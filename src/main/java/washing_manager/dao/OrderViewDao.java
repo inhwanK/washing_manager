@@ -9,4 +9,5 @@ public interface OrderViewDao {
 	List<ViewAll> selectOrderListViewAll();
 
 	List<ViewAll> selectOrderListViewByPrice();
+	int selectSumOrderPrice();
 }

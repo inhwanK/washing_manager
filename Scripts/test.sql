@@ -107,6 +107,7 @@ ALTER TABLE orderlist AUTO_INCREMENT = 1;
 select * from orderlist;
 
 
+
 select turn from orderturn order by turn desc limit 1;
 
 insert into orderturn(orderdate) values (now());
@@ -123,11 +124,14 @@ from orderturn;
 
 delete
   from orderlist
- where turn = 5;
+ where turn = 8;
 
 delete
   from orderturn
- where turn = 12;
+ where turn = 8; -- cascade 사용하면 이렇게 번거롭게 할 필요없음... 개그튼거~~~~
+
 select * from laundry;
 SELECT lndcode, lndname, lndprice
 FROM laundry where lndname = '점퍼';
+
+select sum(세탁가격) from v_all;

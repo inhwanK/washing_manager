@@ -77,7 +77,7 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 	}
 
 	private void initialize(int labelNumber) {
-		setBorder(new LineBorder(Color.GREEN, 2, true));
+		setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
 		setLayout(new GridLayout(0, 5, 10, 0));
 
 		JPanel pLabel = new JPanel();
@@ -99,9 +99,10 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		pLnCode.setLayout(new GridLayout(0, 1, 0, 0));
 
 		cbLnName = new JComboBox<String>();
+		cbLnName.setBorder(new EmptyBorder(0, 0, 0, 0));
+		cbLnName.setBackground(Color.WHITE);
 		cbLnName.addActionListener(this);
 		cbLnName.setForeground(Color.BLACK);
-		cbLnName.setBackground(Color.WHITE);
 		//
 		List<Laundry> list = service.showLaundryAll();
 		cbLnName.addItem("세탁물명");
@@ -117,6 +118,7 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		pEach.setLayout(new GridLayout(0, 1, 0, 0));
 
 		spEach = new JSpinner();
+		spEach.setBorder(new EmptyBorder(0, 0, 0, 0));
 		spEach.setModel(new SpinnerNumberModel(0, 0, 10, 1));
 		pEach.add(spEach);
 
@@ -125,6 +127,7 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		pPrice.setLayout(new GridLayout(0, 1, 0, 0));
 
 		tfPrice = new JTextField();
+		tfPrice.setBorder(new EmptyBorder(0, 0, 0, 0));
 		tfPrice.setEditable(false);
 		tfPrice.setForeground(Color.LIGHT_GRAY);
 		tfPrice.setHorizontalAlignment(SwingConstants.RIGHT);

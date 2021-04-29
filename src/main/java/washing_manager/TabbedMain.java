@@ -72,7 +72,7 @@ public class TabbedMain extends JFrame implements ActionListener {
 		pOrder.setTabMain(tabMain);
 		
 		pTurnList = new TurnListPanel();
-		tabMain.addTab("현황", null, pTurnList, null); // 현황 탭 눌렸을 때 setbounds 더 크게 설정해보자.
+		tabMain.addTab("목록", null, pTurnList, null); // 현황 탭 눌렸을 때 setbounds 더 크게 설정해보자.
 		pOrder.setpTurnList(pTurnList);
 		
 		pStatistics = new StatusPanel();
