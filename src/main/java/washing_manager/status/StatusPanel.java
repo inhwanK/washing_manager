@@ -30,7 +30,7 @@ public class StatusPanel extends JPanel implements ActionListener{
 
 	}
 
-	public void actionPerformedRenewStatistics(ActionEvent e) {
-		pPrice.loadData(); //여기는 모든 통계를 모아서 loadData() 메서드 수행하는 곳.
+	public void actionPerformedRenewStatistics(ActionEvent e) { //여기는 모든 통계를 모아서 loadData() 메서드 수행하는 곳.
+		pPrice.loadData(); 
 	}
 }

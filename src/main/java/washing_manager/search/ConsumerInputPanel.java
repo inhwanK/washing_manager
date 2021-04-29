@@ -37,11 +37,13 @@ public class ConsumerInputPanel extends JPanel {
 		pConname.setLayout(new GridLayout(0, 2, 10, 10));
 		
 		JLabel lblConsumer = new JLabel("고객명");
-		lblConsumer.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 12));
+		lblConsumer.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 18));
 		lblConsumer.setHorizontalAlignment(SwingConstants.CENTER);
 		pConname.add(lblConsumer);
 		
 		tfConsumer = new JTextField();
+		tfConsumer.setHorizontalAlignment(SwingConstants.CENTER);
+		tfConsumer.setFont(new Font("휴먼모음T", Font.PLAIN, 25));
 		tfConsumer.setBorder(new LineBorder(null, 1, true));
 		tfConsumer.setColumns(10);
 		pConname.add(tfConsumer);

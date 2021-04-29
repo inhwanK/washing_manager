@@ -14,11 +14,14 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
 
 import washing_manager.content.ChoiceConsumerPanel;
 import washing_manager.dto.Consumer;
+import washing_manager.dto.GradeDc;
 import washing_manager.dto.Laundry;
 import washing_manager.dto.OrderList;
+import washing_manager.service.GradeDcService;
 import washing_manager.service.LaundryService;
 import washing_manager.service.OrderListService;
 import washing_manager.service.OrderViewService;
@@ -35,21 +38,25 @@ public class OrderPanel extends JPanel implements ActionListener {
 	private JPanel pOrderItem;
 	private int labelNumber;
 	private JPanel pBtn;
-	private JPanel panel;
+	private JPanel pSouth;
 	private JButton btnOrderExe;
 	private OrderListService orderService = new OrderListService();
 	private LaundryService lndService = new LaundryService();
 	private OrderViewService viewService = new OrderViewService();
+	private GradeDcService gradeService = new GradeDcService();
 	private TurnListPanel pTurnList;
 	private StatusPanel pStatistics;
 	private JTabbedPane tabMain;
-	
-	
+	private OrderResultPanel pResult;
+
+	public OrderResultPanel getpResult() {
+		return pResult;
+	}
+
 	public void setTabMain(JTabbedPane tabMain) {
 		this.tabMain = tabMain;
 	}
-	
-	
+
 	public void setpStatistics(StatusPanel pStatistics) {
 		this.pStatistics = pStatistics;
 	}
@@ -69,7 +76,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 	public JPanel getpOrderItem() {
 		return pOrderItem;
 	}
-	
+
 	public void setpOrderItem(JPanel pOrderItem) {
 		this.pOrderItem = pOrderItem;
 	}
@@ -95,7 +102,8 @@ public class OrderPanel extends JPanel implements ActionListener {
 
 		pConInfo = new ChoiceConsumerPanel();
 		pConInfo.setPreferredSize(new Dimension(494, 100));
-		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uACE0\uAC1D \uC815\uBCF4", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
+		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uACE0\uAC1D \uC815\uBCF4",
+				TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
 		add(pConInfo, BorderLayout.NORTH);
 
 		pOrderEdit = new JPanel();
@@ -117,15 +125,21 @@ public class OrderPanel extends JPanel implements ActionListener {
 		pOrderItem.setLayout(new GridLayout(5, 1, 0, 5));
 
 		// 버튼을 생성 그리고 초기화.
-		
-		panel = new JPanel();
-		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
-		add(panel, BorderLayout.SOUTH);
-		panel.setLayout(new GridLayout(1, 1, 0, 0));
-		
+
+		pSouth = new JPanel();
+		pSouth.setBorder(new EmptyBorder(0, 0, 0, 0));
+		add(pSouth, BorderLayout.SOUTH);
+		pSouth.setLayout(new GridLayout(2, 1, 0, 0));
+
 		btnOrderExe = new JButton("주문");
+		btnOrderExe.setBorder(new EmptyBorder(5, 5, 5, 5));
+		btnOrderExe.setPreferredSize(new Dimension(57, 40));
 		btnOrderExe.addActionListener(this);
-		panel.add(btnOrderExe);
+
+		pResult = new OrderResultPanel();
+		pResult.setPreferredSize(new Dimension(464, 40));
+		pSouth.add(pResult);
+		pSouth.add(btnOrderExe);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -144,19 +158,20 @@ public class OrderPanel extends JPanel implements ActionListener {
 
 		if (pOrderItem.getComponentCount() == 5) {
 			JOptionPane.showMessageDialog(null, "더 이상 주문할 수 없습니다.");
-		}else {
+		} else {
 			pOrderItem.add(item);
 		}
 
 		comCount = pOrderItem.getComponentCount();
 		for (int i = 0; i < comCount; i++) {
 			((OrderItemPanel) pOrderItem.getComponent(i)).setpOrderItem(pOrderItem);
+			((OrderItemPanel) pOrderItem.getComponent(i)).setpResult(pResult);
 		}
 
 		pOrderItem.revalidate();
 		pOrderEdit.revalidate();
 	}
-	
+
 	// 삭제 액션 수행
 	public void actionPerformedRemoveOrder(ActionEvent e) {
 
@@ -169,47 +184,45 @@ public class OrderPanel extends JPanel implements ActionListener {
 			((OrderItemPanel) pOrderItem.getComponent(i)).setLabelNumber(i + 1); // 레이블 새로 세팅 ...?
 		}
 
-		
 		pOrderItem.revalidate();
 		pOrderEdit.revalidate();
 
 	}
 
-	// 주문 버튼 
+	// 주문 버튼
 	protected void actionPerformedBtnOrderExe(ActionEvent e) {
 		System.out.println("주문 실행");
-		
+
 		orderService.insertTurn();
-		
+
 		int itemCount = pOrderItem.getComponentCount();
-		
-		for(int i=0; i < itemCount;i++) {
+
+		for (int i = 0; i < itemCount; i++) {
 			OrderItemPanel item = ((OrderItemPanel) pOrderItem.getComponent(i));
 			OrderList orderList = new OrderList();
-			
+
 			orderList.setConPhone(new Consumer(pConInfo.getTfConPhone().getText())); // 고객 번호 가져오기
-			
-			//세탁물명에 따른 세탁물 데이터 가져오기
-			String lndName = ((String) item.getCbLnName().getSelectedItem()); 
+
+			// 세탁물명에 따른 세탁물 데이터 가져오기
+			String lndName = ((String) item.getCbLnName().getSelectedItem());
 			Laundry laundry = lndService.showLaundryByName(lndName);
-			orderList.setLndCode(laundry); 
-			
+			orderList.setLndCode(laundry);
+
 			// 세탁수량 스피너로 가져오기
-			orderList.setLndEa((int) item.getSpEach().getValue()); 
-			
+			orderList.setLndEa((int) item.getSpEach().getValue());
+
 			orderService.insertOrderList(orderList);
 		}
-		
-		
+
 		pTurnList.getpTurnStatus().loadData();
 		pStatistics.actionPerformedRenewStatistics(e);
-		
+
 		pOrderItem.removeAll();
 		pConInfo.setTfAll("", "", "");
-		
+
 		pTurnList.getpResult().actionPerformedSetTfTotalPrice(e);
 		tabMain.setSelectedIndex(2);
-		
+
 		// 현황 탭 revalidate() 필요함.
 	}
 }

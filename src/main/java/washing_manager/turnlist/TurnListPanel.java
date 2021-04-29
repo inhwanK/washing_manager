@@ -1,5 +1,7 @@
 package washing_manager.turnlist;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,10 +14,6 @@ import javax.swing.border.EmptyBorder;
 import washing_manager.detail.OrderDetailListFrame;
 import washing_manager.service.OrderListService;
 import washing_manager.status.StatusPanel;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class TurnListPanel extends JPanel implements ActionListener {
@@ -99,12 +97,14 @@ public class TurnListPanel extends JPanel implements ActionListener {
 		가져왔던 순번삭제 
 		orderturn auto_increment 초기화 쿼리 수행.
 		*/
+		
 		int turnNo = pTurnStatus.getItem();
 		service.removeOrderByTurn(turnNo); 
 		service.removeTurn(turnNo);
 		// 서비스에 정렬까지 때려박음.
 		pTurnStatus.loadData();
 		pStatistics.actionPerformedRenewStatistics(e);
+		pResult.actionPerformedSetTfTotalPrice(e);
 	}
 
 	

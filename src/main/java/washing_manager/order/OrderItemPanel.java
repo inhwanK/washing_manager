@@ -24,9 +24,11 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 @SuppressWarnings("serial")
-public class OrderItemPanel extends JPanel implements ActionListener {
+public class OrderItemPanel extends JPanel implements ActionListener, ChangeListener {
 	private JComboBox<String> cbLnName;
 	private JSpinner spEach;
 	private JTextField tfPrice;
@@ -34,9 +36,28 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 	private JPanel pOrderItem;
 	private JLabel lblNo;
 	private int labelNumber;
-	private OrderPanel order = OrderPanel.getInstance();
+	private OrderPanel order;
 	private LaundryDaoImpl dao = LaundryDaoImpl.getInstance();
 	private LaundryService service = new LaundryService();
+	private OrderPanel orderPanel;
+	private OrderResultPanel pResult;
+	private int priceByLnd;
+
+	public void setpResult(OrderResultPanel pResult) {
+		this.pResult = pResult;
+	}
+
+	public void setOrderPanel(OrderPanel orderPanel) {
+		this.orderPanel = orderPanel;
+	}
+
+	public void setOrder(OrderPanel order) {
+		this.order = order;
+	}
+
+	public int getPriceByLnd() {
+		return priceByLnd;
+	}
 
 	public JComboBox<String> getCbLnName() {
 		return cbLnName;
@@ -118,6 +139,7 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		pEach.setLayout(new GridLayout(0, 1, 0, 0));
 
 		spEach = new JSpinner();
+		spEach.addChangeListener(this);
 		spEach.setBorder(new EmptyBorder(0, 0, 0, 0));
 		spEach.setModel(new SpinnerNumberModel(0, 0, 10, 1));
 		pEach.add(spEach);
@@ -169,4 +191,18 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 			tfPrice.setText(laundry.getLndPrice() + "");
 		}
 	}
+
+	public void stateChanged(ChangeEvent e) {
+		if (e.getSource() == spEach) {
+			stateChangedSpEach(e);
+		}
+	}
+
+	protected void stateChangedSpEach(ChangeEvent e) {
+		int each = (int) spEach.getValue();
+		int price = Integer.parseInt(tfPrice.getText());
+		priceByLnd = each * price;
+		pResult.actionPerformedSetResult(e);
+	}
+
 }
