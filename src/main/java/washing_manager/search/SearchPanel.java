@@ -19,7 +19,7 @@ import washing_manager.order.OrderPanel;
 import washing_manager.service.ConsumerService;
 
 @SuppressWarnings("serial")
-public class SearchPanel extends JPanel implements ActionListener{
+public class SearchPanel extends JPanel implements ActionListener {
 	private JButton btnSearch;
 	private ConsumerService service;
 	private ConsumerListPanel pTable;
@@ -29,11 +29,12 @@ public class SearchPanel extends JPanel implements ActionListener{
 	private JTabbedPane tabMain;
 	private ChoiceConsumerPanel pConInfo;
 	private static OrderPanel pOrder;
-
-
 	private static SearchPanel instance = new SearchPanel();
-	
-	
+
+	public ConsumerInputPanel getpTextInput() {
+		return pTextInput;
+	}
+
 	public static void setpOrder(OrderPanel pOrder) {
 		SearchPanel.pOrder = pOrder;
 	}
@@ -45,8 +46,7 @@ public class SearchPanel extends JPanel implements ActionListener{
 	public void setTabMain(JTabbedPane tabMain) {// 필수
 		this.tabMain = tabMain;
 	}
-	
-	
+
 	public ConsumerListPanel getpTable() {
 		return pTable;
 	}
@@ -63,44 +63,46 @@ public class SearchPanel extends JPanel implements ActionListener{
 
 		initialize();
 	}
+
 	private void initialize() {
 		setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel pSearch = new JPanel();
 		add(pSearch, BorderLayout.NORTH);
 		pSearch.setLayout(new GridLayout(2, 1, 0, 0));
-		
+
 		pTextInput = new ConsumerInputPanel();
+		pTextInput.getTfConsumer().addActionListener(this);
 		pSearch.add(pTextInput);
-		
+
 		JPanel pSearchBtn = new JPanel();
 		pSearchBtn.setBorder(new EmptyBorder(3, 3, 3, 3));
 		pSearch.add(pSearchBtn);
 		pSearchBtn.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		btnSearch = new JButton("검색");
 		btnSearch.addActionListener(this);
 		btnSearch.setFont(new Font("나눔고딕", Font.BOLD, 15));
 		pSearchBtn.add(btnSearch);
-		
+
 		pTable = new ConsumerListPanel();
 		add(pTable, BorderLayout.CENTER);
-		
+
 		// 팝업메뉴
 		JPopupMenu popupMenu = new JPopupMenu();
 		pTable.setPopupMenu(popupMenu);
-		
+
 		mntmOrder = new JMenuItem("주문");
 		mntmOrder.addActionListener(this);
 		popupMenu.add(mntmOrder);
-		
+
 		JMenuItem mntmConOrderList = new JMenuItem("고객 주문 목록"); // not implement yet
 		popupMenu.add(mntmConOrderList);
-		
+
 		JMenuItem mntmConUpdate = new JMenuItem("고객 정보 수정"); // not implement yet
 		popupMenu.add(mntmConUpdate);
 	}
-
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
@@ -109,6 +111,7 @@ public class SearchPanel extends JPanel implements ActionListener{
 			actionPerformedMntmChoice(e);
 		}
 	}
+
 	private void actionPerformedMntmChoice(ActionEvent e) {
 
 		Consumer choCon = new Consumer();
@@ -116,15 +119,17 @@ public class SearchPanel extends JPanel implements ActionListener{
 		String name = choCon.getConName();
 		String grade = choCon.getConGrade().getGrade();
 		String phone = choCon.getConPhone();
-		
+
 		tabMain.setSelectedIndex(1);
 		(pOrder.getpOrderItem()).removeAll();
 		pOrder.getpConInfo().setTfAll(name, grade, phone);
 
 	}
+
 	protected void actionPerformedBtnSearch(ActionEvent e) {
 		String name = pTextInput.getTfConsumer().getText();
-		pTable.setConName(name);
+		pTable.setConName(name + "%");
 		pTable.loadData();
 	}
+
 }

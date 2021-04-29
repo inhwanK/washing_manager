@@ -11,6 +11,7 @@ import javax.swing.border.LineBorder;
 
 import washing_manager.dao.impl.LaundryDaoImpl;
 import washing_manager.dto.Laundry;
+import washing_manager.service.LaundryService;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -35,7 +36,7 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 	private int labelNumber;
 	private OrderPanel order = OrderPanel.getInstance();
 	private LaundryDaoImpl dao = LaundryDaoImpl.getInstance();
-
+	private LaundryService service = new LaundryService();
 
 	public JComboBox<String> getCbLnName() {
 		return cbLnName;
@@ -98,25 +99,22 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		pLnCode.setLayout(new GridLayout(0, 1, 0, 0));
 
 		cbLnName = new JComboBox<String>();
+		cbLnName.addActionListener(this);
 		cbLnName.setForeground(Color.BLACK);
 		cbLnName.setBackground(Color.WHITE);
 		//
-		List<Laundry> list = dao.selectLaundryAll();
+		List<Laundry> list = service.showLaundryAll();
 		cbLnName.addItem("세탁물명");
-		for(int i =0 ; i < list.size(); i++) {
+		for (int i = 0; i < list.size(); i++) {
 			cbLnName.addItem(list.get(i).getLndName());
 		}
 		pLnCode.add(cbLnName);
-		
+
 //		cbLnCode.setColumns(10);
 
 		JPanel pEach = new JPanel();
 		add(pEach);
 		pEach.setLayout(new GridLayout(0, 1, 0, 0));
-
-		JLabel lblEach = new JLabel("세탁수량");
-		lblEach.setHorizontalAlignment(SwingConstants.CENTER);
-		pEach.add(lblEach);
 
 		spEach = new JSpinner();
 		spEach.setModel(new SpinnerNumberModel(0, 0, 10, 1));
@@ -126,11 +124,11 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		add(pPrice);
 		pPrice.setLayout(new GridLayout(0, 1, 0, 0));
 
-		JLabel lblPrice = new JLabel("세탁단가");
-		lblPrice.setHorizontalAlignment(SwingConstants.CENTER);
-		pPrice.add(lblPrice);
-
 		tfPrice = new JTextField();
+		tfPrice.setEditable(false);
+		tfPrice.setForeground(Color.LIGHT_GRAY);
+		tfPrice.setHorizontalAlignment(SwingConstants.RIGHT);
+		tfPrice.setText("세탁단가");
 		pPrice.add(tfPrice);
 		tfPrice.setColumns(10);
 
@@ -147,12 +145,25 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == cbLnName) {
+			actionPerformedCbLnName(e);
+		}
+
 		if (e.getSource() == btnDelOrder) {
 			order.setItemLbl(labelNumber);
 			order.setpOrderItem(pOrderItem);
 			order.actionPerformedRemoveOrder(e);
 			order.revalidate();
 
+		}
+	}
+
+	protected void actionPerformedCbLnName(ActionEvent e) {
+		String lndName = (String) cbLnName.getSelectedItem();
+		Laundry laundry = service.showLaundryByName(lndName);
+		if (tfPrice != null) {
+			tfPrice.setForeground(Color.BLACK);
+			tfPrice.setText(laundry.getLndPrice() + "");
 		}
 	}
 }

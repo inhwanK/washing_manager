@@ -82,6 +82,7 @@ select concat(o.turn, '-', @rownum:=@rownum+1) as 번호,
   where o.turn = 3;
   
 select @rownum:=@rownum+1 as 번호,
+	   o.ordno as 주문번호,
 	   o.lndcode as 제품코드,
 	   l.lndname as 제품명,
 	   o.lndea as 세탁수량,
@@ -103,7 +104,7 @@ update orderturn set turn = @count:=@count+1;
 ALTER TABLE orderturn AUTO_INCREMENT = 1;
 ALTER TABLE orderlist AUTO_INCREMENT = 1;
 
-select * from orderturn;
+select * from orderlist;
 
 
 select turn from orderturn order by turn desc limit 1;
@@ -118,8 +119,15 @@ select conphone, conname, grade, discount
  where congrade = 'S';
 
 select * 
-from orderlist;
+from orderturn;
 
+delete
+  from orderlist
+ where turn = 5;
+
+delete
+  from orderturn
+ where turn = 12;
 select * from laundry;
 SELECT lndcode, lndname, lndprice
 FROM laundry where lndname = '점퍼';
