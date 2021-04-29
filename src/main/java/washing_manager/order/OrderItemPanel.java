@@ -125,6 +125,7 @@ public class OrderItemPanel extends JPanel implements ActionListener {
 		pPrice.setLayout(new GridLayout(0, 1, 0, 0));
 
 		tfPrice = new JTextField();
+		tfPrice.setEditable(false);
 		tfPrice.setForeground(Color.LIGHT_GRAY);
 		tfPrice.setHorizontalAlignment(SwingConstants.RIGHT);
 		tfPrice.setText("세탁단가");

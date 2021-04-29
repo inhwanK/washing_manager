@@ -83,8 +83,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 		setLayout(new BorderLayout(0, 5));
 
 		pConInfo = new ChoiceConsumerPanel();
-		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uACE0\uAC1D\uC815\uBCF4",
-				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pConInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uACE0\uAC1D \uC815\uBCF4", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
 		add(pConInfo, BorderLayout.NORTH);
 
 		pOrderEdit = new JPanel();
