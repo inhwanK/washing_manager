@@ -96,6 +96,7 @@ public class TurnListPanel extends JPanel implements ActionListener {
 		pDetail.add(pCon);
 
 		pDetailList = new OrderDetailListPanel(0);
+		pDetailList.getTfPrice().setPreferredSize(new Dimension(116, 10));
 		pDetailList.setBorder(new EmptyBorder(0, 0, 0, 0));
 		pDetail.add(pDetailList);
 		pDetailList.setPreferredSize(new Dimension(104, 150));
