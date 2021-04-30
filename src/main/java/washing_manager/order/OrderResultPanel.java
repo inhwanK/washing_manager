@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -74,6 +75,7 @@ public class OrderResultPanel extends JPanel implements ActionListener {
 	public void actionPerformedSetResult(ChangeEvent e) {
 		int itemCount = orderPanel.getpOrderItem().getComponentCount();
 		int totalPrice = 0;
+		DecimalFormat df = new DecimalFormat();
 		for (int i = 0; i < itemCount; i++) {
 			OrderItemPanel item = ((OrderItemPanel) orderPanel.getpOrderItem().getComponent(i));
 
@@ -82,14 +84,14 @@ public class OrderResultPanel extends JPanel implements ActionListener {
 		}
 
 		System.out.println(totalPrice);
-		orderPanel.getpResult().getTfTotalOrdPrice().setText(totalPrice + "");
-		String a = (String) orderPanel.getpConInfo().getTfConGrade().getSelectedItem();
+		orderPanel.getpResult().getTfTotalOrdPrice().setText(df.format(totalPrice) + "");
+		String a = (String) orderPanel.getpConInfo().getCbConGrade().getSelectedItem();
 		GradeDc grade = gradeService.showGradeDcByGrade(a);
 		try {
 		float dc = grade.getDiscount();
 		
 		int disPrice = (int) (totalPrice - (totalPrice * dc));
-		orderPanel.getpResult().getTfDisOrdPrice().setText(disPrice + "");
+		orderPanel.getpResult().getTfDisOrdPrice().setText(df.format(disPrice) + "");
 		}catch(NullPointerException e1) {
 			System.out.println("고객이 선택 되지 않아서 등급객체도 생성이 안됨.");
 			JOptionPane.showMessageDialog(null, "고객 정보를 입력하세요.");

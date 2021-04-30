@@ -128,7 +128,7 @@ delete
 
 delete
   from orderturn
- where turn = 5; -- cascade 사용하면 이렇게 번거롭게 할 필요없음... 개그튼거~~~~
+ where turn = 8; -- cascade 사용하면 이렇게 번거롭게 할 필요없음... 개그튼거~~~~
 
 select * from laundry;
 SELECT lndcode, lndname, lndprice
@@ -136,4 +136,5 @@ FROM laundry where lndname = '점퍼';
 
 select sum(세탁가격) from v_all;
 
-select grade, discount from gradedc;
+select grade, discount from gradedc where;
+select * from consumer;

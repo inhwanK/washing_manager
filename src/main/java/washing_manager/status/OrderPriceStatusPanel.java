@@ -2,6 +2,7 @@ package washing_manager.status;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -78,9 +79,9 @@ public class OrderPriceStatusPanel extends JPanel {
 	}
 
 	private Object[] toArray(ViewAll viewAll) {
-
+		DecimalFormat df = new DecimalFormat();
 		return new Object[] { viewAll.getRank(), viewAll.getConName(), viewAll.getLndName(),
-				viewAll.getConGrade(), viewAll.getDiscount(), viewAll.getPriceAll() };
+				viewAll.getConGrade(), viewAll.getDiscount(), df.format(viewAll.getPriceAll()) };
 	}
 
 	//
@@ -92,7 +93,8 @@ public class OrderPriceStatusPanel extends JPanel {
 
 	protected void setAlignAndWidth() {
 		// 컬럼내용 정렬
-		setTableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5);
+		setTableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4);
+		setTableCellAlign(SwingConstants.RIGHT, 5);
 		// 컬럼별 너비 조정
 		setTableCellWidth(90, 90, 230, 90, 90, 90);
 	}

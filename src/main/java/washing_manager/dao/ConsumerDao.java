@@ -10,4 +10,7 @@ public interface ConsumerDao {
 	
 	public List<Consumer> selectConsumerByName(String conName); //고객이름으로 검색 (동명이인이 있을 수 있음) 따라서 List
 	
+	public Consumer selectConsumerByPhone(String conPhone);
+
+	public int insertConsumer(Consumer consumer);
 }

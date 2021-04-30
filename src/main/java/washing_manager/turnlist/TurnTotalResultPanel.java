@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,7 +40,8 @@ public class TurnTotalResultPanel extends JPanel implements ActionListener {
 		
 		tfTotalPrice = new JTextField();
 		int sum = service.showSumOrderTotalPrice();
-		tfTotalPrice.setText(sum + " 원");
+		DecimalFormat df = new DecimalFormat();
+		tfTotalPrice.setText(df.format(sum) + " 원");
 		tfTotalPrice.setFont(new Font("굴림", Font.BOLD, 35));
 		tfTotalPrice.setBackground(Color.WHITE);
 		tfTotalPrice.setEditable(false);
@@ -54,6 +56,7 @@ public class TurnTotalResultPanel extends JPanel implements ActionListener {
 	
 	public void actionPerformedSetTfTotalPrice(ActionEvent e) {
 		int sum = service.showSumOrderTotalPrice();
-		tfTotalPrice.setText(sum+" 원");
+		DecimalFormat df = new DecimalFormat();
+		tfTotalPrice.setText(df.format(sum)+" 원");
 	}
 }

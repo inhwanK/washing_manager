@@ -29,11 +29,14 @@ public class ChoiceConsumerPanel extends JPanel implements ActionListener{
 		tfConName.setText(conName);
 		cbConGrade.setSelectedItem(grade);
 		tfConPhone.setText(conPhone);
-
 	}
 	
-	
-	public JComboBox<String> getTfConGrade() {
+	public JTextField getTfConName() {
+		return tfConName;
+	}
+
+
+	public JComboBox<String> getCbConGrade() {
 		return cbConGrade;
 	}
 
@@ -88,11 +91,6 @@ public class ChoiceConsumerPanel extends JPanel implements ActionListener{
 			cbConGrade.addItem(list.get(i).getGrade());
 		}
 		pConGrade.add(cbConGrade);
-		
-		
-		
-		
-		
 		
 		JPanel pConPhone = new JPanel();
 		add(pConPhone);

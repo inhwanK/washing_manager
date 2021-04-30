@@ -78,6 +78,7 @@ public class TabbedMain extends JFrame implements ActionListener {
 		tabMain.addTab("주문", null, pOrder, null);
 		pSearch.setpOrder(pOrder);
 		pOrder.setTabMain(tabMain);
+		pOrder.setpSearch(pSearch);
 		
 		pTurnList = new TurnListPanel();
 		tabMain.addTab("목록", null, pTurnList, null); // 현황 탭 눌렸을 때 setbounds 더 크게 설정해보자.
@@ -90,7 +91,7 @@ public class TabbedMain extends JFrame implements ActionListener {
 		pOrder.getpResult().setOrderPanel(pOrder);
 		
 		pTool = new JPanel();
-		pTool.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		pTool.setBorder(new LineBorder(new Color(0, 0, 0), 0, true));
 		contentPane.add(pTool, BorderLayout.SOUTH);
 		pTool.setLayout(new GridLayout(0, 12, 0, 0));
 		
@@ -104,6 +105,8 @@ public class TabbedMain extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		pSearch.getpTable().setConName(null);
 		pSearch.getpTable().loadData();
-
+		
+		pOrder.getpOrderItem().removeAll();
+		pOrder.getpConInfo().setConInfoAll("", "D", "");
 	}
 }

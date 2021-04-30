@@ -71,4 +71,37 @@ public class ConsumerDaoImpl implements ConsumerDao {
 		return null;
 	}
 
+	@Override
+	public Consumer selectConsumerByPhone(String conPhone) {
+		String sql = "select conname, congrade, conphone from consumer where conphone = ?;";
+		try(Connection con = WashingJdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, conPhone);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return getConsumer(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public int insertConsumer(Consumer consumer) {
+		String sql ="insert into consumer(conname, congrade, conphone) values(?, ?, ?);";
+		try(Connection con = WashingJdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, consumer.getConName());
+			pstmt.setString(2, consumer.getConGrade().getGrade());
+			pstmt.setString(3, consumer.getConPhone());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 }

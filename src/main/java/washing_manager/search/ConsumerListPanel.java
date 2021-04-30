@@ -74,6 +74,7 @@ public class ConsumerListPanel<T> extends JPanel {
 
 		if (conName == null) {
 			initList();
+
 		} else {
 			setList(conName);
 		}
@@ -100,7 +101,7 @@ public class ConsumerListPanel<T> extends JPanel {
 	// 테이블 만들기
 	public void setData() {
 		try {
-			
+
 			Object[][] data = new Object[list.size()][];
 			for (int i = 0; i < data.length; i++) {
 				data[i] = toArray(list.get(i));
@@ -110,8 +111,9 @@ public class ConsumerListPanel<T> extends JPanel {
 			RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
 			table.setRowSorter(sorter);
 			setAlignAndWidth();
-			
-		} catch (NullPointerException e) {}
+
+		} catch (NullPointerException e) {
+		}
 
 	}
 

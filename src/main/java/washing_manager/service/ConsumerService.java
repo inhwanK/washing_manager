@@ -16,4 +16,12 @@ public class ConsumerService {
 	public List<Consumer> selectConsumersByName(String conName){
 		return dao.selectConsumerByName(conName);
 	}
+	
+	public Consumer showConsumerByPhone(String conPhone) {
+		return dao.selectConsumerByPhone(conPhone);
+	}
+	
+	public void addConsumer(Consumer consumer) {
+		dao.insertConsumer(consumer);
+	}
 }

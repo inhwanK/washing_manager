@@ -18,8 +18,11 @@ import javax.swing.border.TitledBorder;
 
 import washing_manager.content.ChoiceConsumerPanel;
 import washing_manager.dto.Consumer;
+import washing_manager.dto.GradeDc;
 import washing_manager.dto.Laundry;
 import washing_manager.dto.OrderList;
+import washing_manager.search.SearchPanel;
+import washing_manager.service.ConsumerService;
 import washing_manager.service.GradeDcService;
 import washing_manager.service.LaundryService;
 import washing_manager.service.OrderListService;
@@ -42,10 +45,18 @@ public class OrderPanel extends JPanel implements ActionListener {
 	private LaundryService lndService = new LaundryService();
 	private OrderViewService viewService = new OrderViewService();
 	private GradeDcService gradeService = new GradeDcService();
+	private ConsumerService conService = new ConsumerService();
 	private TurnListPanel pTurnList;
 	private StatusPanel pStatistics;
 	private JTabbedPane tabMain;
 	private OrderResultPanel pResult;
+	private SearchPanel pSearch;
+	
+	
+
+	public void setpSearch(SearchPanel pSearch) {
+		this.pSearch = pSearch;
+	}
 
 	public OrderResultPanel getpResult() {
 		return pResult;
@@ -138,7 +149,7 @@ public class OrderPanel extends JPanel implements ActionListener {
 		pResult.setPreferredSize(new Dimension(464, 40));
 		pSouth.add(pResult);
 		pSouth.add(btnOrderExe);
-	
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -190,51 +201,68 @@ public class OrderPanel extends JPanel implements ActionListener {
 
 	// 주문 버튼
 	protected void actionPerformedBtnOrderExe(ActionEvent e) {
-		System.out.println("주문 실행");
-
-		int res = JOptionPane.showConfirmDialog(null, "주문하시겠습니까?","영남세탁소",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null);
-		if(res ==JOptionPane.YES_OPTION) {
-			orderService.insertTurn();
-
-			int itemCount = pOrderItem.getComponentCount();
-
-			for (int i = 0; i < itemCount; i++) {
-				OrderItemPanel item = ((OrderItemPanel) pOrderItem.getComponent(i));
-				OrderList orderList = new OrderList();
-
-				orderList.setConPhone(new Consumer(pConInfo.getTfConPhone().getText())); // 고객 번호 가져오기
-
-				// 세탁물명에 따른 세탁물 데이터 가져오기
-				String lndName = ((String) item.getCbLnName().getSelectedItem());
-				Laundry laundry = lndService.showLaundryByName(lndName);
-				orderList.setLndCode(laundry);
-
-				// 세탁수량 스피너로 가져오기
-				orderList.setLndEa((int) item.getSpEach().getValue());
-
-				orderService.insertOrderList(orderList);
-			}
-
-			pTurnList.getpTurnStatus().loadData();
-			pStatistics.actionPerformedRenewStatistics(e);
-
-			pOrderItem.removeAll();
-			pConInfo.setConInfoAll("", "D", "");
-			
-			pResult.getTfDisOrdPrice().setText("");
-			pResult.getTfTotalOrdPrice().setText("");
-			
-			pTurnList.getpResult().actionPerformedSetTfTotalPrice(e);
-			tabMain.setSelectedIndex(2);
-		}
-		if(res == JOptionPane.NO_OPTION) {
-			
-		}
-		if(res == -1) {
-			
-		}
 		
+		if (pResult.getTfDisOrdPrice().getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "고객 정보 또는 주문 목록이 없습니다.");
+		} else {
+			String conPhone = pConInfo.getTfConPhone().getText();
+			Consumer consumer = conService.showConsumerByPhone(conPhone);
+			System.out.println(consumer);
+			if(consumer == null) {
+				consumer = new Consumer();
+				consumer.setConGrade(new GradeDc((String) pConInfo.getCbConGrade().getSelectedItem()));
+				consumer.setConName(pConInfo.getTfConName().getText().trim());
+				consumer.setConPhone(pConInfo.getTfConPhone().getText().trim());
+				conService.addConsumer(consumer);
+			}
+			
+			int res = JOptionPane.showConfirmDialog(null, "주문하시겠습니까?", "영남세탁소", JOptionPane.YES_NO_OPTION,
+					JOptionPane.WARNING_MESSAGE, null);
+
+			if (res == JOptionPane.YES_OPTION) {
+				orderService.insertTurn();
+
+				int itemCount = pOrderItem.getComponentCount();
+
+				for (int i = 0; i < itemCount; i++) {
+					OrderItemPanel item = ((OrderItemPanel) pOrderItem.getComponent(i));
+					OrderList orderList = new OrderList();
+
+					orderList.setConPhone(new Consumer(pConInfo.getTfConPhone().getText())); // 고객 번호 가져오기
+
+					// 세탁물명에 따른 세탁물 데이터 가져오기
+					String lndName = ((String) item.getCbLnName().getSelectedItem());
+					Laundry laundry = lndService.showLaundryByName(lndName);
+					orderList.setLndCode(laundry);
+
+					// 세탁수량 스피너로 가져오기
+					orderList.setLndEa((int) item.getSpEach().getValue());
+
+					orderService.insertOrderList(orderList);
+				}
+
+				pTurnList.getpTurnStatus().loadData();
+				pSearch.getpTable().loadData();
+				pStatistics.actionPerformedRenewStatistics(e);
+
+				pOrderItem.removeAll();
+				pConInfo.setConInfoAll("", "D", "");
+
+				pResult.getTfDisOrdPrice().setText("");
+				pResult.getTfTotalOrdPrice().setText("");
+
+				pTurnList.getpResult().actionPerformedSetTfTotalPrice(e);
+				tabMain.setSelectedIndex(2);
+			}
+			if (res == JOptionPane.NO_OPTION) {
+
+			}
+			if (res == -1) {
+
+			}
+		}
 
 		// 현황 탭 revalidate() 필요함.
 	}
+
 }
