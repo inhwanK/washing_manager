@@ -21,4 +21,8 @@ public class OrderViewService {
 	public int showSumOrderTotalPrice() {
 		return dao.selectSumOrderPrice();
 	}
+	
+	public ViewAll showOrderByTunr(int turnNo) {
+		return dao.selectOrderListByturn(turnNo);
+	}
 }

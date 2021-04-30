@@ -10,4 +10,5 @@ public interface OrderViewDao {
 
 	List<ViewAll> selectOrderListViewByPrice();
 	int selectSumOrderPrice();
+	ViewAll selectOrderListByturn(int turnNo);
 }

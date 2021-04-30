@@ -172,4 +172,22 @@ public class OrderViewDaoImpl implements OrderViewDao {
 		return 0;
 	}
 
+	@Override
+	public ViewAll selectOrderListByturn(int turnNo) {
+		String sql ="select * from v_all where 순번 = ?;";
+		try(Connection con = WashingJdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, turnNo);
+			try(ResultSet rs = pstmt.executeQuery()){
+				if (rs.next()) {
+					return getOrderView(rs);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

@@ -1,17 +1,21 @@
 package washing_manager.detail;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.RowSorter;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -27,21 +31,36 @@ public class OrderDetailListPanel extends JPanel implements ActionListener{
 	private List<OrderList> list;
 	private OrderListService service = new OrderListService();
 	private JMenuItem mntmDelOrderDetail;
+	private JTextField tfPrice;
+	private JTextField tfDisPrice;
+
 	
+
+	public JTextField getTfPrice() {
+		return tfPrice;
+	}
+
+	public JTextField getTfDisPrice() {
+		return tfDisPrice;
+	}
+
 	public OrderDetailListPanel(int turnNo) {
 
 		initialize(turnNo);
 	}
 
 	private void initialize(int turnNo) {
+		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
-		add(scrollPane);
+		add(scrollPane, BorderLayout.CENTER);
 
 		table = new JTable();
 		table.setModel(getModel());
+		if(turnNo != 0) {
 		loadData(turnNo);
+		}
 		scrollPane.setViewportView(table);
 		
 		JPopupMenu popupMenu = new JPopupMenu();
@@ -50,9 +69,31 @@ public class OrderDetailListPanel extends JPanel implements ActionListener{
 		mntmDelOrderDetail = new JMenuItem("상세 주문 목록");
 		mntmDelOrderDetail.addActionListener(this);
 		popupMenu.add(mntmDelOrderDetail);
+		
+		JPanel panel = new JPanel();
+		add(panel, BorderLayout.SOUTH);
+		panel.setLayout(new GridLayout(1, 4, 0, 0));
+		
+		JLabel lblPrice = new JLabel("할인전금액");
+		lblPrice.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(lblPrice);
+		
+		tfPrice = new JTextField();
+		tfPrice.setEditable(false);
+		panel.add(tfPrice);
+		tfPrice.setColumns(10);
+		
+		JLabel lblDisPrice = new JLabel("할인적용금액");
+		lblDisPrice.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(lblDisPrice);
+		
+		tfDisPrice = new JTextField();
+		tfDisPrice.setEditable(false);
+		panel.add(tfDisPrice);
+		tfDisPrice.setColumns(10);
 	}
 
-	private void loadData(int turnNo) {
+	public void loadData(int turnNo) {
 		initList(turnNo);
 		setData();
 	}
@@ -135,12 +176,7 @@ public class OrderDetailListPanel extends JPanel implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == mntmDelOrderDetail) {
-			actionPerformedMntmDelOrderDetail(e);
-		}
+		
 	}
 
-	private void actionPerformedMntmDelOrderDetail(ActionEvent e) {
-		// 이거 너무 귀찮음... 힘들구... 그냥 운동 갔다와서 하던지...
-	}
 }

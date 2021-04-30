@@ -93,10 +93,10 @@ public class OrderTurnListPanel extends JPanel {
 				viewAll.getConGrade(), viewAll.getDiscount(), df.format(viewAll.getPriceAll())};
 	}
 	
-	public int getItem() { // 수정 필수
+	public ViewAll getItem() { // 수정 필수
 		int row = table.getSelectedRow();
-
 		int turnNo = (int) table.getValueAt(row, 0);
+		ViewAll view = service.showOrderByTunr(turnNo);
 		
 		if (row == -1) {
 			
@@ -104,7 +104,7 @@ public class OrderTurnListPanel extends JPanel {
 			JOptionPane.showMessageDialog(null, "선택을 안햇자나");
 		}
 		// 리턴이 문제임 인환아 indexOf메서드는 인덱스가 0인거랑 비교하는 듯?
-		return turnNo;
+		return view;
 
 	}
 	//
